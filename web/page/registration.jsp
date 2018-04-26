@@ -12,10 +12,18 @@
 
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="registration_content"/>
-<html><head><title>Login</title></head>
+<html>
+<head>
+    <title>Login</title>
+</head>
 <body>
 <ctg:role-time role="${role}"/>
 <form name="loginForm" method="POST" action="controller">
+    <c:set var="hui" scope="session" value="${role}" />
+    <c:out value="${hui}" />
+    <c:if test="${role!=null}">
+        <div> Ты пидор</div>
+    </c:if>
     <input type="hidden" name="command" value="registration"/>
     <br><fmt:message key="content.registration.email"/>
     <input type="text" name="email" placeholder="email*" required/>

@@ -34,6 +34,7 @@ public class Controller extends HttpServlet {
         OperationFactory operationFactory = new OperationFactory();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = request.getParameter("command");
+        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
         page = command.execute(requestHolder);
