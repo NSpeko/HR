@@ -20,7 +20,7 @@
 <br/><fmt:message key="content.authentication.email"/><br/>
 <input type="email" name="login" value="" placeholder="default@example.com"/>
 <br/><fmt:message key="content.authentication.password"/><br/>
-<input type="password" name="pass" value="" placeholder="password"/>
+<input type="password" name="password" value="" placeholder="password"/>
 <br/>
 </body>
 </html>

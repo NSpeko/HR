@@ -30,14 +30,13 @@ public class Controller extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page;
         OperationFactory operationFactory = new OperationFactory();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = request.getParameter("command");
-        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
-        page = command.execute(requestHolder);
+        command.execute(requestHolder);
+        String page = "/page/main.jsp";
         try {
             requestHolder.update(request);
         } catch (CustomException e) {

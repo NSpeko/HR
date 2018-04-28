@@ -8,6 +8,7 @@ public class SQLQuery {
     public static final String USER_QUERY_DELETE_BY_ID = "DELETE FROM user WHERE u_id = ?";
     public static final String USER_QUERY_CREATE = "INSERT INTO user (u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id) VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String USER_QUERY_SELECT_USER_ROLE_BY_EMAIL_PASS = "SELECT u_role FROM user WHERE u_email = ?, u_password = ?";
     public static final String USER_FIELD_ID = "u_id";
     public static final String USER_FIELD_EMAIL = "u_email";
     public static final String USER_FIELD_PASS = "u_password";
@@ -15,7 +16,6 @@ public class SQLQuery {
     public static final String USER_FIELD_LAST_NAME = "u_lastname";
     public static final String USER_FIELD_ORGANIZATION_ID = "u_organization_id";
     public static final String USER_FIELD_ROLE = "u_role";
-
 
     public static final String ORGANIZATION_QUERY_SELECT = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization ";
     public static final String ORGANIZATION_QUERY_UPDATE = "UPDATE organization SET o_name = ?, o_website = ?, o_description = ?, o_type = ? WHERE o_id = ";

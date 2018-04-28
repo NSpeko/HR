@@ -8,6 +8,7 @@ import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.security.AESEncryption;
+import by.molchanov.humanresources.validator.UserDataValidation;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,8 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) throws CustomDAOException, SQLException, InterruptedException {
+
+        System.out.println(UserDataValidation.isEmailAddressCorrect("a@mail.com"));
 
 //        JobVacancy jobVacancy = new JobVacancy(2, "Lul", null, "Nice job vacancy", JobVacancyStatusType.OPEN);
 //        JobVacancyDAO jobVacancyDAO = new JobVacancyDAO();
@@ -33,12 +36,12 @@ public class Test {
 //
 //        jobVacancyDAO.delete(jobVacancy);
 
-        Integer a = 10;
-        int b = 1;
-        int c = a+b;
-        int d = b+a;
-        System.out.println(c);
-        System.out.println(d);
+//        Integer a = 10;
+//        int b = 1;
+//        int c = a+b;
+//        int d = b+a;
+//        System.out.println(c);
+//        System.out.println(d);
 //        List<JobVacancy> list = jobVacancyDAO.findAll();
 //        for (JobVacancy u: list) {
 //            System.out.println(u.toString());

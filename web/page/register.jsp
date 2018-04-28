@@ -18,13 +18,13 @@
 <body>
 <input type="hidden" name="command" value="registration"/>
 <br/><fmt:message key="content.registration.name"/><br/>
-<input type="text" name="firstname" placeholder="name*"/>
+<input type="text" name="first_name" placeholder="name*"/>
 <br/><fmt:message key="content.registration.surname"/><br/>
-<input type="text" name="lastname" placeholder="surname*"/>
+<input type="text" name="last_name" placeholder="surname*"/>
 <br/><fmt:message key="content.registration.email"/><br/>
 <input type="email" name="email" placeholder="default@example.com" required/>
 <br/><fmt:message key="content.registration.second.password"/><br/>
-<input type="password" name="repeatpassword" placeholder="password*"/>
+<input type="password" name="repeat_password" placeholder="password*"/>
 <br/><fmt:message key="content.registration.first.password"/><br/>
 <input type="password" name="password" placeholder="password*"/>
 <br/>

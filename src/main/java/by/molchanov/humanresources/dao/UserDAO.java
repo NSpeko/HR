@@ -1,9 +1,11 @@
 package by.molchanov.humanresources.dao;
 
+import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.entity.User;
 import by.molchanov.humanresources.entity.UserType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +15,39 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.SQLQuery.*;
 
 public class UserDAO extends AbstractDAO<User> {
+
+    public List<User> getUserRolesByEmailAndPassword(String email, String password) throws CustomDAOException {
+        List<User> result = new ArrayList<>();
+        User user;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(USER_QUERY_SELECT_USER_ROLE_BY_EMAIL_PASS)) {
+                statement.setString(1, email);
+                statement.setString(2, password);
+                try (ResultSet set = statement.executeQuery()) {
+                    while (set.next()) {
+                        user = new User();
+                        String roleName = set.getString(USER_FIELD_ROLE).toUpperCase();
+                        user.setRole(UserType.valueOf(roleName));
+                        result.add(user);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException(e);
+            }
+            if (result.size() > 1) {
+                throw new CustomDAOException("Selection error while getting role by e-mail and password!");
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return result;
+    }
+
     @Override
     public String getSelectQueryBase() {
         return USER_QUERY_SELECT;
@@ -81,7 +116,6 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     @Override
-    
     public List<User> parseResultSet(ResultSet set) throws CustomDAOException {
         List<User> result = new ArrayList<>();
         User user;

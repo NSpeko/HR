@@ -11,7 +11,7 @@
 <%@ taglib prefix="ctg" uri="customtags" %>
 
 <fmt:setLocale value="${locale}"/>
-<fmt:setBundle basename="registration_content"/>
+<fmt:setBundle basename="content"/>
 <html>
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -31,6 +31,13 @@
 </head>
 <body>
 <header class="container-fluid bg-dark text-white   p-2">
+
+
+    <c:if test="${info} != null">
+        <fmt:message key="${info}"/>
+    </c:if>
+
+
     <div class="container ">
         <div class="row">
             <div class="col-10">
@@ -115,47 +122,29 @@
         <p>Bootstrap is the most popular HTML, CSS...</p>
     </section>
     <table class="table table-hover">
-        <thead>
+
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Requirement</th>
             <th>More</th>
         </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-            <td>
-                <button class="btn btn-primary">
-                    Response
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-            <td>
-                <button class="btn btn-primary">
-                    Response
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-            <td>
-                <button class="btn btn-primary">
-                    Response
-                </button>
-            </td>
-        </tr>
-        </tbody>
+
+        <c:forEach items="${vacancy_list}" var="vacancy">
+            <tr>
+                <td>${vacancy.name}</td>
+                <td>${vacancy.uploadDate}</td>
+                <td>${vacancy.requirement}</td>
+                <td>
+                    <button class="btn btn-primary">
+                        Response
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
+
     </table>
+
     <ul class="pagination text-center">
         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
