@@ -30,11 +30,79 @@
     <title>Human Resources</title>
 </head>
 <body>
+<div class="modal fade text-dark" id="log-in-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <%--TODO: add local content--%>
+                    Sign Up
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form name="loginForm" method="POST" action="controller">
+                <div class="modal-body ">
+                    <c:import url="log-in.jsp"/>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input class="btn btn-primary float-left" type="submit" value="Submit"
+                    <%--TODO: add local content--%>/>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <%--TODO: add local content--%>Close
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade text-dark" id="sign-up-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <%--TODO: add local content--%>
+                    Sign Up
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form name="loginForm" method="POST" action="controller">
+                <div class="modal-body ">
+                    
+                    <c:import url="register.jsp"/>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input class="btn btn-primary float-left" type="submit" value="Submit"
+                    <%--TODO: add local content--%>/>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <%--TODO: add local content--%>Close
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 <header class="container-fluid bg-dark text-white   p-2">
 
 
-    <c:if test="${info} != null">
-        <fmt:message key="${info}"/>
+    <c:if test="${info != null}">
+        <script>
+            alert("${info}");
+        </script>
     </c:if>
 
 
@@ -50,67 +118,32 @@
                 </nav>
             </div>
             <div class="col">
-                <button id="log-in-button" class="btn btn-dark " data-toggle="modal" data-target="#log-in-modal">
-                    Log in
-                </button>
-                <div class="modal fade text-dark" id="log-in-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Sign Up</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <form name="loginForm" method="POST" action="controller">
-                                <div class="modal-body text-center">
-                                    <c:import url="log-in.jsp"/>
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <input class="btn btn-primary float-left" type="submit" value="Submit"/>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- Button to Open the Modal -->
-                <button id="sign-up-button" class="btn btn-primary " data-toggle="modal" data-target="#sign-up-modal">
-                    Sign Up
-                </button>
-
-                <!-- The Modal -->
-                <div class="modal fade text-dark" id="sign-up-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Sign Up</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <form name="loginForm" method="POST" action="controller">
-                                <div class="modal-body text-center">
-                                    <c:import url="register.jsp"/>
-                                </div>
-
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <input class="btn btn-primary float-left" type="submit" value="Submit"/>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
+                <c:choose>
+                    <c:when test="${role==null}">
+                        <button id="log-in-button" class="btn btn-dark " data-toggle="modal"
+                                data-target="#log-in-modal">
+                                <%--TODO: add local content--%>
+                            Log in
+                        </button>
+                        <!-- Button to Open the Modal -->
+                        <button id="sign-up-button" class="btn btn-primary " data-toggle="modal"
+                                data-target="#sign-up-modal">
+                                <%--TODO: add local content--%>
+                            Sign Up
+                        </button>
+                    </c:when>
+                    <c:when test="${role!=null}">
+                        <button class="btn btn-dark ">
+                                <%--TODO: add local content--%>
+                                ${role}
+                        </button>
+                        <!-- Button to Open the Modal -->
+                        <button class="btn btn-primary ">
+                                <%--TODO: add local content--%>
+                            Log Out
+                        </button>
+                    </c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -124,10 +157,14 @@
     <table class="table table-hover">
 
         <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Requirement</th>
-            <th>More</th>
+            <th>Name
+                <%--TODO: add local content--%></th>
+            <th>Date
+                <%--TODO: add local content--%></th>
+            <th>Requirement
+                <%--TODO: add local content--%></th>
+            <th>More
+                <%--TODO: add local content--%></th>
         </tr>
 
         <c:forEach items="${vacancy_list}" var="vacancy">
@@ -136,9 +173,42 @@
                 <td>${vacancy.uploadDate}</td>
                 <td>${vacancy.requirement}</td>
                 <td>
-                    <button class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vacancy-${vacancy.id}-modal">
+                            <%--TODO: add local content--%>
                         Response
                     </button>
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="vacancy-${vacancy.id}-modal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">
+                                            <%--TODO: add local content--%>Modal Heading</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                        <%--TODO: add local content--%>
+                                    Modal body..
+                                            <c:import url="log-in.jsp"/>
+                                                <%--TODO: change form source--%>
+                                    ${vacancy.requirement}
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <%--TODO: add local content--%>Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </td>
             </tr>
         </c:forEach>
@@ -146,8 +216,12 @@
     </table>
 
     <ul class="pagination text-center">
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item">
+            <button class="page-link disabled" disabled>Previous</button>
+        </li>
+        <li class="page-item">
+            <button class="page-link">Next</button>
+        </li>
     </ul>
     <br/>
     ${error}

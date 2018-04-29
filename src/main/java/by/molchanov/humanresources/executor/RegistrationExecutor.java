@@ -29,6 +29,7 @@ public class RegistrationExecutor {
         String password = requestHolder.getSingleRequestParameter(0, PASS);
         password = encryption.encryptionOfString(password);
         String repeatPass = requestHolder.getSingleRequestParameter(0, REPEAT_PASS);
+        repeatPass = encryption.encryptionOfString(repeatPass);
         String firstName = requestHolder.getSingleRequestParameter(0, FIRST_NAME);
         String lastName = requestHolder.getSingleRequestParameter(0, LAST_NAME);
         UserDAO userDAO = new UserDAO();

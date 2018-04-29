@@ -18,7 +18,7 @@
 <body>
 <input type="hidden" name="command" value="authentication"/>
 <br/><fmt:message key="content.authentication.email"/><br/>
-<input type="email" name="login" value="" placeholder="default@example.com"/>
+<input type="email" name="email" value="" placeholder="default@example.com"/>
 <br/><fmt:message key="content.authentication.password"/><br/>
 <input type="password" name="password" value="" placeholder="password"/>
 <br/>
