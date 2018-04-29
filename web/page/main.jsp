@@ -16,7 +16,7 @@
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="../style/style.css">
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,6 +30,8 @@
     <title>Human Resources</title>
 </head>
 <body>
+<div id="sign-up-as-user-form" style="display: none;"><c:import url="register.jsp"/></div>
+<div id="sign-up-as-org-form" style="display: none;"><c:import url="register_org.jsp"/></div>
 <div class="modal fade text-dark" id="log-in-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -79,8 +81,32 @@
             <!-- Modal body -->
             <form name="loginForm" method="POST" action="controller">
                 <div class="modal-body ">
-                    
-                    <c:import url="register.jsp"/>
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link" id="sign-up-as-user-button" href="#" onclick="
+                            let $tempForm=$('#sign-up-modal-container');
+                            $tempForm.empty();
+                            let $tempContent=$('#sign-up-as-user-form').html();
+                            $tempForm.append($tempContent);
+                            $('#sign-up-as-user-button').addClass('active');
+                            $('#sign-up-as-org-button').removeClass('active');
+                             ">As user</a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a class="nav-link" id="sign-up-as-org-button" href="#" onclick="
+                            let $tempForm=$('#sign-up-modal-container');
+                            $tempForm.empty();
+                            let $tempContent=$('#sign-up-as-org-form').html();
+                            $tempForm.append($tempContent);
+                            $('#sign-up-as-org-button').addClass('active');
+                            $('#sign-up-as-user-button').removeClass('active');
+                                    ">As organisation</a>
+                        </li>
+                    </ul>
+                    <div id="sign-up-modal-container">
+
+                    </div>
                 </div>
 
                 <!-- Modal footer -->
@@ -173,7 +199,8 @@
                 <td>${vacancy.uploadDate}</td>
                 <td>${vacancy.requirement}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vacancy-${vacancy.id}-modal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#vacancy-${vacancy.id}-modal">
                             <%--TODO: add local content--%>
                         Response
                     </button>
@@ -194,15 +221,16 @@
                                 <div class="modal-body">
                                         <%--TODO: add local content--%>
                                     Modal body..
-                                            <c:import url="log-in.jsp"/>
-                                                <%--TODO: change form source--%>
-                                    ${vacancy.requirement}
+                                    <c:import url="log-in.jsp"/>
+                                        <%--TODO: change form source--%>
+                                        ${vacancy.requirement}
                                 </div>
 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            <%--TODO: add local content--%>Close</button>
+                                            <%--TODO: add local content--%>Close
+                                    </button>
                                 </div>
 
                             </div>

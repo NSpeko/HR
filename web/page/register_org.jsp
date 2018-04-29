@@ -33,6 +33,3 @@
 <br/>
 </body>
 </html>
-Делай форму для организации (name, website, description, type(commercial or non-commercial))
-Добавь log out
-И форму для response
