@@ -1,11 +1,11 @@
 package by.molchanov.humanresources.entity;
 
-public enum UserType {
-    ADMIN("admin"), ASPIRANT("aspirant"), WORKER("worker");
+public enum UserStatusType {
+    ADMIN("admin"), ASPIRANT("aspirant"), WORKER("worker"), DIRECTOR("director");
 
     private String value;
 
-    UserType(String description) {
+    UserStatusType(String description) {
         this.value = description;
     }
 

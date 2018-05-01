@@ -30,7 +30,7 @@
     <title>Human Resources</title>
 </head>
 <body>
-<div id="sign-up-as-user-form" style="display: none;"><c:import url="register.jsp"/></div>
+<div id="sign-up-as-user-form" style="display: none;"><c:import url="register_user.jsp"/></div>
 <div id="sign-up-as-org-form" style="display: none;"><c:import url="register_org.jsp"/></div>
 <div class="modal fade text-dark" id="log-in-modal">
     <div class="modal-dialog modal-sm">
@@ -158,16 +158,18 @@
                             Sign Up
                         </button>
                     </c:when>
-                    <c:when test="${role!=null}">
+                    <c:when test="${role!= null}">
                         <button class="btn btn-dark ">
                                 <%--TODO: add local content--%>
                                 ${role}
                         </button>
                         <!-- Button to Open the Modal -->
-                        <button class="btn btn-primary ">
-                                <%--TODO: add local content--%>
-                            Log Out
-                        </button>
+                        <a href="${pageContext.request.contextPath}/controller?command=log_out">
+                            <button class="btn btn-primary " name="command" value="log_out">
+                                    <%--TODO: add local content--%>
+                                Log Out
+                            </button>
+                        </a>
                     </c:when>
                 </c:choose>
             </div>

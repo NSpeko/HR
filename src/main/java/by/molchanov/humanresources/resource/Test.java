@@ -62,7 +62,7 @@ public class Test {
 //            }
 //        }
 
-//        User user = new User("vlad=4", "123", "vladislav", "m", 0, UserType.ADMIN);
+//        User user = new User("vlad=4", "123", "vladislav", "m", 0, UserStatusType.ADMIN);
 //
 //        JobRequestDAO dao = new JobRequestDAO();
 //        List<JobRequest> list = dao.findAll();

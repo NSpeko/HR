@@ -1,6 +1,7 @@
 package by.molchanov.humanresources.constant;
 
 public class AttributeNames {
+    public static final String COMMAND = "command";
     public static final String EMAIL = "email";
     public static final String PASS = "password";
     public static final String REPEAT_PASS = "repeat_password";
@@ -10,6 +11,12 @@ public class AttributeNames {
     public static final String INFO_MESSAGE = "info";
     public static final String ROLE = "role";
     public static final String VACANCY_LIST = "vacancy_list";
+    public static final String ORG_NAME = "org_name";
+    public static final String WEBSITE = "website";
+    public static final String DESCRIPTION = "description";
+    public static final String TYPE = "type";
+    public static final String USER_ID = "user_id";
+    public static final String ORG_ID = "org_id";
 
     private AttributeNames() {}
 

@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 
 public class RoleTimeTag extends TagSupport {
-    private String role = "guest";
+    private static final String DEFAULT_ROLE = "guest";
+    private String role;
 
     public void setRole(String role) {
+        this.role = DEFAULT_ROLE;
         if (!role.isEmpty()) {
             this.role = role;
         }

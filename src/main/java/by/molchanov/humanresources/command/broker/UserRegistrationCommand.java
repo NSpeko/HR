@@ -4,16 +4,16 @@ import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
-import by.molchanov.humanresources.executor.AuthenticationExecutor;
 import by.molchanov.humanresources.executor.FillVacancyExecutor;
+import by.molchanov.humanresources.executor.RegistrationExecutor;
 
-public class AuthenticationCommand implements ConcreteCommand {
+public class UserRegistrationCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        AuthenticationExecutor authenticationExecutor = new AuthenticationExecutor();
+        RegistrationExecutor registrationExecutor = new RegistrationExecutor();
         FillVacancyExecutor fillVacancyExecutor = new FillVacancyExecutor();
         try {
-            authenticationExecutor.checkUserAccessory(requestHolder);
+            registrationExecutor.userSignUp(requestHolder);
             fillVacancyExecutor.fillVacancy(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);

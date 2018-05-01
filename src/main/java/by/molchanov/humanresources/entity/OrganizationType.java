@@ -1,7 +1,7 @@
 package by.molchanov.humanresources.entity;
 
 public enum OrganizationType {
-    COMMERCIAL("commercial"), NONCOMMERCIAL("non-commercial");
+    COMMERCIAL("commercial"), NONCOMMERCIAL("noncommercial");
 
     private String value;
 

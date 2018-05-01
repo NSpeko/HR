@@ -16,20 +16,25 @@
 <head>
 </head>
 <body>
-<input type="hidden" name="command" value="registration"/>
-<br/><fmt:message key="content.registration.name"/><br/>
-<input type="text" name="first_name" placeholder="name*"/>
-<br/><fmt:message key="content.registration.surname"/><br/>
+<input type="hidden" name="command" value="org_registration"/>
+<br/>Name<br/>
+<input type="text" name="org_name" placeholder="name*"/>
+<br/>Website<br/>
 <input type="url" name="website" placeholder="your site*"/>
-<br/><fmt:message key="content.registration.email"/><br/>
-<textarea name="description" placeholder="description" required rows="4" cols="50">
-</textarea>
-<br/><label for="commercial-checkbox"><fmt:message key="content.registration.second.password"/></label>
-<input id="commercial-checkbox" type="checkbox" name="is_commercial"/>
-<br/><fmt:message key="content.registration.second.password"/><br/>
-<input type="password" name="repeat_password" placeholder="password*"/>
-<br/><fmt:message key="content.registration.first.password"/><br/>
-<input type="password" name="password" placeholder="password*"/>
+<br/>Descr<br/>
+<textarea name="description" placeholder="description" required rows="4" cols="50"></textarea>
+<br/>Type<br/>
+<select name="type">
+    <option value="commercial" selected>Commer</option>
+    <option value="noncommercial">Noncommer</option>
+</select>
+
+<%--<br/><label for="commercial-checkbox"><fmt:message key="content.registration.second.password"/></label>--%>
+<%--<input id="commercial-checkbox" type="checkbox" name="is_commercial"/>--%>
+<%--<br/><fmt:message key="content.registration.second.password"/><br/>--%>
+<%--<input type="password" name="repeat_password" placeholder="password*"/>--%>
+<%--<br/><fmt:message key="content.registration.first.password"/><br/>--%>
+<%--<input type="password" name="password" placeholder="password*"/>--%>
 <br/>
 </body>
 </html>

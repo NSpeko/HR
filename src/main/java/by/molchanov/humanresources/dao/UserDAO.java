@@ -2,7 +2,7 @@ package by.molchanov.humanresources.dao;
 
 import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.entity.User;
-import by.molchanov.humanresources.entity.UserType;
+import by.molchanov.humanresources.entity.UserStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class UserDAO extends AbstractDAO<User> {
                     while (set.next()) {
                         user = new User();
                         String roleName = set.getString(USER_FIELD_ROLE).toUpperCase();
-                        user.setRole(UserType.valueOf(roleName));
+                        user.setRole(UserStatusType.valueOf(roleName));
                         result.add(user);
                     }
                 }
@@ -128,7 +128,7 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setFirstName(set.getString(USER_FIELD_FIRST_NAME));
                 user.setLastName(set.getString(USER_FIELD_LAST_NAME));
                 user.setPass(set.getString(USER_FIELD_PASS));
-                user.setRole(UserType.valueOf(set.getString(USER_FIELD_ROLE).toUpperCase()));
+                user.setRole(UserStatusType.valueOf(set.getString(USER_FIELD_ROLE).toUpperCase()));
                 result.add(user);
             }
         } catch (SQLException e) {

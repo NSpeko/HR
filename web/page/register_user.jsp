@@ -16,7 +16,7 @@
 <head>
 </head>
 <body>
-<input type="hidden" name="command" value="registration"/>
+<input type="hidden" name="command" value="user_registration"/>
 <br/><fmt:message key="content.registration.name"/><br/>
 <input type="text" name="first_name" placeholder="name*"/>
 <br/><fmt:message key="content.registration.surname"/><br/>

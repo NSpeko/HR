@@ -4,20 +4,19 @@ import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.entity.User;
 import by.molchanov.humanresources.exception.CustomDAOException;
+import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.security.AESEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.molchanov.humanresources.constant.AttributeNames.EMAIL;
-import static by.molchanov.humanresources.constant.AttributeNames.PASS;
-import static by.molchanov.humanresources.constant.AttributeNames.ROLE;
-
 import java.util.List;
+
+import static by.molchanov.humanresources.constant.AttributeNames.*;
 
 public class AuthenticationExecutor {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public void checkUserAccessory(RequestHolder requestHolder) {
+    public void checkUserAccessory(RequestHolder requestHolder) throws CustomExecutorException {
         AESEncryption encryption = new AESEncryption();
         String email = requestHolder.getSingleRequestParameter(0, EMAIL);
         String password = requestHolder.getSingleRequestParameter(0, PASS);
@@ -31,7 +30,8 @@ public class AuthenticationExecutor {
                 requestHolder.addSessionAttribute(EMAIL, email);
             }
         } catch (CustomDAOException e) {
-            LOGGER.warn(e.getMessage(), e);
+            requestHolder.addRequestAttribute(INFO_MESSAGE, "7");
+            throw new CustomExecutorException(e);
         }
     }
 }

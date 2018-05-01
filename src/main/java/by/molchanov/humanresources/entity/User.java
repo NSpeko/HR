@@ -7,12 +7,12 @@ public class User {
     private String firstName;
     private String lastName;
     private int organizationId;
-    private UserType role;
+    private UserStatusType role;
 
     public User() {
     }
 
-    public User(String email, String pass, String firstName, String lastName, UserType role) {
+    public User(String email, String pass, String firstName, String lastName, UserStatusType role) {
         this.email = email;
         this.pass = pass;
         this.firstName = firstName;
@@ -20,7 +20,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String email, String pass, String firstName, String lastName, int organizationId, UserType role) {
+    public User(String email, String pass, String firstName, String lastName, int organizationId, UserStatusType role) {
         this.email = email;
         this.pass = pass;
         this.firstName = firstName;
@@ -77,11 +77,11 @@ public class User {
         this.organizationId = organizationId;
     }
 
-    public UserType getRole() {
+    public UserStatusType getRole() {
         return role;
     }
 
-    public void setRole(UserType role) {
+    public void setRole(UserStatusType role) {
         this.role = role;
     }
 
