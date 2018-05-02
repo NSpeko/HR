@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserDataValidation {
-    private static final String REGEX_EMAIL_SPLITTER = "^[@]$";
+    private static final String REGEX_EMAIL_SPLITTER = "[@]";
     private static final String REGEX_EMAIL_USERNAME = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*$";
     private static final String REGEX_EMAIL_HOSTNAME = "^([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$";
     private static final String REGEX_USER_NAME = "^[A-ZА-Я][a-zа-я]{1,44}$";

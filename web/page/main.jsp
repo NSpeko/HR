@@ -182,6 +182,37 @@
         <h1>Bootstrap Tutorial</h1>
         <p>Bootstrap is the most popular HTML, CSS...</p>
     </section>
+        <div class="container-fluid form-group">
+            <form class="row" name="filter" method="POST" action="controller">
+                <input class="form-control" type="hidden" name="command" value="vacancy_filter"/>
+                <div class="col-3">
+                    <label for="firstSelect">Select 1</label>
+                    <select id="firstSelect" class=" form-control">
+                        <option>opt 1</option>
+                        <option>opt 2</option>
+                        <option>opt 3</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="secondSelect">Select 2</label>
+                    <select name="sort_type" id="secondSelect" class=" form-control">
+                        <option value="">opt 1</option>
+                        <option>opt 2</option>
+                        <option>opt 3</option>
+                    </select>
+                </div>
+
+                <div class="col-5">
+                    <label for="searchInput">Search</label>
+                    <input class=" form-control" id="searchInput" type="text" name="search_field" placeholder="Search"/>
+                </div>
+                <div class="col-1">
+                    <label for="searchButton">&#160;</label>
+                    <input id="searchButton" class="btn btn-primary float-left" type="submit" value="Search"
+                    <%--TODO: add local content--%>/>
+                </div>
+            </form>
+        </div>
     <table class="table table-hover">
 
         <tr>
@@ -244,7 +275,6 @@
         </c:forEach>
 
     </table>
-
     <ul class="pagination text-center">
         <li class="page-item">
             <button class="page-link disabled" disabled>Previous</button>
