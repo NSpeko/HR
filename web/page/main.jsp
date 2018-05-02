@@ -187,18 +187,19 @@
                 <input class="form-control" type="hidden" name="command" value="vacancy_filter"/>
                 <div class="col-3">
                     <label for="firstSelect">Select 1</label>
-                    <select id="firstSelect" class=" form-control">
-                        <option>opt 1</option>
-                        <option>opt 2</option>
-                        <option>opt 3</option>
+                    <select name="sort_col" id="firstSelect" class=" form-control">
+                        <option value=""></option>
+                        <option value="name">Name</option>
+                        <option value="date">Date</option>
+                        <option value="organization">Organization</option>
                     </select>
                 </div>
                 <div class="col-3">
                     <label for="secondSelect">Select 2</label>
                     <select name="sort_type" id="secondSelect" class=" form-control">
-                        <option value="">opt 1</option>
-                        <option>opt 2</option>
-                        <option>opt 3</option>
+                        <option value=""></option>
+                        <option value="decrease">Decrease</option>
+                        <option value="increase">Increase</option>
                     </select>
                 </div>
 
