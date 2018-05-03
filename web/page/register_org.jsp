@@ -17,14 +17,14 @@
 </head>
 <body>
 <input type="hidden" name="command" value="org_registration"/>
-<br/>Name<br/>
-<input type="text" name="org_name" placeholder="name*"/>
-<br/>Website<br/>
-<input type="url" name="website" placeholder="your site*"/>
-<br/>Descr<br/>
-<textarea name="description" placeholder="description" required rows="4" cols="50"></textarea>
-<br/>Type<br/>
-<select name="type">
+<label for="org-name">Name</label>>
+<input id="org-name" type="text" name="org_name" placeholder="name*"/>
+<label for="org-site">Website</label>>
+<input id="org-site" type="url" name="website" placeholder="your site*"/>
+<label for="org-description">Descr</label>>
+<textarea id="org-description" name="description" placeholder="description" required rows="4" cols="50"></textarea>
+<label for="org-type">Type</label>>
+<select id="org-type" name="type">
     <option value="commercial" selected>Commer</option>
     <option value="noncommercial">Noncommer</option>
 </select>
