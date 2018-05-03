@@ -23,11 +23,14 @@ public class AuthenticationExecutor {
         password = encryption.encryptionOfString(password);
         UserDAO userDAO = new UserDAO();
         try {
-            List<User> users = userDAO.getUserRolesByEmailAndPassword(email, password);
+            List<User> users = userDAO.getUserByEmailAndPassword(email, password);
             if (users.size() == 1) {
-                String userRole = users.get(0).getRole().getValue();
-                requestHolder.addSessionAttribute(ROLE, userRole);
+                User user = users.get(0);
+                requestHolder.addSessionAttribute(ROLE, user.getRole().getValue());
                 requestHolder.addSessionAttribute(EMAIL, email);
+                requestHolder.addSessionAttribute(FIRST_NAME, user.getFirstName());
+                requestHolder.addSessionAttribute(LAST_NAME, user.getLastName());
+                requestHolder.addSessionAttribute(USER_ID, user.getId());
             }
         } catch (CustomDAOException e) {
             requestHolder.addRequestAttribute(INFO_MESSAGE, "7");

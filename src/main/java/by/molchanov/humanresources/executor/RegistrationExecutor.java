@@ -84,15 +84,22 @@ public class RegistrationExecutor {
         } else {
             OrganizationType organizationType = OrganizationType.valueOf(type);
             OrganizationDAO organizationDAO = new OrganizationDAO();
+            UserDAO userDAO = new UserDAO();
             Organization organization = new Organization(name, website, description, organizationType);
             try {
                 organization = organizationDAO.persist(organization);
-                requestHolder.addRequestAttribute(INFO_MESSAGE, "content.information.successful.registration");
+                String userId = (String) requestHolder.getSessionAttribute(USER_ID);
+                User user = new User();
+                user.setId(Integer.parseInt(userId));
+                user.setOrganizationId(organization.getId());
+                user.setRole(UserStatusType.DIRECTOR);
+                userDAO.updateUserOrgIdRole(user);
                 requestHolder.removeSessionAttribute(ROLE);
                 requestHolder.addSessionAttribute(ROLE, UserStatusType.DIRECTOR.getValue());
                 requestHolder.addSessionAttribute(ORG_NAME, name);
                 requestHolder.addSessionAttribute(WEBSITE, website);
                 requestHolder.addSessionAttribute(ORG_ID, organization.getId());
+                requestHolder.addRequestAttribute(INFO_MESSAGE, "content.information.successful.registration");
             } catch (CustomDAOException e) {
                 requestHolder.addRequestAttribute(INFO_MESSAGE, "7");
                 throw new CustomExecutorException(e);

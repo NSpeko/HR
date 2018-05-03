@@ -17,6 +17,9 @@ public class AttributeNames {
     public static final String TYPE = "type";
     public static final String USER_ID = "user_id";
     public static final String ORG_ID = "org_id";
+    public static final String SORT_COL = "sort_col";
+    public static final String SORT_TYPE = "sort_type";
+    public static final String SEARCH_FIELD = "search_field";
 
     private AttributeNames() {}
 

@@ -5,10 +5,12 @@ public class SQLQuery {
             " u_lastname, u_organization_id FROM user ";
     public static final String USER_QUERY_UPDATE = "UPDATE user SET u_email = ?, u_role = ?, u_password = ?, u_firstname = ?," +
             " u_secondname = ?, u_organization_id = ? WHERE u_id = '?'";
+    public static final String USER_QUERY_ROLE_ORG_ID_UPDATE = "UPDATE user SET u_role = ?, u_organization_id = ? WHERE u_id = ?";
     public static final String USER_QUERY_DELETE_BY_ID = "DELETE FROM user WHERE u_id = ?";
     public static final String USER_QUERY_CREATE = "INSERT INTO user (u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id) VALUES (?, ?, ?, ?, ?, ?)";
-    public static final String USER_QUERY_SELECT_USER_ROLE_BY_EMAIL_PASS = "SELECT u_role FROM user WHERE u_email = ? AND u_password = ?";
+    public static final String USER_QUERY_SELECT_USER_BY_EMAIL_PASS = "SELECT u_id, u_role, u_firstname," +
+            " u_lastname, u_organization_id FROM user WHERE u_email = ? AND u_password = ?";
     public static final String USER_FIELD_ID = "u_id";
     public static final String USER_FIELD_EMAIL = "u_email";
     public static final String USER_FIELD_PASS = "u_password";

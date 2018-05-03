@@ -54,6 +54,18 @@ public enum ConcreteCommandType {
         public ResponseType getResponseType() {
             return FORWARD;
         }
+    },
+
+    VACANCY_FILTER {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return null;
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return null;
+        }
     };
 
     public abstract ConcreteCommand getConcreteCommandBroker();

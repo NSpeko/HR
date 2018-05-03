@@ -16,14 +16,37 @@ import static by.molchanov.humanresources.constant.SQLQuery.*;
 
 public class UserDAO extends AbstractDAO<User> {
 
-    public List<User> getUserRolesByEmailAndPassword(String email, String password) throws CustomDAOException {
+    public void updateUserOrgIdRole(User user) throws CustomDAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(USER_QUERY_ROLE_ORG_ID_UPDATE)) {
+                statement.setString(1, user.getRole().getValue());
+                statement.setInt(2, user.getOrganizationId());
+                statement.setInt(3, user.getId());
+                int numberOfUpdatedElements = statement.executeUpdate();
+                if (numberOfUpdatedElements > 1) {
+                    throw new CustomDAOException("More than one element was updated:" + numberOfUpdatedElements);
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException(e);
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+    }
+
+    public List<User> getUserByEmailAndPassword(String email, String password) throws CustomDAOException {
         List<User> result = new ArrayList<>();
         User user;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         try {
             connection = connectionPool.takeConnection();
-            try (PreparedStatement statement = connection.prepareStatement(USER_QUERY_SELECT_USER_ROLE_BY_EMAIL_PASS)) {
+            try (PreparedStatement statement = connection.prepareStatement(USER_QUERY_SELECT_USER_BY_EMAIL_PASS)) {
                 statement.setString(1, email);
                 statement.setString(2, password);
                 try (ResultSet set = statement.executeQuery()) {
