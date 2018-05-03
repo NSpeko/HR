@@ -1,3 +1,9 @@
+.full-wrapper{
+    height: calc(100vh - 12vh);
+}
 textarea{
     width: -webkit-fill-available;
+}
+footer{
+    height: 12vh;
 }
