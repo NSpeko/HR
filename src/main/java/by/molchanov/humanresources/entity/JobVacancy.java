@@ -42,8 +42,9 @@ public class JobVacancy {
 
                 
             }
+            return 0;
         }
-    }
+    };
 
     public int getId() {
         return id;

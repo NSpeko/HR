@@ -16,25 +16,25 @@
 <head>
 </head>
 <body>
-<input type="hidden" name="command" value="org_registration"/>
+<input class="form-control" type="hidden" name="command" value="org_registration"/>
 <label for="org-name">Name</label>>
-<input id="org-name" type="text" name="org_name" placeholder="name*"/>
+<input class="form-control" id="org-name" type="text" name="org_name" placeholder="name*"/>
 <label for="org-site">Website</label>>
-<input id="org-site" type="url" name="website" placeholder="your site*"/>
+<input class="form-control" id="org-site" type="url" name="website" placeholder="your site*"/>
 <label for="org-description">Descr</label>>
-<textarea id="org-description" name="description" placeholder="description" required rows="4" cols="50"></textarea>
+<textarea class="form-control" id="org-description" name="description" placeholder="description" required rows="4" cols="50"></textarea>
 <label for="org-type">Type</label>>
-<select id="org-type" name="type">
+<select class="form-control" id="org-type" name="type">
     <option value="commercial" selected>Commer</option>
     <option value="noncommercial">Noncommer</option>
 </select>
 
 <%--<br/><label for="commercial-checkbox"><fmt:message key="content.registration.second.password"/></label>--%>
-<%--<input id="commercial-checkbox" type="checkbox" name="is_commercial"/>--%>
+<%--<input class="form-control" id="commercial-checkbox" type="checkbox" name="is_commercial"/>--%>
 <%--<br/><fmt:message key="content.registration.second.password"/><br/>--%>
-<%--<input type="password" name="repeat_password" placeholder="password*"/>--%>
+<%--<input class="form-control" type="password" name="repeat_password" placeholder="password*"/>--%>
 <%--<br/><fmt:message key="content.registration.first.password"/><br/>--%>
-<%--<input type="password" name="password" placeholder="password*"/>--%>
+<%--<input class="form-control" type="password" name="password" placeholder="password*"/>--%>
 <br/>
 </body>
 </html>

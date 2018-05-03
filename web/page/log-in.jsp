@@ -16,11 +16,11 @@
 <head>
 </head>
 <body>
-<input type="hidden" name="command" value="authentication"/>
+<input class="form-control " type="hidden" name="command" value="authentication"/>
 <br/><fmt:message key="content.authentication.email"/><br/>
-<input type="email" name="email" value="" placeholder="default@example.com"/>
+<input class="form-control " type="email" name="email" value="" placeholder="default@example.com"/>
 <br/><fmt:message key="content.authentication.password"/><br/>
-<input type="password" name="password" value="" placeholder="password"/>
+<input class="form-control " type="password" name="password" value="" placeholder="password"/>
 <br/>
 </body>
 </html>
