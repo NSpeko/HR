@@ -215,7 +215,7 @@
 
                 <div class="col-5">
                     <label for="searchInput"><fmt:message key="content.vacancy.search"/></label>
-                    <input class="form-control " id="searchInput" type="text" name="search_field" placeholder="Search"/>
+                    <input class="form-control " id="searchInput" type="text" name="search_field" placeholder="<fmt:message key="content.vacancy.search"/>"/>
                 </div>
                 <div class="col-1">
                     <label for="searchButton">&#160;</label>
@@ -238,10 +238,8 @@
                     <td>${vacancy.uploadDate}</td>
                     <td>${vacancy.requirement}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#vacancy-${vacancy.id}-modal">
-                                <%--TODO: add local content--%>
-                            Response
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vacancy-${vacancy.id}-modal">
+                            <fmt:message key="content.add.request"/>
                         </button>
 
                         <!-- The Modal -->
