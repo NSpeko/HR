@@ -31,6 +31,7 @@
     <title>Human Resources</title>
 </head>
 <body>
+<c:import url="component.jsp"/>
 <div class="modal fade text-dark" id="log-in-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
