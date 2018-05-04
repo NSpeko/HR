@@ -31,7 +31,7 @@
     <title><fmt:message key="content.static.main.title"/></title>
 </head>
 <body>
-<c:import url="component.jsp"/>
+<div id="notifications-wrapper"><c:import url="component.jsp"/></div>
 <div class="modal fade text-dark" id="log-in-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -153,7 +153,7 @@
                     <nav>
                         <ul class="nav nav-pills ">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Logo</a>
+                                <a href="#" class="nav-link"><img style="width:2rem;" src="../resources/logo.jpg"></a>
                             </li>
                         </ul>
                     </nav>
@@ -279,6 +279,12 @@
             </c:forEach>
 
         </table>
+        <c:if test="${sessionScope.user_org_info != null}">
+            <c:import url="register_org.jsp"/>
+            <button class="btn btn-primary ">
+                <fmt:message key="content.button.add.organization"/>
+            </button>
+        </c:if>
         <ul class="pagination text-center">
             <li class="page-item">
                 <button class="page-link disabled" disabled>Previous</button>

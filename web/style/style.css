@@ -1,4 +1,9 @@
-
+*{
+    overflow: hidden;
+}
+button{
+    width: 5rem;
+}
 html, body {
     height: 100%;
 }
