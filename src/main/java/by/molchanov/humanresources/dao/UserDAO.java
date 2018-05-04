@@ -39,9 +39,8 @@ public class UserDAO extends AbstractDAO<User> {
         }
     }
 
-    public List<User> getUserByEmailAndPassword(String email, String password) throws CustomDAOException {
-        List<User> result = new ArrayList<>();
-        User user;
+    public List<User> getUsersByEmailAndPassword(String email, String password) throws CustomDAOException {
+        List<User> result;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         try {
@@ -50,12 +49,7 @@ public class UserDAO extends AbstractDAO<User> {
                 statement.setString(1, email);
                 statement.setString(2, password);
                 try (ResultSet set = statement.executeQuery()) {
-                    while (set.next()) {
-                        user = new User();
-                        String roleName = set.getString(USER_FIELD_ROLE).toUpperCase();
-                        user.setRole(UserStatusType.valueOf(roleName));
-                        result.add(user);
-                    }
+                    result = parseResultSet(set);
                 }
             } catch (SQLException e) {
                 throw new CustomDAOException(e);

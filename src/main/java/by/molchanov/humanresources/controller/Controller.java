@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.molchanov.humanresources.constant.AttributeNames.COMMAND;
+import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.COMMAND;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {

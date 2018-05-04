@@ -10,7 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="content"/>
 <html>
 <head>
@@ -112,11 +112,19 @@
             <!-- Modal body -->
             <form name="profileForm" method="POST" action="controller">
                 <div class="modal-body ">
-                    <p>first_name</p> <p>last_name</p> <p>email</p> <p>org_name</p> <p>website</p>
-                    <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">Add Organisation</button>
+                    <p>first_name - ${sessionScope.user_info.firstName}</p>
+                    <p>last_name - ${sessionScope.user_info.lastName}</p>
+                    <p>email - ${sessionScope.user_info.email}</p>
+                    <p>org_name - ${sessionScope.user_org_info.name}</p>
+                    <p>website - ${sessionScope.user_org_info.website}</p>
+                    <c:if test="${sessionScope.user_org_info == null}">
+                        <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">Add
+                            Organisation
+                        </button>
+                    </c:if>
 
                     <div id="org-register-form" class="collapse">
-                        <div id="sign-up-org-form" ><c:import url="register_org.jsp"/></div>
+                        <div id="sign-up-org-form"><c:import url="register_org.jsp"/></div>
                     </div>
                 </div>
 
@@ -137,9 +145,9 @@
     <header class="container-fluid bg-dark text-white fixed-top p-2">
 
 
-        <c:if test="${info != null}">
+        <c:if test="${requestScope.info != null}">
             <script>
-                alert("${info}");
+                alert("<fmt:message key="${requestScope.info}"/>");
             </script>
         </c:if>
 
@@ -202,16 +210,16 @@
                 <div class="col-3">
                     <label for="firstSelect">Select 1</label>
                     <select name="sort_col" id="firstSelect" class="form-control ">
-                        <option value=""></option>
-                        <option value="name">Name</option>
-                        <option value="date">Date</option>
-                        <option value="organization">Organization</option>
+                        <option value="sort_by_empty_column"></option>
+                        <option value="sort_by_name">Name</option>
+                        <option value="sort_by_date">Date</option>
+                        <option value="sort_by_organization">Organization</option>
                     </select>
                 </div>
                 <div class="col-3">
                     <label for="secondSelect">Select 2</label>
                     <select name="sort_type" id="secondSelect" class="form-control ">
-                        <option value=""></option>
+                        <option value="empty"></option>
                         <option value="decrease">Decrease</option>
                         <option value="increase">Increase</option>
                     </select>
@@ -241,7 +249,7 @@
                     <%--TODO: add local content--%></th>
             </tr>
 
-            <c:forEach items="${vacancy_list}" var="vacancy">
+            <c:forEach items="${requestScope.vacancy_list}" var="vacancy">
                 <tr>
                     <td>${vacancy.name}</td>
                     <td>${vacancy.uploadDate}</td>

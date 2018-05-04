@@ -1,9 +1,6 @@
 package by.molchanov.humanresources.command;
 
-import by.molchanov.humanresources.command.broker.AuthenticationCommand;
-import by.molchanov.humanresources.command.broker.LogOutCommand;
-import by.molchanov.humanresources.command.broker.OrgRegistrationCommand;
-import by.molchanov.humanresources.command.broker.UserRegistrationCommand;
+import by.molchanov.humanresources.command.broker.*;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
@@ -59,12 +56,12 @@ public enum ConcreteCommandType {
     VACANCY_FILTER {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return null;
+            return new VacancyFilterCommand();
         }
 
         @Override
         public ResponseType getResponseType() {
-            return null;
+            return FORWARD;
         }
     };
 

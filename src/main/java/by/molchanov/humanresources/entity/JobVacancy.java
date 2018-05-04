@@ -34,16 +34,28 @@ public class JobVacancy {
         this.organizationWebsite = organizationWebsite;
     }
 
-    public static Comparator<JobVacancy> SORT_BY_NAME = new Comparator<JobVacancy>() {
-        @Override
-        public int compare(JobVacancy o1, JobVacancy o2) {
-            int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
-            if (res == 0) {
-
-                
-            }
-            return 0;
+    public static Comparator<JobVacancy> COMPARE_BY_NAME = (o1, o2) -> {
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+        if (res == 0) {
+            res = o1.getName().compareTo(o2.getName());
         }
+        return res;
+    };
+
+    public static Comparator<JobVacancy> COMPARE_BY_DATE = (o1, o2) -> {
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getUploadDate(), o2.getUploadDate());
+        if (res == 0) {
+            res = o1.getUploadDate().compareTo(o2.getUploadDate());
+        }
+        return res;
+    };
+
+    public static Comparator<JobVacancy> COMPARE_BY_ORG_NAME = (o1, o2) -> {
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getOrganizationName(), o2.getOrganizationName());
+        if (res == 0) {
+            res = o1.getOrganizationName().compareTo(o2.getOrganizationName());
+        }
+        return res;
     };
 
     public int getId() {

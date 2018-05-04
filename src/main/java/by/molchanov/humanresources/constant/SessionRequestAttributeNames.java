@@ -1,6 +1,6 @@
 package by.molchanov.humanresources.constant;
 
-public class AttributeNames {
+public class SessionRequestAttributeNames {
     public static final String COMMAND = "command";
     public static final String EMAIL = "email";
     public static final String PASS = "password";
@@ -15,12 +15,12 @@ public class AttributeNames {
     public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
     public static final String TYPE = "type";
-    public static final String USER_ID = "user_id";
-    public static final String ORG_ID = "org_id";
     public static final String SORT_COL = "sort_col";
     public static final String SORT_TYPE = "sort_type";
     public static final String SEARCH_FIELD = "search_field";
+    public static final String USER_ORG_INFO = "user_org_info";
+    public static final String USER_INFO = "user_info";
 
-    private AttributeNames() {}
+    private SessionRequestAttributeNames() {}
 
 }

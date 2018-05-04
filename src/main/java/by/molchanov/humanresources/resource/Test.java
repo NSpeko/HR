@@ -20,7 +20,11 @@ public class Test {
 
     public static void main(String[] args) throws CustomDAOException, SQLException, InterruptedException {
 
-        System.out.println(UserDataValidation.isEmailAddressCorrect("a@mail.com"));
+        String a = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        Thread.sleep(10000);
+        String b = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
+        System.out.println("->" + b.compareTo(a));
 
 //        JobVacancy jobVacancy = new JobVacancy(2, "Lul", null, "Nice job vacancy", JobVacancyStatusType.OPEN);
 //        JobVacancyDAO jobVacancyDAO = new JobVacancyDAO();
