@@ -1,6 +1,8 @@
 package by.molchanov.humanresources.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id;
     private String email;
     private String pass;

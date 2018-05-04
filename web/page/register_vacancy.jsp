@@ -17,7 +17,7 @@
     <input class="form-control" id="org-site" type="text" name="vacancy_name" placeholder="Vacancy name*"/>
     <label for="org-description">Requirement</label>
     <textarea class="form-control" id="org-description" name="vacancy_requirement" placeholder="requirement" required
-              rows="4" cols="50"></textarea>
+              rows="4" cols="50"></textarea><br/>
     <input type="submit" class="btn btn-primary" value="submit"/>
 </form>
 </body>

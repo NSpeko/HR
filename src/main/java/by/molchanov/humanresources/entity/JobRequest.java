@@ -1,6 +1,8 @@
 package by.molchanov.humanresources.entity;
 
-public class JobRequest {
+import java.io.Serializable;
+
+public class JobRequest implements Serializable {
     private int id;
     private int jobVacancyId;
     private int userId;

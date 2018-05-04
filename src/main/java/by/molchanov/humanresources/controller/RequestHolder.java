@@ -78,11 +78,11 @@ public class RequestHolder {
         for (Map.Entry<String, Object> attribute : sessionAttribute.entrySet()) {
             key = attribute.getKey();
             value = attribute.getValue();
-//            if (value instanceof Serializable) {
+            if (value instanceof Serializable) {
                 session.setAttribute(key, value);
-//            } else {
-//                throw new CustomBrokerException("Try to add non-serializable object to session!");
-//            } пересмотреть
+            } else {
+                throw new CustomBrokerException("Try to add non-serializable object to session!");
+            }
         }
     }
 }

@@ -1,8 +1,9 @@
 package by.molchanov.humanresources.entity;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class JobVacancy {
+public class JobVacancy implements Serializable {
     private int id;
     private int organizationId;
     private String name;

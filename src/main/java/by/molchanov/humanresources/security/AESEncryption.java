@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 public class AESEncryption {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final int AES_KEY_LENGTH = 16;
+//    private static final int
     private static final int FIRST_SYMBOL_POSITION = 0;
     private static final String ENCRYPTION_TYPE = "AES";
 
@@ -38,7 +39,7 @@ public class AESEncryption {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] encryptedValue = cipher.doFinal(primaryString.getBytes());
             BigInteger value = new BigInteger(1, encryptedValue);
-            encryptedString = value.toString(16);
+            encryptedString = value.toString(AES_KEY_LENGTH);
         } catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException e) {
             LOGGER.warn("String wasn't encrypted!", e);
         }

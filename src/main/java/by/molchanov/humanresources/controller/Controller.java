@@ -20,23 +20,23 @@ import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String MAIN_ADDRESS = "/page/main.jsp";
+    private static final String PAGE_MAIN_ADDRESS = "/page/main.jsp";
+    private static final String PAGE_ERROR_ADDRESS = "/page/error.jsp";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         handleRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         handleRequest(request, response);
     }
 
-    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
         OperationFactory operationFactory = new OperationFactory();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = request.getParameter(COMMAND);
-        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
         try {
@@ -44,16 +44,21 @@ public class Controller extends HttpServlet {
             requestHolder.update(request);
         } catch (CustomBrokerException e) {
             LOGGER.warn(e.getMessage(), e);
+            responseType = ResponseType.REDIRECT;
         }
-        switch (responseType) {
-            case FORWARD:
-                getServletContext().getRequestDispatcher(MAIN_ADDRESS).forward(request, response);
-                break;
-            case REDIRECT:
-                response.sendRedirect(request.getContextPath() + MAIN_ADDRESS);
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + MAIN_ADDRESS);
+        try {
+            switch (responseType) {
+                case FORWARD:
+                    getServletContext().getRequestDispatcher(PAGE_MAIN_ADDRESS).forward(request, response);
+                    break;
+                case REDIRECT:
+                    response.sendRedirect(request.getContextPath() + PAGE_ERROR_ADDRESS);
+                    break;
+                default:
+                    response.sendRedirect(request.getContextPath() + PAGE_ERROR_ADDRESS);
+            }
+        } catch (ServletException | IOException e) {
+            LOGGER.fatal("Fatal servlet error!");
         }
     }
 }

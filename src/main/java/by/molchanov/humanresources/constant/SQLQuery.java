@@ -19,6 +19,7 @@ public class SQLQuery {
     public static final String USER_FIELD_ORGANIZATION_ID = "u_organization_id";
     public static final String USER_FIELD_ROLE = "u_role";
 
+
     public static final String ORGANIZATION_QUERY_SELECT = "SELECT o_id, o_name, o_description, o_website, o_type FROM organization ";
     public static final String ORGANIZATION_QUERY_UPDATE = "UPDATE organization SET o_name = ?, o_website = ?, o_description = ?, o_type = ? WHERE o_id = ";
     public static final String ORGANIZATION_QUERY_DELETE_BY_ID = "DELETE FROM organization WHERE o_id = ?";

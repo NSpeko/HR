@@ -1,6 +1,8 @@
 package by.molchanov.humanresources.entity;
 
-public class Organization {
+import java.io.Serializable;
+
+public class Organization implements Serializable {
     private int id;
     private String name;
     private String website;

@@ -10,7 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="registration_content"/>
 <html>
 <head>
@@ -18,15 +18,15 @@
 <body>
 <input class="form-control" type="hidden" name="command" value="user_registration"/>
 <br/><fmt:message key="content.registration.name"/><br/>
-<input class="form-control" type="text" name="first_name" placeholder="name*"/>
+<input class="form-control" type="text" name="first_name" placeholder="name*" pattern="[A-ZА-Я][a-zа-я]{1,44}"/>
 <br/><fmt:message key="content.registration.surname"/><br/>
-<input class="form-control" type="text" name="last_name" placeholder="surname*"/>
+<input class="form-control" type="text" name="last_name" placeholder="surname*" pattern="[A-ZА-Я][a-zа-я]{1,44}"/>
 <br/><fmt:message key="content.registration.email"/><br/>
-<input class="form-control" type="email" name="email" placeholder="default@example.com" required/>
+<input class="form-control" type="email" name="email" placeholder="default@example.com" pattern="([a-z0-9!#$%&'*+/=?^_`{|}~-]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*)[@](([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z]))" required/>
 <br/><fmt:message key="content.registration.second.password"/><br/>
-<input class="form-control" type="password" name="repeat_password" placeholder="password*"/>
+<input class="form-control" type="password" name="repeat_password" placeholder="password*" pattern="[\S]{1,45}" required/>
 <br/><fmt:message key="content.registration.first.password"/><br/>
-<input class="form-control" type="password" name="password" placeholder="password*"/>
+<input class="form-control" type="password" name="password" placeholder="password*" pattern="[\S]{1,45}" required/>
 <br/>
 </body>
 </html>
