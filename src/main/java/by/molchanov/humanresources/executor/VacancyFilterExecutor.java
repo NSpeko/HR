@@ -15,7 +15,7 @@ import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_DATE;
 import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_NAME;
 import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_ORG_NAME;
 
-public class FilterExecutor {
+public class VacancyFilterExecutor {
     private static final String INCREASE = "increase";
     private static final String DECREASE = "decrease";
     private static final String EMPTY = "empty";

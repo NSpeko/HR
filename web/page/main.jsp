@@ -28,7 +28,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
     <script src="../javascript/main-script.js"></script>
-    <title>Human Resources</title>
+    <title><fmt:message key="content.static.main.title"/></title>
 </head>
 <body>
 <c:import url="component.jsp"/>
@@ -39,8 +39,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <%--TODO: add local content--%>
-                    Sign Up
+                    <fmt:message key="content.button.user.sign.up"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -53,10 +52,9 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="Submit"
-                    <%--TODO: add local content--%>/>
+                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <%--TODO: add local content--%>Close
+                        <fmt:message key="content.button.cancel"/>
                     </button>
                 </div>
             </form>
@@ -72,8 +70,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <%--TODO: add local content--%>
-                    Sign Up
+                    <fmt:message key="content.modal.header.sign.up"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -86,10 +83,9 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="Submit"
-                    <%--TODO: add local content--%>/>
+                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <%--TODO: add local content--%>Close
+                        <fmt:message key="content.button.cancel"/>
                     </button>
                 </div>
             </form>
@@ -104,8 +100,7 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <%--TODO: add local content--%>
-                    Profile
+                    <fmt:message key="content.modal.header.profile"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -113,14 +108,14 @@
             <!-- Modal body -->
             <form name="profileForm" method="POST" action="controller">
                 <div class="modal-body ">
-                    <p>first_name - ${sessionScope.user_info.firstName}</p>
-                    <p>last_name - ${sessionScope.user_info.lastName}</p>
-                    <p>email - ${sessionScope.user_info.email}</p>
-                    <p>org_name - ${sessionScope.user_org_info.name}</p>
-                    <p>website - ${sessionScope.user_org_info.website}</p>
+                    <p><fmt:message key="content.user.first.name"/> - ${sessionScope.user_info.firstName}</p>
+                    <p><fmt:message key="content.user.last.name"/> - ${sessionScope.user_info.lastName}</p>
+                    <p><fmt:message key="content.user.email"/> - ${sessionScope.user_info.email}</p>
+                    <p><fmt:message key="content.org.name"/> - ${sessionScope.user_org_info.name}</p>
+                    <p><fmt:message key="content.org.website"/> - ${sessionScope.user_org_info.website}</p>
                     <c:if test="${sessionScope.user_org_info == null}">
-                        <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">Add
-                            Organisation
+                        <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">
+                            <fmt:message key="content.button.add.organization"/>
                         </button>
                     </c:if>
 
@@ -131,10 +126,9 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="Submit"
-                    <%--TODO: add local content--%>/>
+                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
-                        <%--TODO: add local content--%>Close
+                        <fmt:message key="content.button.cancel"/>
                     </button>
                 </div>
             </form>
@@ -167,30 +161,23 @@
                 <div class="col clearfix">
                     <div class="float-right">
                         <c:choose>
-                            <c:when test="${role==null}">
-                                <button id="log-in-button" class="btn btn-dark " data-toggle="modal"
-                                        data-target="#log-in-modal">
-                                        <%--TODO: add local content--%>
-                                    Log in
+                            <c:when test="${sessionScope.role==null}">
+                                <button id="log-in-button" class="btn btn-dark " data-toggle="modal" data-target="#log-in-modal">
+                                    <fmt:message key="content.button.user.log.in"/>
                                 </button>
                                 <!-- Button to Open the Modal -->
-                                <button id="sign-up-button" class="btn btn-primary " data-toggle="modal"
-                                        data-target="#sign-up-modal">
-                                        <%--TODO: add local content--%>
-                                    Sign Up
+                                <button id="sign-up-button" class="btn btn-primary " data-toggle="modal" data-target="#sign-up-modal">
+                                    <fmt:message key="content.button.user.sign.up"/>
                                 </button>
                             </c:when>
-                            <c:when test="${role!= null}">
-                                <button class="btn btn-dark " data-toggle="modal"
-                                        data-target="#user-profile-modal">
-                                        <%--TODO: add local content--%>
-                                        ${role}
+                            <c:when test="${sessionScope.role!= null}">
+                                <button class="btn btn-dark " data-toggle="modal" data-target="#user-profile-modal">
+                                    <fmt:message key="content.button.user.profile"/>
                                 </button>
                                 <!-- Button to Open the Modal -->
                                 <a href="${pageContext.request.contextPath}/controller?command=log_out">
                                     <button class="btn btn-primary " name="command" value="log_out">
-                                            <%--TODO: add local content--%>
-                                        Log Out
+                                        <fmt:message key="content.button.user.log.out"/>
                                     </button>
                                 </a>
                             </c:when>
@@ -202,8 +189,8 @@
     </header>
     <div class="wrapper container">
         <section class="jumbotron">
-            <h1>Bootstrap Tutorial</h1>
-            <p>Bootstrap is the most popular HTML, CSS...</p>
+            <h1><fmt:message key="content.main.slogan.first"/></h1>
+            <p><fmt:message key="content.main.slogan.second"/></p>
         </section>
         <div class="container-fluid form-group">
             <form class="row" name="filter" method="POST" action="controller">
@@ -212,42 +199,37 @@
                     <label for="firstSelect">Select 1</label>
                     <select name="sort_col" id="firstSelect" class="form-control ">
                         <option value="sort_by_empty_column"></option>
-                        <option value="sort_by_name">Name</option>
-                        <option value="sort_by_date">Date</option>
-                        <option value="sort_by_organization">Organization</option>
+                        <option value="sort_by_name"><fmt:message key="content.vacancy.name"/></option>
+                        <option value="sort_by_date"><fmt:message key="content.vacancy.date"/></option>
+                        <option value="sort_by_organization"><fmt:message key="content.org.name"/></option>
                     </select>
                 </div>
                 <div class="col-3">
                     <label for="secondSelect">Select 2</label>
                     <select name="sort_type" id="secondSelect" class="form-control ">
                         <option value="empty"></option>
-                        <option value="decrease">Decrease</option>
-                        <option value="increase">Increase</option>
+                        <option value="decrease"><fmt:message key="content.vacancy.sort.decrease"/></option>
+                        <option value="increase"><fmt:message key="content.vacancy.sort.increase"/></option>
                     </select>
                 </div>
 
                 <div class="col-5">
-                    <label for="searchInput">Search</label>
+                    <label for="searchInput"><fmt:message key="content.vacancy.search"/></label>
                     <input class="form-control " id="searchInput" type="text" name="search_field" placeholder="Search"/>
                 </div>
                 <div class="col-1">
                     <label for="searchButton">&#160;</label>
-                    <input id="searchButton" class="btn btn-primary float-left" type="submit" value="Search"
-                    <%--TODO: add local content--%>/>
+                    <input id="searchButton" class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.vacancy.search"/>"/>
                 </div>
             </form>
         </div>
         <table class="table table-hover">
 
             <tr>
-                <th>Name
-                    <%--TODO: add local content--%></th>
-                <th>Date
-                    <%--TODO: add local content--%></th>
-                <th>Requirement
-                    <%--TODO: add local content--%></th>
-                <th>More
-                    <%--TODO: add local content--%></th>
+                <th><fmt:message key="content.vacancy.name"/></th>
+                <th><fmt:message key="content.vacancy.date"/></th>
+                <th><fmt:message key="content.vacancy.requirement"/></th>
+                <th><fmt:message key="content.vacancy.more"/></th>
             </tr>
 
             <c:forEach items="${requestScope.vacancy_list}" var="vacancy">
@@ -307,9 +289,6 @@
                 <button class="page-link">Next</button>
             </li>
         </ul>
-        <br/>
-        ${error}
-        <br/>
     </div>
 </div>
 <footer class="container-fluid bg-dark text-white p-2">
