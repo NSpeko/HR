@@ -63,6 +63,18 @@ public enum ConcreteCommandType {
         public ResponseType getResponseType() {
             return FORWARD;
         }
+    },
+
+    VACANCY_REGISTRATION {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return new JobVacancyRegistration();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
     };
 
     public abstract ConcreteCommand getConcreteCommandBroker();

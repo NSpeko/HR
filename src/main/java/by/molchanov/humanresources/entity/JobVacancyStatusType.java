@@ -1,7 +1,7 @@
 package by.molchanov.humanresources.entity;
 
 public enum JobVacancyStatusType {
-    OPEN("close"), CLOSE("open");
+    OPEN("close"), CLOSE("open"), NEW("new");
 
     private String value;
 

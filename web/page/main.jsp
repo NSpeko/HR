@@ -279,12 +279,6 @@
             </c:forEach>
 
         </table>
-        <c:if test="${sessionScope.user_org_info != null}">
-            <c:import url="register_org.jsp"/>
-            <button class="btn btn-primary ">
-                <fmt:message key="content.button.add.organization"/>
-            </button>
-        </c:if>
         <ul class="pagination text-center">
             <li class="page-item">
                 <button class="page-link disabled" disabled>Previous</button>
@@ -293,6 +287,9 @@
                 <button class="page-link">Next</button>
             </li>
         </ul>
+        <c:if test="${sessionScope.user_org_info != null}">
+            <c:import url="register_vacancy.jsp"/>
+        </c:if>
     </div>
 </div>
 <footer class="container-fluid bg-dark text-white p-2">

@@ -15,10 +15,9 @@ public class JobVacancy {
     public JobVacancy() {
     }
 
-    public JobVacancy(int organizationId, String name, String uploadDate, String requirement, JobVacancyStatusType status) {
+    public JobVacancy(int organizationId, String name, String requirement, JobVacancyStatusType status) {
         this.organizationId = organizationId;
         this.name = name;
-        this.uploadDate = uploadDate;
         this.requirement = requirement;
         this.status = status;
     }

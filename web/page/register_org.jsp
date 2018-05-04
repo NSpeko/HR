@@ -28,13 +28,6 @@
     <option value="commercial" selected>Commer</option>
     <option value="noncommercial">Noncommer</option>
 </select>
-
-<%--<br/><label for="commercial-checkbox"><fmt:message key="content.registration.second.password"/></label>--%>
-<%--<input class="form-control" id="commercial-checkbox" type="checkbox" name="is_commercial"/>--%>
-<%--<br/><fmt:message key="content.registration.second.password"/><br/>--%>
-<%--<input class="form-control" type="password" name="repeat_password" placeholder="password*"/>--%>
-<%--<br/><fmt:message key="content.registration.first.password"/><br/>--%>
-<%--<input class="form-control" type="password" name="password" placeholder="password*"/>--%>
 <br/>
 </body>
 </html>

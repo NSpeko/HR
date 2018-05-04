@@ -1,12 +1,10 @@
 package by.molchanov.humanresources.executor;
 
 import by.molchanov.humanresources.controller.RequestHolder;
+import by.molchanov.humanresources.dao.JobVacancyDAO;
 import by.molchanov.humanresources.dao.OrganizationDAO;
 import by.molchanov.humanresources.dao.UserDAO;
-import by.molchanov.humanresources.entity.Organization;
-import by.molchanov.humanresources.entity.OrganizationType;
-import by.molchanov.humanresources.entity.User;
-import by.molchanov.humanresources.entity.UserStatusType;
+import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.security.AESEncryption;
@@ -97,6 +95,21 @@ public class RegistrationExecutor {
                 requestHolder.addRequestAttribute(INFO_MESSAGE, REGISTRATION_ERROR);
                 throw new CustomExecutorException(e);
             }
+        }
+    }
+
+    public void vacancySignUp(RequestHolder requestHolder) throws CustomExecutorException {
+        String vacancyName = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_NAME);
+        String vacancyRequirement = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_REQUIREMENT);
+        Organization organization = (Organization) requestHolder.getSessionAttribute(USER_ORG_INFO);
+        int organizationId = organization.getId();
+        JobVacancyStatusType statusType = JobVacancyStatusType.NEW;
+        JobVacancy jobVacancy = new JobVacancy(organizationId, vacancyName, vacancyRequirement, statusType);
+        JobVacancyDAO jobVacancyDAO = new JobVacancyDAO();
+        try {
+            jobVacancyDAO.persist(jobVacancy);
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException();
         }
     }
 }
