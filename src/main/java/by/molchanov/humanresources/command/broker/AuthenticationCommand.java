@@ -10,8 +10,8 @@ import by.molchanov.humanresources.executor.FillVacancyExecutor;
 public class AuthenticationCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        AuthenticationExecutor authenticationExecutor = new AuthenticationExecutor();
-        FillVacancyExecutor fillVacancyExecutor = new FillVacancyExecutor();
+        AuthenticationExecutor authenticationExecutor = AuthenticationExecutor.getInstance();
+        FillVacancyExecutor fillVacancyExecutor = FillVacancyExecutor.getInstance();
         try {
             authenticationExecutor.checkUserAccessory(requestHolder);
             fillVacancyExecutor.fillVacancy(requestHolder);

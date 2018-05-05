@@ -9,7 +9,7 @@ import by.molchanov.humanresources.executor.FillVacancyExecutor;
 public class EmptyCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        FillVacancyExecutor fillVacancyExecutor = new FillVacancyExecutor();
+        FillVacancyExecutor fillVacancyExecutor = FillVacancyExecutor.getInstance();
         try {
             fillVacancyExecutor.fillVacancy(requestHolder);
         } catch (CustomExecutorException e) {

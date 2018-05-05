@@ -10,8 +10,8 @@ import by.molchanov.humanresources.executor.LogOutExecutor;
 public class LogOutCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        LogOutExecutor logOutExecutor = new LogOutExecutor();
-        FillVacancyExecutor fillVacancyExecutor = new FillVacancyExecutor();
+        LogOutExecutor logOutExecutor = LogOutExecutor.getInstance();
+        FillVacancyExecutor fillVacancyExecutor = FillVacancyExecutor.getInstance();
         try {
             logOutExecutor.logOut(requestHolder);
             fillVacancyExecutor.fillVacancy(requestHolder);

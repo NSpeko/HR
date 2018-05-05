@@ -7,12 +7,17 @@ import org.apache.logging.log4j.Logger;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
 
 public class LogOutExecutor {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static final LogOutExecutor LOG_OUT_EXECUTOR = new LogOutExecutor();
+
+    private LogOutExecutor() {
+
+    }
+
+    public static LogOutExecutor getInstance() {
+        return LOG_OUT_EXECUTOR;
+    }
 
     public void logOut(RequestHolder requestHolder) {
-        String currentUserRole = (String) requestHolder.getSessionAttribute(ROLE);
-        String currentUserEmail = (String) requestHolder.getSessionAttribute(EMAIL);
-        LOGGER.info(currentUserRole + currentUserEmail + " log out from system");
         requestHolder.removeSessionAttribute(USER_INFO, USER_ORG_INFO);
     }
 }

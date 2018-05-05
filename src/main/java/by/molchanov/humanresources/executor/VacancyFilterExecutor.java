@@ -2,6 +2,7 @@ package by.molchanov.humanresources.executor;
 
 import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
@@ -16,14 +17,27 @@ import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_NAME;
 import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_ORG_NAME;
 
 public class VacancyFilterExecutor {
+    private static final VacancyFilterExecutor VACANCY_FILTER_EXECUTOR = new VacancyFilterExecutor();
+
+    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
+
     private static final String INCREASE = "increase";
     private static final String DECREASE = "decrease";
     private static final String EMPTY = "empty";
+    private static final int FIRST_INDEX = 0;
+
+    private VacancyFilterExecutor() {
+
+    }
+
+    public static VacancyFilterExecutor getInstance() {
+        return VACANCY_FILTER_EXECUTOR;
+    }
 
     public void filterVacancy(RequestHolder requestHolder) throws CustomExecutorException {
-        String sortColumn = requestHolder.getSingleRequestParameter(0, SORT_COL);
-        String sortDirectionType = requestHolder.getSingleRequestParameter(0, SORT_TYPE);
-        String searchField = requestHolder.getSingleRequestParameter(0, SEARCH_FIELD);
+        String sortColumn = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_COL);
+        String sortDirectionType = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_TYPE);
+        String searchField = requestHolder.getSingleRequestParameter(FIRST_INDEX, SEARCH_FIELD);
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
         List<JobVacancy> vacancies = findVacancyRecord();
@@ -61,7 +75,6 @@ public class VacancyFilterExecutor {
                 vacancySorter(COMPARE_BY_NAME, vacancies, sortDirectionTypeFlag);
                 break;
             case SORT_BY_EMPTY_COLUMN:
-
                 break;
             case SORT_BY_ORGANIZATION:
                 vacancySorter(COMPARE_BY_ORG_NAME, vacancies, sortDirectionTypeFlag);
@@ -72,10 +85,9 @@ public class VacancyFilterExecutor {
     }
 
     private List<JobVacancy> findVacancyRecord() throws CustomExecutorException {
-        JobVacancyDAO jobVacancyDAO = new JobVacancyDAO();
         List<JobVacancy> vacancies;
         try {
-            vacancies = jobVacancyDAO.findAll();
+            vacancies = JOB_VACANCY_DAO.findAll();
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }

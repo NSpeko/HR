@@ -11,6 +11,15 @@ import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
 public class OperationFactory {
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final OperationFactory OPERATION_FACTORY = new OperationFactory();
+
+    private OperationFactory() {
+
+    }
+
+    public static OperationFactory getInstance() {
+        return OPERATION_FACTORY;
+    }
 
     public ConcreteCommand getConcreteCommand(String command) {
         ConcreteCommand concreteCommand = new EmptyCommand();

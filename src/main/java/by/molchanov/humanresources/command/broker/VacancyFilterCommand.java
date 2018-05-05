@@ -10,7 +10,7 @@ public class VacancyFilterCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         try {
-            VacancyFilterExecutor vacancyFilterExecutor = new VacancyFilterExecutor();
+            VacancyFilterExecutor vacancyFilterExecutor = VacancyFilterExecutor.getInstance();
             vacancyFilterExecutor.filterVacancy(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);

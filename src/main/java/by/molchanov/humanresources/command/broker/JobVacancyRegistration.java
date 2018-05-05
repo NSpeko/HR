@@ -10,8 +10,8 @@ import by.molchanov.humanresources.executor.RegistrationExecutor;
 public class JobVacancyRegistration implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        RegistrationExecutor registrationExecutor = new RegistrationExecutor();
-        FillVacancyExecutor fillVacancyExecutor = new FillVacancyExecutor();
+        RegistrationExecutor registrationExecutor = RegistrationExecutor.getInstance();
+        FillVacancyExecutor fillVacancyExecutor = FillVacancyExecutor.getInstance();
         try {
             registrationExecutor.vacancySignUp(requestHolder);
             fillVacancyExecutor.fillVacancy(requestHolder);

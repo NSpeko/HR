@@ -34,7 +34,7 @@ public class Controller extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        OperationFactory operationFactory = new OperationFactory();
+        OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = request.getParameter(COMMAND);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);

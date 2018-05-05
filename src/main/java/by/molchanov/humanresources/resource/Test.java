@@ -1,20 +1,11 @@
 package by.molchanov.humanresources.resource;
 
-import by.molchanov.humanresources.dao.JobRequestDAO;
-import by.molchanov.humanresources.dao.JobVacancyDAO;
-import by.molchanov.humanresources.dao.OrganizationDAO;
-import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.database.ConnectionPool;
-import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
-import by.molchanov.humanresources.security.AESEncryption;
-import by.molchanov.humanresources.validator.UserDataValidation;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Test {
 
@@ -27,7 +18,7 @@ public class Test {
         System.out.println("->" + b.compareTo(a));
 
 //        JobVacancy jobVacancy = new JobVacancy(2, "Lul", null, "Nice job vacancy", JobVacancyStatusType.OPEN);
-//        JobVacancyDAO jobVacancyDAO = new JobVacancyDAO();
+//        JobVacancyDAOImpl jobVacancyDAO = new JobVacancyDAOImpl();
 //        jobVacancy = jobVacancyDAO.persist(jobVacancy);
 //        System.out.println(jobVacancy.toString());
 //        System.out.println("-------------------------------------");
@@ -68,7 +59,7 @@ public class Test {
 
 //        User user = new User("vlad=4", "123", "vladislav", "m", 0, UserStatusType.ADMIN);
 //
-//        JobRequestDAO dao = new JobRequestDAO();
+//        JobRequestDAOImpl dao = new JobRequestDAOImpl();
 //        List<JobRequest> list = dao.findAll();
 //        for (JobRequest u: list) {
 //            System.out.println(u.toString());
