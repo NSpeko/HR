@@ -21,6 +21,8 @@ public class SessionRequestAttributeNames {
     public static final String USER_INFO = "user_info";
     public static final String VACANCY_NAME = "vacancy_name";
     public static final String VACANCY_REQUIREMENT = "vacancy_requirement";
+    public static final String REQUEST_RESUME = "resume";
+    public static final String VACANCY_ID = "vacancy_id";
 
     private SessionRequestAttributeNames() {}
 

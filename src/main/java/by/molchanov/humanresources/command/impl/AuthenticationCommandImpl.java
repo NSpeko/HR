@@ -6,6 +6,8 @@ import by.molchanov.humanresources.dto.UserDataDTO;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
+import by.molchanov.humanresources.executor.AuthenticationExecutor;
+import by.molchanov.humanresources.executor.FillVacancyExecutor;
 import by.molchanov.humanresources.executor.impl.AuthenticationExecutorImpl;
 import by.molchanov.humanresources.executor.impl.FillVacancyExecutorImpl;
 
@@ -14,8 +16,8 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
 
 public class AuthenticationCommandImpl implements ConcreteCommand {
-    private static final AuthenticationExecutorImpl AUTHENTICATION_EXECUTOR = AuthenticationExecutorImpl.getInstance();
-    private static final FillVacancyExecutorImpl FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
+    private static final AuthenticationExecutor AUTHENTICATION_EXECUTOR = AuthenticationExecutorImpl.getInstance();
+    private static final FillVacancyExecutor FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
     private static final int FIRST_POSITION = 0;
 
     @Override

@@ -52,7 +52,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
+                    <input class="btn btn-primary float-left" type="submit"
+                           value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                         <fmt:message key="content.button.cancel"/>
                     </button>
@@ -83,7 +84,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
+                    <input class="btn btn-primary float-left" type="submit"
+                           value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                         <fmt:message key="content.button.cancel"/>
                     </button>
@@ -126,7 +128,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <input class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.button.submit"/>"/>
+                    <input class="btn btn-primary float-left" type="submit"
+                           value="<fmt:message key="content.button.submit"/>"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                         <fmt:message key="content.button.cancel"/>
                     </button>
@@ -162,11 +165,13 @@
                     <div class="float-right">
                         <c:choose>
                             <c:when test="${sessionScope.role==null}">
-                                <button id="log-in-button" class="btn btn-dark " data-toggle="modal" data-target="#log-in-modal">
+                                <button id="log-in-button" class="btn btn-dark " data-toggle="modal"
+                                        data-target="#log-in-modal">
                                     <fmt:message key="content.button.user.log.in"/>
                                 </button>
                                 <!-- Button to Open the Modal -->
-                                <button id="sign-up-button" class="btn btn-primary " data-toggle="modal" data-target="#sign-up-modal">
+                                <button id="sign-up-button" class="btn btn-primary " data-toggle="modal"
+                                        data-target="#sign-up-modal">
                                     <fmt:message key="content.button.user.sign.up"/>
                                 </button>
                             </c:when>
@@ -215,11 +220,13 @@
 
                 <div class="col-5">
                     <label for="searchInput"><fmt:message key="content.vacancy.search"/></label>
-                    <input class="form-control " id="searchInput" type="text" name="search_field" placeholder="<fmt:message key="content.vacancy.search"/>"/>
+                    <input class="form-control " id="searchInput" type="text" name="search_field"
+                           placeholder="<fmt:message key="content.vacancy.search"/>"/>
                 </div>
                 <div class="col-1">
                     <label for="searchButton">&#160;</label>
-                    <input id="searchButton" class="btn btn-primary float-left" type="submit" value="<fmt:message key="content.vacancy.search"/>"/>
+                    <input id="searchButton" class="btn btn-primary float-left" type="submit"
+                           value="<fmt:message key="content.vacancy.search"/>"/>
                 </div>
             </form>
         </div>
@@ -229,7 +236,9 @@
                 <th><fmt:message key="content.vacancy.name"/></th>
                 <th><fmt:message key="content.vacancy.date"/></th>
                 <th><fmt:message key="content.vacancy.requirement"/></th>
-                <th><fmt:message key="content.vacancy.more"/></th>
+                <c:if test="${sessionScope.role == 'aspirant'}">
+                    <th><fmt:message key="content.vacancy.more"/></th>
+                </c:if>
             </tr>
 
             <c:forEach items="${requestScope.vacancy_list}" var="vacancy">
@@ -237,44 +246,51 @@
                     <td>${vacancy.name}</td>
                     <td>${vacancy.uploadDate}</td>
                     <td>${vacancy.requirement}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vacancy-${vacancy.id}-modal">
-                            <fmt:message key="content.add.request"/>
-                        </button>
+                    <c:if test="${sessionScope.role == 'aspirant'}">
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#vacancy-${vacancy.id}-modal">
+                                <fmt:message key="content.add.request"/>
+                            </button>
 
-                        <!-- The Modal -->
-                        <div class="modal fade" id="vacancy-${vacancy.id}-modal">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
+                            <!-- The Modal -->
+                            <div class="modal fade" id="vacancy-${vacancy.id}-modal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">
-                                                <%--TODO: add local content--%>Modal Heading</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">
+                                                    <%--TODO: add local content--%>Modal Heading</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <form name="profileForm" method="POST" action="controller">
+                                            <input class="form-control" type="hidden" name="vacancy_id"
+                                                   value="${vacancy.id}"/>
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                    <%--TODO: add local content--%>
+                                                Modal body..
+                                                <c:import url="register_request.jsp"/>
+                                                    <%--TODO: change form source--%>
+                                                    ${vacancy.requirement}
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <input class="btn btn-primary float-left" type="submit"
+                                                       value="<fmt:message key="content.button.submit"/>"/>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        <%--TODO: add local content--%>Close
+                                                </button>
+                                            </div>
+                                        </form>
+
                                     </div>
-
-                                    <!-- Modal body -->
-                                    <div class="modal-body">
-                                            <%--TODO: add local content--%>
-                                        Modal body..
-                                        <c:import url="log-in.jsp"/>
-                                            <%--TODO: change form source--%>
-                                            ${vacancy.requirement}
-                                    </div>
-
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                <%--TODO: add local content--%>Close
-                                        </button>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-
-                    </td>
+                        </td>
+                    </c:if>
                 </tr>
             </c:forEach>
 

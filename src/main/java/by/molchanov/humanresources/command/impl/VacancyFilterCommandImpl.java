@@ -5,6 +5,7 @@ import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
+import by.molchanov.humanresources.executor.VacancyFilterExecutor;
 import by.molchanov.humanresources.executor.impl.VacancyFilterExecutorImpl;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
 
 public class VacancyFilterCommandImpl implements ConcreteCommand {
-    private static final VacancyFilterExecutorImpl VACANCY_FILTER_EXECUTOR = VacancyFilterExecutorImpl.getInstance();
+    private static final VacancyFilterExecutor VACANCY_FILTER_EXECUTOR = VacancyFilterExecutorImpl.getInstance();
     private static final int FIRST_INDEX = 0;
 
     @Override

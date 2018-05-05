@@ -20,6 +20,7 @@ public class LogOutExecutorImpl implements LogOutExecutor {
 
     public List<String> logOut() {
         List<String> attributeForDelete = new ArrayList<>();
+        attributeForDelete.add(ROLE);
         attributeForDelete.add(USER_INFO);
         attributeForDelete.add(USER_ORG_INFO);
         return attributeForDelete;

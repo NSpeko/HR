@@ -1,11 +1,14 @@
 package by.molchanov.humanresources.executor.impl;
 
+import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
 import by.molchanov.humanresources.dao.OrganizationDAO;
 import by.molchanov.humanresources.dao.UserDAO;
+import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.dao.impl.OrganizationDAOImpl;
 import by.molchanov.humanresources.dao.impl.UserDAOImpl;
+import by.molchanov.humanresources.dto.JobRequestDTO;
 import by.molchanov.humanresources.dto.OrgDataDTO;
 import by.molchanov.humanresources.dto.UserDataDTO;
 import by.molchanov.humanresources.dto.VacancyDataDTO;
@@ -20,7 +23,7 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.PropertyMessageVariablesNames.*;
 import static by.molchanov.humanresources.validator.UserDataValidation.*;
 import static by.molchanov.humanresources.validator.OrganizationDataValidation.*;
-import static by.molchanov.humanresources.validator.VacancyDataValidation.*;
+import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.*;
 
 public class RegistrationExecutorImpl implements RegistrationExecutor {
     private static final RegistrationExecutorImpl REGISTRATION_EXECUTOR = new RegistrationExecutorImpl();
@@ -28,6 +31,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
     private static final UserDAO USER_DAO = UserDAOImpl.getInstance();
     private static final OrganizationDAO ORGANIZATION_DAO = OrganizationDAOImpl.getInstance();
     private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
+    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
 
     private RegistrationExecutorImpl() {
 
@@ -47,7 +51,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         repeatPass = encryption.encryptionOfString(repeatPass).trim();
         String firstName = userDataDTO.getFirstName();
         String lastName = userDataDTO.getLastName();
-        String infoMessage = USER_REGISTRATION_SUCCESSFUL_REGISTRATION;
+        String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         try {
             List<User> users = USER_DAO.findAll();
             boolean freeAddress = true;
@@ -88,7 +92,7 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         String description = orgDataDTO.getDescription();
         String type = orgDataDTO.getType().toUpperCase();
         User user = orgDataDTO.getOrgDirector();
-        String infoMessage = USER_REGISTRATION_SUCCESSFUL_REGISTRATION;
+        String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         if (!isOrgNameCorrect(name)) {
             infoMessage = ORG_REGISTRATION_INCORRECT_NAME;
         } else if (!isWEBSiteCorrect(website)) {
@@ -134,5 +138,25 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
             }
         }
         vacancyDataDTO.setInfoMessage(infoMessage);
+    }
+
+    @Override
+    public void requestSignUp(JobRequestDTO jobRequestDTO) throws CustomExecutorException {
+        String resume = jobRequestDTO.getResume();
+        int userId = jobRequestDTO.getUserId();
+        int vacancyId = jobRequestDTO.getVacancyId();
+        String infoMessage = USER_SUCCESSFUL_REGISTRATION;
+        if (!isResumeCorrect(resume)) {
+            infoMessage = REQUEST_INCORRECT_RESUME;
+        } else {
+            JobRequestStatusType status = JobRequestStatusType.NEW;
+            JobRequest jobRequest = new JobRequest(vacancyId, userId, resume, status);
+            try {
+                JOB_REQUEST_DAO.persist(jobRequest);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        }
+        jobRequestDTO.setInfoMessage(infoMessage);
     }
 }

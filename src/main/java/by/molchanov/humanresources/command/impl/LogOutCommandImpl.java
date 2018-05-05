@@ -5,6 +5,8 @@ import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
+import by.molchanov.humanresources.executor.FillVacancyExecutor;
+import by.molchanov.humanresources.executor.LogOutExecutor;
 import by.molchanov.humanresources.executor.impl.FillVacancyExecutorImpl;
 import by.molchanov.humanresources.executor.impl.LogOutExecutorImpl;
 
@@ -13,8 +15,8 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.VACANCY_LIST;
 
 public class LogOutCommandImpl implements ConcreteCommand {
-    private static final LogOutExecutorImpl LOG_OUT_EXECUTOR = LogOutExecutorImpl.getInstance();
-    private static final FillVacancyExecutorImpl FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
+    private static final LogOutExecutor LOG_OUT_EXECUTOR = LogOutExecutorImpl.getInstance();
+    private static final FillVacancyExecutor FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {

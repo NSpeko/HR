@@ -7,6 +7,8 @@ import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.Organization;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
+import by.molchanov.humanresources.executor.FillVacancyExecutor;
+import by.molchanov.humanresources.executor.RegistrationExecutor;
 import by.molchanov.humanresources.executor.impl.FillVacancyExecutorImpl;
 import by.molchanov.humanresources.executor.impl.RegistrationExecutorImpl;
 
@@ -14,9 +16,9 @@ import java.util.List;
 
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
 
-public class JobVacancyRegistrationImpl implements ConcreteCommand {
-    private static final RegistrationExecutorImpl REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();
-    private static final FillVacancyExecutorImpl FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
+public class VacancyRegistrationImpl implements ConcreteCommand {
+    private static final RegistrationExecutor REGISTRATION_EXECUTOR = RegistrationExecutorImpl.getInstance();
+    private static final FillVacancyExecutor FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
     private static final int FIRST_INDEX = 0;
 
     @Override

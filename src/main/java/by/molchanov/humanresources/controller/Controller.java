@@ -2,6 +2,7 @@ package by.molchanov.humanresources.controller;
 
 import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.command.ResponseType;
+import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.factory.OperationFactory;
 import org.apache.logging.log4j.LogManager;
@@ -33,6 +34,11 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         handleRequest(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().closePool();
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
