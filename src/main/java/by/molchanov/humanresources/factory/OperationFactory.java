@@ -3,7 +3,7 @@ package by.molchanov.humanresources.factory;
 import by.molchanov.humanresources.command.ConcreteCommandType;
 import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.command.ResponseType;
-import by.molchanov.humanresources.command.broker.EmptyCommand;
+import by.molchanov.humanresources.command.impl.EmptyCommandImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +22,7 @@ public class OperationFactory {
     }
 
     public ConcreteCommand getConcreteCommand(String command) {
-        ConcreteCommand concreteCommand = new EmptyCommand();
+        ConcreteCommand concreteCommand = new EmptyCommandImpl();
         if (command == null || command.isEmpty()) {
             return concreteCommand;
         }

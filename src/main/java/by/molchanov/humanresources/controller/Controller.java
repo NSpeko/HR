@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.COMMAND;
 
@@ -20,8 +21,9 @@ import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final String PAGE_MAIN_ADDRESS = "/page/main.jsp";
-    private static final String PAGE_ERROR_ADDRESS = "/page/error.jsp";
+    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("page_location");
+    private static final String MAIN_PAGE = RESOURCE_BUNDLE.getString("page.location.main");
+    private static final String ERROR_PAGE = RESOURCE_BUNDLE.getString("page.location.error");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -49,13 +51,13 @@ public class Controller extends HttpServlet {
         try {
             switch (responseType) {
                 case FORWARD:
-                    getServletContext().getRequestDispatcher(PAGE_MAIN_ADDRESS).forward(request, response);
+                    getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
                     break;
                 case REDIRECT:
-                    response.sendRedirect(request.getContextPath() + PAGE_ERROR_ADDRESS);
+                    response.sendRedirect(request.getContextPath() + ERROR_PAGE);
                     break;
                 default:
-                    response.sendRedirect(request.getContextPath() + PAGE_ERROR_ADDRESS);
+                    response.sendRedirect(request.getContextPath() + ERROR_PAGE);
             }
         } catch (ServletException | IOException e) {
             LOGGER.fatal("Fatal servlet error!");

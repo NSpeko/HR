@@ -1,6 +1,6 @@
 package by.molchanov.humanresources.command;
 
-import by.molchanov.humanresources.command.broker.*;
+import by.molchanov.humanresources.command.impl.*;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
@@ -8,7 +8,7 @@ public enum ConcreteCommandType {
     AUTHENTICATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new AuthenticationCommand();
+            return new AuthenticationCommandImpl();
         }
 
         @Override
@@ -20,7 +20,7 @@ public enum ConcreteCommandType {
     USER_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new UserRegistrationCommand();
+            return new UserRegistrationCommandImpl();
         }
 
         @Override
@@ -32,7 +32,7 @@ public enum ConcreteCommandType {
     LOG_OUT {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new LogOutCommand();
+            return new LogOutCommandImpl();
         }
 
         @Override
@@ -44,7 +44,7 @@ public enum ConcreteCommandType {
     ORG_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new OrgRegistrationCommand();
+            return new OrgRegistrationCommandImpl();
         }
 
         @Override
@@ -56,7 +56,7 @@ public enum ConcreteCommandType {
     VACANCY_FILTER {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new VacancyFilterCommand();
+            return new VacancyFilterCommandImpl();
         }
 
         @Override
@@ -68,7 +68,7 @@ public enum ConcreteCommandType {
     VACANCY_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new JobVacancyRegistration();
+            return new JobVacancyRegistrationImpl();
         }
 
         @Override

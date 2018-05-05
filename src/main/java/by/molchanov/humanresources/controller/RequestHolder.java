@@ -37,6 +37,7 @@ public class RequestHolder {
     }
 
     public void addSessionAttribute(String key, Object value) {
+        removeSessionAttribute(key);
         sessionAttribute.put(key, value);
     }
 
@@ -56,10 +57,10 @@ public class RequestHolder {
         return requestParameter.get(key);
     }
 
-    public void removeSessionAttribute(String... keys) {
-        for (String key: keys) {
-            sessionAttributeForDelete.add(key);
-            sessionAttribute.remove(key);
+    public void removeSessionAttribute(String ... attributeForDelete) {
+        for (String attribute: attributeForDelete) {
+            sessionAttributeForDelete.add(attribute);
+            sessionAttribute.remove(attribute);
         }
     }
 
