@@ -64,6 +64,33 @@
     </div>
 </div>
 <!-- The Modal -->
+<div class="modal fade text-dark" id="logo-site-info">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Описание
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body ">
+                Описание
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <fmt:message key="content.button.cancel"/>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="modal fade text-dark" id="sign-up-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -152,11 +179,12 @@
 
         <div class="container ">
             <div class="row">
-                <div class="col-9">
+                <div class="col-8">
                     <nav>
                         <ul class="nav nav-pills ">
                             <li class="nav-item">
-                                <a href="#" class="nav-link"><img style="width:2rem;" src="../resources/logo.jpg"></a>
+                                <a data-toggle="modal" data-target="#logo-site-info" href="#" class="nav-link"><img
+                                        style="width:2rem;" src="../resources/logo.jpg"></a>
                             </li>
                         </ul>
                     </nav>
@@ -187,6 +215,19 @@
                                 </a>
                             </c:when>
                         </c:choose>
+                        <div class="dropdown btn">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Lang
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"><img
+                                        src="http://konsomejona.github.io/OctoMouse/images/flag_ru.png"/>Русский</a>
+                                <a class="dropdown-item" href="#"><img
+                                        src="https://whitehousefoods.com/wp-content/themes/whitehouse/img/flag.gif">English</a>
+                                <a class="dropdown-item" href="#"><img
+                                        src="https://lipis.github.io/flag-icon-css/flags/4x3/by.svg">Беларускі</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -231,7 +272,7 @@
             </form>
         </div>
         <table class="table table-hover">
-
+            <tbody id="vacancy-table">
             <tr>
                 <th><fmt:message key="content.vacancy.name"/></th>
                 <th><fmt:message key="content.vacancy.date"/></th>
@@ -240,60 +281,133 @@
                     <th><fmt:message key="content.vacancy.more"/></th>
                 </c:if>
             </tr>
-
+            <script>
+                let myItems = [];
+            </script>
             <c:forEach items="${requestScope.vacancy_list}" var="vacancy">
-                <tr>
-                    <td>${vacancy.name}</td>
-                    <td>${vacancy.uploadDate}</td>
-                    <td>${vacancy.requirement}</td>
+                <script>
+                    myItems.push(new JobVacancy('${vacancy.id}', '${vacancy.organizationId}', '${vacancy.name}', '${vacancy.uploadDate}', '${vacancy.requirement}', '${vacancy.status}'));
+                </script>
+            </c:forEach>
+            <script>
+                function showTableMembers() {
+                    for (let i = 0; i < 8; i++) {
+                        let $table = $('#vacancy-table');
+                        $table.append(`<tr><td>${myItems[i].name}</td>
+                    <td>${myItems[i].uploadDate}</td>
+                    <td>${myItems[i].requirement}</td>
                     <c:if test="${sessionScope.role == 'aspirant'}">
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#vacancy-${vacancy.id}-modal">
+                                    data-target="#vacancy-${myItems[i].id}-modal">
                                 <fmt:message key="content.add.request"/>
                             </button>
 
                             <!-- The Modal -->
-                            <div class="modal fade" id="vacancy-${vacancy.id}-modal">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
+                            <div class="modal fade" id="vacancy-${myItems[i].id}-modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">
-                                                    <%--TODO: add local content--%>Modal Heading</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <form name="profileForm" method="POST" action="controller">
-                                            <input class="form-control" type="hidden" name="vacancy_id"
-                                                   value="${vacancy.id}"/>
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                    <%--TODO: add local content--%>
-                                                Modal body..
-                                                <c:import url="register_request.jsp"/>
-                                                    <%--TODO: change form source--%>
-                                                    ${vacancy.requirement}
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <input class="btn btn-primary float-left" type="submit"
-                                                       value="<fmt:message key="content.button.submit"/>"/>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                        <%--TODO: add local content--%>Close
-                                                </button>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">
+                            <%--TODO: add local content--%>Modal Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
-                        </td>
-                    </c:if>
-                </tr>
-            </c:forEach>
+                            <form name="profileForm" method="POST" action="controller">
+                            <input class="form-control" type="hidden" name="vacancy_id"
+                            value="${myItems[i].id}"/>
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                            <%--TODO: add local content--%>
+                            Modal body..
+                            <input class="form-control" type="hidden" name="command"
+                            value="request_registration"/>
+                            <label for="vacancy-${myItems[i].id}-org-description">Descr</label>>
+                            <textarea class="form-control"
+                            id="vacancy-${myItems[i].id}-org-description" name="resume"
+                            placeholder="Resume*" required rows="4" cols="50"></textarea>
+                            <%--TODO: change form source--%>
+                            ${myItems[i].requirement}
+                            </div>
 
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                            <input class="btn btn-primary float-left" type="submit"
+                            value="<fmt:message key="content.button.submit"/>"/>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <%--TODO: add local content--%>Close
+                            </button>
+                            </div>
+                            </form>
+
+                            </div>
+                            </div>
+                            </div>
+                            </td>
+                            </c:if>
+                            </tr>`);
+                            }
+                }
+                showTableMembers();
+            </script>
+            <%--<tr>--%>
+
+            <%--<td>${vacancy.name}</td>--%>
+            <%--<td>${vacancy.uploadDate}</td>--%>
+            <%--<td>${vacancy.requirement}</td>--%>
+            <%--<c:if test="${sessionScope.role == 'aspirant'}">--%>
+            <%--<td>--%>
+            <%--<button type="button" class="btn btn-primary" data-toggle="modal"--%>
+            <%--data-target="#vacancy-${vacancy.id}-modal">--%>
+            <%--<fmt:message key="content.add.request"/>--%>
+            <%--</button>--%>
+
+            <%--<!-- The Modal -->--%>
+            <%--<div class="modal fade" id="vacancy-${vacancy.id}-modal">--%>
+            <%--<div class="modal-dialog modal-dialog-centered">--%>
+            <%--<div class="modal-content">--%>
+
+            <%--<!-- Modal Header -->--%>
+            <%--<div class="modal-header">--%>
+            <%--<h4 class="modal-title">--%>
+            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;Modal Heading</h4>--%>
+            <%--<button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+            <%--</div>--%>
+            <%--<form name="profileForm" method="POST" action="controller">--%>
+            <%--<input class="form-control" type="hidden" name="vacancy_id"--%>
+            <%--value="${vacancy.id}"/>--%>
+            <%--<!-- Modal body -->--%>
+            <%--<div class="modal-body">--%>
+            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;--%>
+            <%--Modal body..--%>
+            <%--<input class="form-control" type="hidden" name="command"--%>
+            <%--value="request_registration"/>--%>
+            <%--<label for="vacancy-${vacancy.id}-org-description">Descr</label>>--%>
+            <%--<textarea class="form-control"--%>
+            <%--id="vacancy-${vacancy.id}-org-description" name="resume"--%>
+            <%--placeholder="Resume*" required rows="4" cols="50"></textarea>--%>
+            <%--&lt;%&ndash;TODO: change form source&ndash;%&gt;--%>
+            <%--${vacancy.requirement}--%>
+            <%--</div>--%>
+
+            <%--<!-- Modal footer -->--%>
+            <%--<div class="modal-footer">--%>
+            <%--<input class="btn btn-primary float-left" type="submit"--%>
+            <%--value="<fmt:message key="content.button.submit"/>"/>--%>
+            <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">--%>
+            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;Close--%>
+            <%--</button>--%>
+            <%--</div>--%>
+            <%--</form>--%>
+
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</td>--%>
+            <%--</c:if>--%>
+            <%--</tr>--%>
+            </tbody>
         </table>
         <ul class="pagination text-center">
             <li class="page-item">
