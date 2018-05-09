@@ -6,5 +6,5 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 import java.util.List;
 
 public interface FillVacancyExecutor {
-    List<JobVacancy> fillVacancy() throws CustomExecutorException;
+    List<JobVacancy> fillVacancy(String userRole) throws CustomExecutorException;
 }

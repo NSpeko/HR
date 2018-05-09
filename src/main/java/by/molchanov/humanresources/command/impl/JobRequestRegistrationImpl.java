@@ -25,8 +25,9 @@ public class JobRequestRegistrationImpl implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         String resume = requestHolder.getSingleRequestParameter(FIRST_INDEX, REQUEST_RESUME);
-        int vacancyId = Integer.valueOf(requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_ID));
+        int vacancyId = Integer.parseInt(requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_ID));
         User user = (User) requestHolder.getSessionAttribute(USER_INFO);
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         int userId = user.getId();
         JobRequestDTO jobRequestDTO = new JobRequestDTO();
         jobRequestDTO.setResume(resume);
@@ -35,7 +36,7 @@ public class JobRequestRegistrationImpl implements ConcreteCommand {
         List<JobVacancy> vacancies;
         try {
             REGISTRATION_EXECUTOR.requestSignUp(jobRequestDTO);
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

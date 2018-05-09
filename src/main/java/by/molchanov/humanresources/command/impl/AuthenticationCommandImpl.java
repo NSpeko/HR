@@ -26,9 +26,11 @@ public class AuthenticationCommandImpl implements ConcreteCommand {
         List<JobVacancy> vacancies;
         String email = requestHolder.getSingleRequestParameter(FIRST_POSITION, EMAIL);
         String password = requestHolder.getSingleRequestParameter(FIRST_POSITION, PASS);
+        String userRole;
         try {
             userDataDTO = AUTHENTICATION_EXECUTOR.checkUserAccessory(email, password);
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            userRole = userDataDTO.getRole();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

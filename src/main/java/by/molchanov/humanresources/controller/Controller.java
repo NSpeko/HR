@@ -42,7 +42,6 @@ public class Controller extends HttpServlet {
     }
 
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.hashCode());
         OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = requestHolder.getCommand();

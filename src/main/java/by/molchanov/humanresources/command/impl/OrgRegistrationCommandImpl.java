@@ -31,6 +31,7 @@ public class OrgRegistrationCommandImpl implements ConcreteCommand {
         String description = requestHolder.getSingleRequestParameter(FIRST_INDEX, DESCRIPTION);
         String type = requestHolder.getSingleRequestParameter(FIRST_INDEX, TYPE);
         User orgDirector = (User) requestHolder.getSessionAttribute(USER_INFO);
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         orgDataDTO.setName(name);
         orgDataDTO.setWebsite(website);
         orgDataDTO.setDescription(description);
@@ -38,7 +39,7 @@ public class OrgRegistrationCommandImpl implements ConcreteCommand {
         orgDataDTO.setOrgDirector(orgDirector);
         try {
             REGISTRATION_EXECUTOR.orgSignUp(orgDataDTO);
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

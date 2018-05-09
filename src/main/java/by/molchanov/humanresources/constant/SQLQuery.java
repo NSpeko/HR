@@ -45,6 +45,9 @@ public class SQLQuery {
 
 
     public static final String JOB_VACANCY_QUERY_SELECT = "SELECT jv_id, jv_organization_id, jv_name, jv_upload_date, jv_requirement, jv_status FROM job_vacancy ";
+    public static final String JOB_VACANCY_QUERY_SELECT_OPEN_VACANCY_CONTENT = "SELECT job_vacancy.jv_id, job_vacancy.jv_name, job_vacancy.jv_upload_date," +
+            " job_vacancy.jv_requirement, job_vacancy.jv_status, organization.o_name, organization.o_website \n" +
+            "FROM job_vacancy INNER JOIN organization ON organization.o_id = job_vacancy.jv_organization_id WHERE job_vacancy.jv_status = ?";
     public static final String JOB_VACANCY_QUERY_UPDATE = "UPDATE job_vacancy SET jv_organization_id = ?, jv_name = ?, jv_upload_date = ?," +
             " jv_requirement = ?, jv_status = ? WHERE jv_id = ?";
     public static final String JOB_VACANCY_QUERY_DELETE_BY_ID = "DELETE FROM job_vacancy WHERE jv_id = ?";

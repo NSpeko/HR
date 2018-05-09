@@ -52,7 +52,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     }
 
     @Override
-    public List<User> getUsersByEmailAndPassword(String email, String password) throws CustomDAOException {
+    public List<User> findUsersByEmailAndPassword(String email, String password) throws CustomDAOException {
         List<User> result;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;

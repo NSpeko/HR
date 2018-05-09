@@ -2,13 +2,12 @@ package by.molchanov.humanresources.dao.impl;
 
 import by.molchanov.humanresources.dao.AbstractDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.JobVacancyStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +22,40 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
 
     public static JobVacancyDAOImpl getInstance() {
         return JOB_REQUEST_DAO;
+    }
+
+    @Override
+    public List<JobVacancy> findOpenVacancyAndOrganizationInfo(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
+        List<JobVacancy> result = new ArrayList<>();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_OPEN_VACANCY_CONTENT)) {
+                statement.setString(1, jobVacancyStatusType.getValue());
+                try (ResultSet set = statement.executeQuery()) {
+                    JobVacancy jobVacancy;
+                    while (set.next()) {
+                        jobVacancy = new JobVacancy();
+                        jobVacancy.setId(set.getInt(JOB_VACANCY_FIELD_ID));
+                        jobVacancy.setName(set.getString(JOB_VACANCY_FIELD_NAME));
+                        jobVacancy.setOrganizationName(set.getString(ORGANIZATION_FIELD_NAME));
+                        jobVacancy.setOrganizationWebsite(set.getString(ORGANIZATION_FIELD_WEBSITE));
+                        jobVacancy.setUploadDate(set.getString(JOB_VACANCY_FIELD_UPLOAD_DATE));
+                        jobVacancy.setRequirement(set.getString(JOB_VACANCY_FIELD_REQUIREMENT));
+                        jobVacancy.setStatus(JobVacancyStatusType.valueOf(set.getString(JOB_VACANCY_FIELD_STATUS).toUpperCase()));
+                        result.add(jobVacancy);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException("SQL execute error!", e);
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return result;
     }
 
     @Override

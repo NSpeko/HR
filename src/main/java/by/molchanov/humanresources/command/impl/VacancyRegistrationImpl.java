@@ -26,6 +26,7 @@ public class VacancyRegistrationImpl implements ConcreteCommand {
         String vacancyName = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_NAME);
         String vacancyRequirement = requestHolder.getSingleRequestParameter(FIRST_INDEX, VACANCY_REQUIREMENT);
         Organization organization = (Organization) requestHolder.getSessionAttribute(USER_ORG_INFO);
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         VacancyDataDTO vacancyDataDTO = new VacancyDataDTO();
         vacancyDataDTO.setName(vacancyName);
         vacancyDataDTO.setRequirement(vacancyRequirement);
@@ -33,7 +34,7 @@ public class VacancyRegistrationImpl implements ConcreteCommand {
         List<JobVacancy> vacancies;
         try {
             REGISTRATION_EXECUTOR.vacancySignUp(vacancyDataDTO);
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

@@ -42,7 +42,7 @@ public class AuthenticationExecutorImpl implements AuthenticationExecutor {
         AESEncryption encryption = new AESEncryption();
         password = encryption.encryptionOfString(password);
         try {
-            List<User> users = USER_DAO.getUsersByEmailAndPassword(email, password);
+            List<User> users = USER_DAO.findUsersByEmailAndPassword(email, password);
             if (users.size() == PERMISSIBLE_VALUE) {
                 User user = users.get(FIRST_POSITION);
                 userDataDTO.setUserExemplar(user);

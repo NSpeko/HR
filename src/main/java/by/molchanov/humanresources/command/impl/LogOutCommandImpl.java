@@ -12,6 +12,7 @@ import by.molchanov.humanresources.executor.impl.LogOutExecutorImpl;
 
 import java.util.List;
 
+import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.ROLE;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.VACANCY_LIST;
 
 public class LogOutCommandImpl implements ConcreteCommand {
@@ -22,9 +23,10 @@ public class LogOutCommandImpl implements ConcreteCommand {
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         List<JobVacancy> vacancies;
         List<String> attributeForDelete;
+        String userRole = "";
         try {
             attributeForDelete = LOG_OUT_EXECUTOR.logOut();
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

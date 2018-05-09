@@ -29,6 +29,7 @@ public class UserRegistrationCommandImpl implements ConcreteCommand {
         String repeatPass = requestHolder.getSingleRequestParameter(FIRST_INDEX, REPEAT_PASS).trim();
         String firstName = requestHolder.getSingleRequestParameter(FIRST_INDEX, FIRST_NAME).trim();
         String lastName = requestHolder.getSingleRequestParameter(FIRST_INDEX, LAST_NAME).trim();
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         UserDataDTO userDataDTO = new UserDataDTO();
         userDataDTO.setEmail(email);
         userDataDTO.setPassword(password);
@@ -38,7 +39,7 @@ public class UserRegistrationCommandImpl implements ConcreteCommand {
         List<JobVacancy> vacancies;
         try {
             REGISTRATION_EXECUTOR.userSignUp(userDataDTO);
-            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy();
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }
