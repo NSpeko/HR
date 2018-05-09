@@ -1,4 +1,15 @@
 'use strict';
+class JobVacancy{
+    constructor(id,organizationId,name,uploadDate,requirement,status){
+        this.id=id;
+        this.organizationId=organizationId;
+        this.name=name;
+        this.uploadDate=uploadDate;
+        this.requirement=requirement;
+        this.status=status;
+    }
+}
+
 
 let slideIndex = 1;
 window.addEventListener('keydown', (event) => {

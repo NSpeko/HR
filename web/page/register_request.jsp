@@ -11,8 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<input class="form-control" type="hidden" name="command" value="request_registration"/>
-<label for="org-description">Descr</label>>
-<textarea class="form-control" id="org-description" name="resume" placeholder="Resume*" required rows="4" cols="50"></textarea>
+
 </body>
 </html>
