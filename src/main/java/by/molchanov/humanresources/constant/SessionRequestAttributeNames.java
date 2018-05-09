@@ -2,6 +2,7 @@ package by.molchanov.humanresources.constant;
 
 public class SessionRequestAttributeNames {
     public static final String COMMAND = "command";
+    public static final String HASH = "hash";
     public static final String EMAIL = "email";
     public static final String PASS = "password";
     public static final String REPEAT_PASS = "repeat_password";
