@@ -281,132 +281,64 @@
                     <th><fmt:message key="content.vacancy.more"/></th>
                 </c:if>
             </tr>
-            <script>
-                let myItems = [];
-            </script>
             <c:forEach items="${requestScope.vacancy_list}" var="vacancy">
-                <script>
-                    myItems.push(new JobVacancy('${vacancy.id}', '${vacancy.organizationId}', '${vacancy.name}', '${vacancy.uploadDate}', '${vacancy.requirement}', '${vacancy.status}'));
-                </script>
-            </c:forEach>
-            <script>
-                function showTableMembers() {
-                    for (let i = 0; i < 8; i++) {
-                        let $table = $('#vacancy-table');
-                        $table.append(`<tr><td>${myItems[i].name}</td>
-                    <td>${myItems[i].uploadDate}</td>
-                    <td>${myItems[i].requirement}</td>
+                <tr>
+
+                    <td>${vacancy.name}</td>
+                    <td>${vacancy.uploadDate}</td>
+                    <td>${vacancy.requirement}</td>
                     <c:if test="${sessionScope.role == 'aspirant'}">
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#vacancy-${myItems[i].id}-modal">
+                                    data-target="#vacancy-${vacancy.id}-modal">
                                 <fmt:message key="content.add.request"/>
                             </button>
 
                             <!-- The Modal -->
-                            <div class="modal fade" id="vacancy-${myItems[i].id}-modal">
-                            <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
+                            <div class="modal fade" id="vacancy-${vacancy.id}-modal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                            <h4 class="modal-title">
-                            <%--TODO: add local content--%>Modal Heading</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">
+                                                    <%--TODO: add local content--%>Modal Heading</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <form name="profileForm" method="POST" action="controller">
+                                            <input class="form-control" type="hidden" name="vacancy_id"
+                                                   value="${vacancy.id}"/>
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                    <%--TODO: add local content--%>
+                                                Modal body..
+                                                <input class="form-control" type="hidden" name="command"
+                                                       value="request_registration"/>
+                                                <label for="vacancy-${vacancy.id}-org-description">Descr</label>>
+                                                <textarea class="form-control"
+                                                          id="vacancy-${vacancy.id}-org-description" name="resume"
+                                                          placeholder="Resume*" required rows="4" cols="50"></textarea>
+                                                    <%--TODO: change form source--%>
+                                                    ${vacancy.requirement}
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <input class="btn btn-primary float-left" type="submit"
+                                                       value="<fmt:message key="content.button.submit"/>"/>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        <%--TODO: add local content--%>Close
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
                             </div>
-                            <form name="profileForm" method="POST" action="controller">
-                            <input class="form-control" type="hidden" name="vacancy_id"
-                            value="${myItems[i].id}"/>
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                            <%--TODO: add local content--%>
-                            Modal body..
-                            <input class="form-control" type="hidden" name="command"
-                            value="request_registration"/>
-                            <label for="vacancy-${myItems[i].id}-org-description">Descr</label>>
-                            <textarea class="form-control"
-                            id="vacancy-${myItems[i].id}-org-description" name="resume"
-                            placeholder="Resume*" required rows="4" cols="50"></textarea>
-                            <%--TODO: change form source--%>
-                            ${myItems[i].requirement}
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                            <input class="btn btn-primary float-left" type="submit"
-                            value="<fmt:message key="content.button.submit"/>"/>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <%--TODO: add local content--%>Close
-                            </button>
-                            </div>
-                            </form>
-
-                            </div>
-                            </div>
-                            </div>
-                            </td>
-                            </c:if>
-                            </tr>`);
-                            }
-                }
-                showTableMembers();
-            </script>
-            <%--<tr>--%>
-
-            <%--<td>${vacancy.name}</td>--%>
-            <%--<td>${vacancy.uploadDate}</td>--%>
-            <%--<td>${vacancy.requirement}</td>--%>
-            <%--<c:if test="${sessionScope.role == 'aspirant'}">--%>
-            <%--<td>--%>
-            <%--<button type="button" class="btn btn-primary" data-toggle="modal"--%>
-            <%--data-target="#vacancy-${vacancy.id}-modal">--%>
-            <%--<fmt:message key="content.add.request"/>--%>
-            <%--</button>--%>
-
-            <%--<!-- The Modal -->--%>
-            <%--<div class="modal fade" id="vacancy-${vacancy.id}-modal">--%>
-            <%--<div class="modal-dialog modal-dialog-centered">--%>
-            <%--<div class="modal-content">--%>
-
-            <%--<!-- Modal Header -->--%>
-            <%--<div class="modal-header">--%>
-            <%--<h4 class="modal-title">--%>
-            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;Modal Heading</h4>--%>
-            <%--<button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-            <%--</div>--%>
-            <%--<form name="profileForm" method="POST" action="controller">--%>
-            <%--<input class="form-control" type="hidden" name="vacancy_id"--%>
-            <%--value="${vacancy.id}"/>--%>
-            <%--<!-- Modal body -->--%>
-            <%--<div class="modal-body">--%>
-            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;--%>
-            <%--Modal body..--%>
-            <%--<input class="form-control" type="hidden" name="command"--%>
-            <%--value="request_registration"/>--%>
-            <%--<label for="vacancy-${vacancy.id}-org-description">Descr</label>>--%>
-            <%--<textarea class="form-control"--%>
-            <%--id="vacancy-${vacancy.id}-org-description" name="resume"--%>
-            <%--placeholder="Resume*" required rows="4" cols="50"></textarea>--%>
-            <%--&lt;%&ndash;TODO: change form source&ndash;%&gt;--%>
-            <%--${vacancy.requirement}--%>
-            <%--</div>--%>
-
-            <%--<!-- Modal footer -->--%>
-            <%--<div class="modal-footer">--%>
-            <%--<input class="btn btn-primary float-left" type="submit"--%>
-            <%--value="<fmt:message key="content.button.submit"/>"/>--%>
-            <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">--%>
-            <%--&lt;%&ndash;TODO: add local content&ndash;%&gt;Close--%>
-            <%--</button>--%>
-            <%--</div>--%>
-            <%--</form>--%>
-
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</div>--%>
-            <%--</td>--%>
-            <%--</c:if>--%>
-            <%--</tr>--%>
+                        </td>
+                    </c:if>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         <ul class="pagination text-center">
