@@ -13,11 +13,27 @@ import java.util.List;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.ROLE;
 import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.VACANCY_LIST;
 
-public class EmptyCommandImpl implements ConcreteCommand {
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillVacancyCommandImpl.getInstance();
+public class FillVacancyCommandImpl implements ConcreteCommand {
+    private static final FillVacancyCommandImpl FILL_VACANCY_COMMAND = new FillVacancyCommandImpl();
+    private static final FillVacancyExecutor FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
+
+    private FillVacancyCommandImpl() {
+
+    }
+
+    public static FillVacancyCommandImpl getInstance() {
+        return FILL_VACANCY_COMMAND;
+    }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        FILL_VACANCY_COMMAND.execute(requestHolder);
+        List<JobVacancy> vacancies;
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
+        try {
+            vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole);
+        } catch (CustomExecutorException e) {
+            throw new CustomBrokerException(e);
+        }
+        requestHolder.addRequestAttribute(VACANCY_LIST, vacancies);
     }
 }

@@ -220,11 +220,11 @@
                                 Lang
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#"><img
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_russian_locale"><img
                                         src="http://konsomejona.github.io/OctoMouse/images/flag_ru.png"/>Русский</a>
-                                <a class="dropdown-item" href="#"><img
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_english_locale"><img
                                         src="https://whitehousefoods.com/wp-content/themes/whitehouse/img/flag.gif">English</a>
-                                <a class="dropdown-item" href="#"><img
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_belorussian_locale"><img
                                         src="https://lipis.github.io/flag-icon-css/flags/4x3/by.svg">Беларускі</a>
                             </div>
                         </div>

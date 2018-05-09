@@ -98,6 +98,50 @@ public enum ConcreteCommandType {
         public ResponseType getResponseType() {
             return FORWARD;
         }
+    },
+    DELETE_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return null;
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    EST_BELORUSSIAN_LOCALE {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return new EstablishBelorussianLocaleCommandImpl();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    EST_RUSSIAN_LOCALE {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return new EstablishRussianLocaleICommandImpl();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    EST_ENGLISH_LOCALE {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return new EstablishEnglishLocaleCommandImpl();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
     };
 
     public abstract ConcreteCommand getConcreteCommandBroker();
