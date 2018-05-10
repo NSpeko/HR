@@ -220,11 +220,14 @@
                                 Lang
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_russian_locale"><img
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/controller?command=est_russian_locale"><img
                                         src="http://konsomejona.github.io/OctoMouse/images/flag_ru.png"/>Русский</a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_english_locale"><img
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/controller?command=est_english_locale"><img
                                         src="https://whitehousefoods.com/wp-content/themes/whitehouse/img/flag.gif">English</a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=est_belorussian_locale"><img
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/controller?command=est_belorussian_locale"><img
                                         src="https://lipis.github.io/flag-icon-css/flags/4x3/by.svg">Беларускі</a>
                             </div>
                         </div>
@@ -280,8 +283,6 @@
                 <th><fmt:message key="content.vacancy.name"/></th>
                 <th><fmt:message key="content.vacancy.date"/></th>
                 <th><fmt:message key="content.vacancy.requirement"/></th>
-                <th>1</th>
-                <th>2</th>
                 <c:choose>
                     <c:when test="${sessionScope.role == 'aspirant'}">
                         <th><fmt:message key="content.vacancy.more"/></th>
@@ -297,17 +298,14 @@
 
                     <td>${vacancy.name}</td>
                     <td>${vacancy.uploadDate}</td>
-                    <td>${vacancy.requirement}</td>
                     <td>${vacancy.organizationName}</td>
-                    <td>${vacancy.organizationWebsite}</td>
-                    <c:choose>
-                        <c:when test="${sessionScope.role == 'aspirant'}">
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#vacancy-${vacancy.id}-modal">
                                     <fmt:message key="content.add.request"/>
                                 </button>
-
+                                <c:choose>
+                                <c:when test="${sessionScope.role == 'aspirant'}">
                                 <!-- The Modal -->
                                 <div class="modal fade" id="vacancy-${vacancy.id}-modal">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -317,7 +315,8 @@
                                             <div class="modal-header">
                                                 <h4 class="modal-title">
                                                         <%--TODO: add local content--%>Modal Heading</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
                                             </div>
                                             <form name="profileForm" method="POST" action="controller">
                                                 <input class="form-control" type="hidden" name="vacancy_id"
@@ -325,22 +324,26 @@
                                                 <!-- Modal body -->
                                                 <div class="modal-body">
                                                         <%--TODO: add local content--%>
-                                                    Modal body..
+                                                    <h4>Requirements:</h4>
+                                                            <p>${vacancy.requirement}</p>
+                                                            <a href="${vacancy.organizationWebsite}">Go to their website</a>
+                                                            <br>
                                                     <input class="form-control" type="hidden" name="command"
                                                            value="request_registration"/>
                                                     <label for="vacancy-${vacancy.id}-org-description">Descr</label>>
                                                     <textarea class="form-control"
                                                               id="vacancy-${vacancy.id}-org-description" name="resume"
-                                                              placeholder="Resume*" required rows="4" cols="50"></textarea>
+                                                              placeholder="Resume*" required rows="4"
+                                                              cols="50"></textarea>
                                                         <%--TODO: change form source--%>
-                                                        ${vacancy.requirement}
                                                 </div>
 
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
                                                     <input class="btn btn-primary float-left" type="submit"
                                                            value="<fmt:message key="content.button.submit"/>"/>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
                                                             <%--TODO: add local content--%>Close
                                                     </button>
                                                 </div>
@@ -348,19 +351,59 @@
 
                                         </div>
                                     </div>
+                                    </c:when>
+                                    <c:when test="${sessionScope.role == 'admin'}">
+                                    <div class="modal fade" id="vacancy-${vacancy.id}-modal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">
+                                                            <%--TODO: add local content--%>Modal Heading</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                                    </button>
+                                                </div>
+                                                <form name="confirmForm" method="POST" action="controller">
+                                                    <input class="form-control" type="hidden" name="command" value="confirm_vacancy"/>
+                                                    <input class="form-control" type="hidden" name="vacancy_id" value="${vacancy.id}"/>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                            <%--TODO: add local content--%>
+                                                        <h4>Requirements:</h4>
+                                                        <p>${vacancy.requirement}</p>
+                                                        <a href="${vacancy.organizationWebsite}">Go to their website</a>
+                                                                <br>
+                                                                <input class="form-control" type="hidden" name="command"
+                                                               value="request_registration"/>
+                                                        <label for="vacancy-${vacancy.id}-org-description">Descr</label>>
+                                                        <textarea class="form-control"
+                                                                  id="vacancy-${vacancy.id}-org-description" name="resume"
+                                                                  placeholder="Resume*" required rows="4"
+                                                                  cols="50"></textarea>
+                                                            <%--TODO: change form source--%>
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+
+                                                        <input type="submit" class="btn btn-primary" value="ConfirmVac"/>
+                                                        <input type="submit" class="btn btn-danger" value="delete_vacancy"/>
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">
+                                                                <%--TODO: add local content--%>Close
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+                                    </c:when>
+                                    </c:choose>
                                 </div>
                             </td>
-                        </c:when>
-                        <c:when test="${sessionScope.role == 'admin'}">
-                            <td>
-                                <form name="confirmForm" method="POST" action="controller">
-                                    <input class="form-control" type="hidden" name="command" value="confirm_vacancy"/>
-                                    <input class="form-control" type="hidden" name="vacancy_id" value="${vacancy.id}"/>
-                                    <input type="submit" value="ConfirmVac"/>
-                                </form>
-                            </td>
-                        </c:when>
-                    </c:choose>
                 </tr>
             </c:forEach>
             </tbody>
