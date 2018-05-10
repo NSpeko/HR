@@ -2,29 +2,30 @@ package by.molchanov.humanresources.executor.impl;
 
 import by.molchanov.humanresources.dao.JobVacancyDAO;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
+import by.molchanov.humanresources.entity.JobRequest;
+import by.molchanov.humanresources.entity.JobRequestStatusType;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.JobVacancyStatusType;
-import by.molchanov.humanresources.entity.UserStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
-import by.molchanov.humanresources.executor.FillVacancyExecutor;
+import by.molchanov.humanresources.executor.FillContentExecutor;
 
 import java.util.List;
 
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.OPEN;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.NEW;
 
-public class FillVacancyExecutorImpl implements FillVacancyExecutor {
-    private static final FillVacancyExecutorImpl FILL_VACANCY_EXECUTOR = new FillVacancyExecutorImpl();
+public class FillContentExecutorImpl implements FillContentExecutor {
+    private static final FillContentExecutorImpl FILL_VACANCY_EXECUTOR = new FillContentExecutorImpl();
     private static final String ROLE_ADMIN = "admin";
 
     private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
 
-    private FillVacancyExecutorImpl() {
+    private FillContentExecutorImpl() {
 
     }
 
-    public static FillVacancyExecutorImpl getInstance() {
+    public static FillContentExecutorImpl getInstance() {
         return FILL_VACANCY_EXECUTOR;
     }
 
@@ -41,5 +42,16 @@ public class FillVacancyExecutorImpl implements FillVacancyExecutor {
             throw new CustomExecutorException(e);
         }
         return vacancies;
+    }
+
+    @Override
+    public List<JobRequest> fillRequest(String userRole, int organizationId) throws CustomExecutorException {
+        List<JobRequest> requests = null;
+//        try {
+//            requests = JOB_VACANCY_DAO.findOpenVacancyAndOrganizationInfo(jobVacancyStatusType);
+//        } catch (CustomDAOException e) {
+//            throw new CustomExecutorException(e);
+//        }
+        return requests;
     }
 }

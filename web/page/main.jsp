@@ -78,7 +78,7 @@
 
             <!-- Modal body -->
             <div class="modal-body ">
-                Описание
+                Очень хорошое место для Сереги
             </div>
 
             <!-- Modal footer -->
@@ -137,17 +137,17 @@
             <!-- Modal body -->
             <form name="profileForm" method="POST" action="controller">
                 <div class="modal-body ">
-                    <label for="user-profile-first-name"><fmt:message key="content.user.first.name"/></label>
-                    <input class="form-control" id="user-profile-first-name" type="text" name="user_profile_first_name" value=" ${sessionScope.user_info.firstName}"/>
-                    <label for="user-profile-last-name"><fmt:message key="content.user.last.name"/></label>>
-                    <input class="form-control" id="user-profile-last-name" type="text" name="user_profile_last_name" value=" ${sessionScope.user_info.lastName}"/>
-                    <label for="user-profile-email"><fmt:message key="content.user.email"/></label>>
-                    <input class="form-control" id="user-profile-email" type="email" name="user_profile_email" value=" ${sessionScope.user_info.email}"/>
-                    <%--<p><fmt:message key="content.user.first.name"/> - ${sessionScope.user_info.firstName}</p>--%>
-                    <%--<p><fmt:message key="content.user.last.name"/> - ${sessionScope.user_info.lastName}</p>--%>
-                    <%--<p><fmt:message key="content.user.email"/> - ${sessionScope.user_info.email}</p>--%>
+                    <%--<label for="user-profile-first-name"><fmt:message key="content.user.first.name"/></label>--%>
+                    <%--<input class="form-control" id="user-profile-first-name" type="text" name="user_profile_first_name" value=" ${sessionScope.user_info.firstName}"/>--%>
+                    <%--<label for="user-profile-last-name"><fmt:message key="content.user.last.name"/></label>>--%>
+                    <%--<input class="form-control" id="user-profile-last-name" type="text" name="user_profile_last_name" value=" ${sessionScope.user_info.lastName}"/>--%>
+                    <%--<label for="user-profile-email"><fmt:message key="content.user.email"/></label>>--%>
+                    <%--<input class="form-control" id="user-profile-email" type="email" name="user_profile_email" value=" ${sessionScope.user_info.email}"/>--%>
+                    <p><fmt:message key="content.user.first.name"/> - ${sessionScope.user_info.firstName}</p>
+                    <p><fmt:message key="content.user.last.name"/> - ${sessionScope.user_info.lastName}</p>
+                    <p><fmt:message key="content.user.email"/> - ${sessionScope.user_info.email}</p>
                     <p><fmt:message key="content.org.name"/> - ${sessionScope.user_org_info.name}</p>
-                    <p><fmt:message key="content.org.website"/> - ${sessionScope.user_org_info.website}</p>
+                        <p><fmt:message key="content.org.website"/> - <a href="${sessionScope.user_org_info.website}">Website</a></p>
                     <c:if test="${sessionScope.user_org_info == null}">
                         <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">
                             <fmt:message key="content.button.add.organization"/>

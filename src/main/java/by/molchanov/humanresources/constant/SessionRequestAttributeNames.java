@@ -12,6 +12,7 @@ public class SessionRequestAttributeNames {
     public static final String INFO_MESSAGE = "info";
     public static final String ROLE = "role";
     public static final String VACANCY_LIST = "vacancy_list";
+    public static final String REQUEST_LIST = "request_list";
     public static final String ORG_NAME = "org_name";
     public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
