@@ -31,7 +31,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
         Connection connection = null;
         try {
             connection = connectionPool.takeConnection();
-            try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_OPEN_VACANCY_CONTENT)) {
+            try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_VACANCY_CONTENT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
                 try (ResultSet set = statement.executeQuery()) {
                     JobVacancy jobVacancy;

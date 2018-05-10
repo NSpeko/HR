@@ -45,6 +45,7 @@ public class RequestHolder {
             session.setAttribute(HASH, currentHash);
             command = request.getParameter(COMMAND);
         }
+        System.out.println(command);
         while (sessionAttributeNames.hasMoreElements()) {
             retrievedName = sessionAttributeNames.nextElement();
             retrievedObject = session.getAttribute(retrievedName);

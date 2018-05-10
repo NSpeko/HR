@@ -5,8 +5,8 @@ import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
-import by.molchanov.humanresources.executor.FillVacancyExecutor;
-import by.molchanov.humanresources.executor.impl.FillVacancyExecutorImpl;
+import by.molchanov.humanresources.executor.FillContentExecutor;
+import by.molchanov.humanresources.executor.impl.FillContentExecutorImpl;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.
 
 public class FillVacancyCommandImpl implements ConcreteCommand {
     private static final FillVacancyCommandImpl FILL_VACANCY_COMMAND = new FillVacancyCommandImpl();
-    private static final FillVacancyExecutor FILL_VACANCY_EXECUTOR = FillVacancyExecutorImpl.getInstance();
+    private static final FillContentExecutor FILL_VACANCY_EXECUTOR = FillContentExecutorImpl.getInstance();
 
     private FillVacancyCommandImpl() {
 
