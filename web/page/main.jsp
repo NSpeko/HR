@@ -305,13 +305,13 @@
                     <td>${vacancy.name}</td>
                     <td>${vacancy.uploadDate}</td>
                     <td>${vacancy.organizationName}</td>
+                    <c:choose>
+                    <c:when test="${sessionScope.role == 'aspirant'}">
                             <td>
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#vacancy-${vacancy.id}-modal">
                                     <fmt:message key="content.add.request"/>
                                 </button>
-                                <c:choose>
-                                <c:when test="${sessionScope.role == 'aspirant'}">
                                 <!-- The Modal -->
                                 <div class="modal fade" id="vacancy-${vacancy.id}-modal">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -406,10 +406,10 @@
                                             </div>
                                         </div>
 
-                                    </c:when>
-                                    </c:choose>
                                 </div>
                             </td>
+                    </c:when>
+                    </c:choose>
                 </tr>
             </c:forEach>
             </tbody>
