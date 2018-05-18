@@ -20,7 +20,7 @@ import by.molchanov.humanresources.security.AESEncryption;
 
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.PropertyMessageVariablesNames.*;
+import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.*;
 import static by.molchanov.humanresources.validator.UserDataValidation.*;
 import static by.molchanov.humanresources.validator.OrganizationDataValidation.*;
 import static by.molchanov.humanresources.validator.VacancyRequestDataValidation.*;
@@ -44,13 +44,13 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
     @Override
     public void userSignUp(UserDataDTO userDataDTO) throws CustomExecutorException {
         AESEncryption encryption = new AESEncryption();
-        String email = userDataDTO.getEmail();
-        String password = userDataDTO.getPassword();
-        password = encryption.encryptionOfString(password).trim();
+        String email = userDataDTO.getUserExemplar().getEmail();
+        String password = userDataDTO.getUserExemplar().getPass();
+        password = encryption.encryptionOfString(password);
         String repeatPass = userDataDTO.getRepeatPassword();
-        repeatPass = encryption.encryptionOfString(repeatPass).trim();
-        String firstName = userDataDTO.getFirstName();
-        String lastName = userDataDTO.getLastName();
+        repeatPass = encryption.encryptionOfString(repeatPass);
+        String firstName = userDataDTO.getUserExemplar().getFirstName();
+        String lastName = userDataDTO.getUserExemplar().getLastName();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         try {
             List<User> users = USER_DAO.findAll();
@@ -74,9 +74,11 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
                 infoMessage = USER_REGISTRATION_NOT_SAME_PASS;
             } else {
                 UserStatusType userStatusType = UserStatusType.ASPIRANT;
-                User user = new User(email, password, firstName, lastName, userStatusType);
+                User user = userDataDTO.getUserExemplar();
+                user.setRole(userStatusType);
+                user.setPass(password);
                 user = USER_DAO.persist(user);
-                userDataDTO.setRole(userStatusType.getValue());
+                user.setRole(userStatusType);
                 userDataDTO.setUserExemplar(user);
             }
         } catch (CustomDAOException e) {
@@ -87,10 +89,10 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
 
     @Override
     public void orgSignUp(OrgDataDTO orgDataDTO) throws CustomExecutorException {
-        String name = orgDataDTO.getName();
-        String website = orgDataDTO.getWebsite();
-        String description = orgDataDTO.getDescription();
-        String type = orgDataDTO.getType().toUpperCase();
+        String name = orgDataDTO.getOrgDirector().getOrganization().getName();
+        String website = orgDataDTO.getOrgDirector().getOrganization().getWebsite();
+        String description = orgDataDTO.getOrgDirector().getOrganization().getDescription();
+        OrganizationType organizationType = orgDataDTO.getOrgDirector().getOrganization().getType();
         User user = orgDataDTO.getOrgDirector();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         if (!isOrgNameCorrect(name)) {
@@ -100,16 +102,13 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
         } else if (!isDescriptionCorrect(description)) {
             infoMessage = ORG_REGISTRATION_INCORRECT_DESCRIPTION;
         } else {
-            OrganizationType organizationType = OrganizationType.valueOf(type);
             Organization organization = new Organization(name, website, description, organizationType);
             try {
                 organization = ORGANIZATION_DAO.persist(organization);
-                user.setOrganizationId(organization.getId());
+                user.setOrganization(organization);
                 UserStatusType userType = UserStatusType.DIRECTOR;
                 user.setRole(userType);
                 USER_DAO.updateUserOrgIdRole(user);
-                orgDataDTO.setType(userType.getValue());
-                orgDataDTO.setOrganizationExemplar(organization);
             } catch (CustomDAOException e) {
                 throw new CustomExecutorException(e);
             }
@@ -119,18 +118,17 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
 
     @Override
     public void vacancySignUp(VacancyDataDTO vacancyDataDTO) throws CustomExecutorException {
-        String vacancyName = vacancyDataDTO.getName();
-        String vacancyRequirement = vacancyDataDTO.getRequirement();
-        Organization organization = vacancyDataDTO.getOrganization();
+        String vacancyName = vacancyDataDTO.getJobVacancy().getName();
+        String vacancyRequirement = vacancyDataDTO.getJobVacancy().getRequirement();
+        Organization organization = vacancyDataDTO.getJobVacancy().getOrganization();
         String infoMessage = VACANCY_SUCCESSFUL_REGISTRATION;
         if (!isVacancyNameCorrect(vacancyName)) {
             infoMessage = VACANCY_INCORRECT_NAME;
         } else if (!isRequirementCorrect(vacancyRequirement)) {
             infoMessage = VACANCY_INCORRECT_REQUIREMENT;
         } else {
-            int organizationId = organization.getId();
             JobVacancyStatusType statusType = JobVacancyStatusType.NEW;
-            JobVacancy jobVacancy = new JobVacancy(organizationId, vacancyName, vacancyRequirement, statusType);
+            JobVacancy jobVacancy = new JobVacancy(organization, vacancyName, vacancyRequirement, statusType);
             try {
                 JOB_VACANCY_DAO.persist(jobVacancy);
             } catch (CustomDAOException e) {
@@ -142,15 +140,14 @@ public class RegistrationExecutorImpl implements RegistrationExecutor {
 
     @Override
     public void requestSignUp(JobRequestDTO jobRequestDTO) throws CustomExecutorException {
-        String resume = jobRequestDTO.getResume();
-        int userId = jobRequestDTO.getUserId();
-        int vacancyId = jobRequestDTO.getVacancyId();
+        String resume = jobRequestDTO.getJobRequest().getResume();
+        JobRequest jobRequest = jobRequestDTO.getJobRequest();
         String infoMessage = USER_SUCCESSFUL_REGISTRATION;
         if (!isResumeCorrect(resume)) {
             infoMessage = REQUEST_INCORRECT_RESUME;
         } else {
             JobRequestStatusType status = JobRequestStatusType.NEW;
-            JobRequest jobRequest = new JobRequest(vacancyId, userId, resume, status);
+            jobRequest.setStatus(status);
             try {
                 JOB_REQUEST_DAO.persist(jobRequest);
             } catch (CustomDAOException e) {

@@ -10,20 +10,30 @@ import by.molchanov.humanresources.executor.impl.VacancyFilterExecutorImpl;
 
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
-public class VacancyFilterCommandImpl implements ConcreteCommand {
+public class VacancyFilterCommand implements ConcreteCommand {
+    private static final VacancyFilterCommand VACANCY_FILTER_COMMAND = new VacancyFilterCommand();
     private static final VacancyFilterExecutor VACANCY_FILTER_EXECUTOR = VacancyFilterExecutorImpl.getInstance();
     private static final int FIRST_INDEX = 0;
+
+    private VacancyFilterCommand() {
+
+    }
+
+    public static VacancyFilterCommand getInstance() {
+        return VACANCY_FILTER_COMMAND;
+    }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         String sortColumn = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_COL);
         String sortDirectionType = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_TYPE);
         String searchField = requestHolder.getSingleRequestParameter(FIRST_INDEX, SEARCH_FIELD);
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         List<JobVacancy> vacancies;
         try {
-            vacancies = VACANCY_FILTER_EXECUTOR.filterVacancy(sortColumn, sortDirectionType, searchField);
+            vacancies = VACANCY_FILTER_EXECUTOR.filterVacancy(sortColumn, sortDirectionType, searchField, userRole);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }

@@ -8,12 +8,22 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.AuthenticationExecutor;
 import by.molchanov.humanresources.executor.impl.AuthenticationExecutorImpl;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
-public class AuthenticationCommandImpl implements ConcreteCommand {
+public class AuthenticationCommand implements ConcreteCommand {
+    private static final AuthenticationCommand AUTHENTICATION_COMMAND = new AuthenticationCommand();
+
     private static final AuthenticationExecutor AUTHENTICATION_EXECUTOR = AuthenticationExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillVacancyCommandImpl.getInstance();
+    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
     private static final int FIRST_POSITION = 0;
+
+    private AuthenticationCommand() {
+
+    }
+
+    public static AuthenticationCommand getInstance() {
+        return AUTHENTICATION_COMMAND;
+    }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
@@ -22,13 +32,14 @@ public class AuthenticationCommandImpl implements ConcreteCommand {
         String password = requestHolder.getSingleRequestParameter(FIRST_POSITION, PASS);
         try {
             userDataDTO = AUTHENTICATION_EXECUTOR.checkUserAccessory(email, password);
+            if (userDataDTO.getUserExemplar() != null) {
+                requestHolder.addSessionAttribute(ROLE, userDataDTO.getUserExemplar().getRole().getValue());
+                requestHolder.addSessionAttribute(USER_INFO, userDataDTO.getUserExemplar());
+            }
             FILL_VACANCY_COMMAND.execute(requestHolder);
         } catch (CustomExecutorException e) {
             throw new CustomBrokerException(e);
         }
-        requestHolder.addSessionAttribute(ROLE, userDataDTO.getRole());
-        requestHolder.addSessionAttribute(USER_INFO, userDataDTO.getUserExemplar());
-        requestHolder.addSessionAttribute(USER_ORG_INFO, userDataDTO.getUserOrganizationInfo());
         requestHolder.addRequestAttribute(INFO_MESSAGE, userDataDTO.getInfoMessage());
     }
 }

@@ -5,7 +5,7 @@ import by.molchanov.humanresources.executor.LogOutExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.*;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.*;
 
 public class LogOutExecutorImpl implements LogOutExecutor {
     private static final LogOutExecutorImpl LOG_OUT_EXECUTOR = new LogOutExecutorImpl();
@@ -22,7 +22,6 @@ public class LogOutExecutorImpl implements LogOutExecutor {
         List<String> attributeForDelete = new ArrayList<>();
         attributeForDelete.add(ROLE);
         attributeForDelete.add(USER_INFO);
-        attributeForDelete.add(USER_ORG_INFO);
         return attributeForDelete;
     }
 }

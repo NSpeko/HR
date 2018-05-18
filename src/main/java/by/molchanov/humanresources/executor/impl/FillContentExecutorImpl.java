@@ -1,9 +1,10 @@
 package by.molchanov.humanresources.executor.impl;
 
+import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.entity.JobRequest;
-import by.molchanov.humanresources.entity.JobRequestStatusType;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.JobVacancyStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
@@ -20,6 +21,7 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     private static final String ROLE_ADMIN = "admin";
 
     private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
+    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
 
     private FillContentExecutorImpl() {
 
@@ -37,7 +39,7 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             jobVacancyStatusType = NEW;
         }
         try {
-            vacancies = JOB_VACANCY_DAO.findOpenVacancyAndOrganizationInfo(jobVacancyStatusType);
+            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -46,12 +48,12 @@ public class FillContentExecutorImpl implements FillContentExecutor {
 
     @Override
     public List<JobRequest> fillRequest(String userRole, int organizationId) throws CustomExecutorException {
-        List<JobRequest> requests = null;
-//        try {
-//            requests = JOB_VACANCY_DAO.findOpenVacancyAndOrganizationInfo(jobVacancyStatusType);
-//        } catch (CustomDAOException e) {
-//            throw new CustomExecutorException(e);
-//        }
+        List<JobRequest> requests;
+        try {
+            requests = JOB_REQUEST_DAO.findRequestByTypeRole(userRole, organizationId);
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException(e);
+        }
         return requests;
     }
 }

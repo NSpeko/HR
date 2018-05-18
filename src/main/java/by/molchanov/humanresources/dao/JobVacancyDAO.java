@@ -7,5 +7,5 @@ import by.molchanov.humanresources.exception.CustomDAOException;
 import java.util.List;
 
 public interface JobVacancyDAO extends OverallDAO<JobVacancy> {
-    List<JobVacancy> findOpenVacancyAndOrganizationInfo(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException;
+    List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException;
 }

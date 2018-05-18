@@ -14,25 +14,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ResourceBundle;
-
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.COMMAND;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("page_location");
-    private static final String MAIN_PAGE = RESOURCE_BUNDLE.getString("page.location.main");
-    private static final String ERROR_PAGE = RESOURCE_BUNDLE.getString("page.location.error");
+    private static final String MAIN_PAGE = AddressPageConfiguration.getInstance().getMainPageAddress();
+    private static final String ERROR_PAGE = AddressPageConfiguration.getInstance().getErrorPageAddress();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         handleRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         handleRequest(request, response);
     }
 
@@ -41,7 +37,7 @@ public class Controller extends HttpServlet {
         ConnectionPool.getInstance().closePool();
     }
 
-    private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
         String requestCommand = requestHolder.getCommand();
@@ -54,19 +50,15 @@ public class Controller extends HttpServlet {
             LOGGER.warn(e.getMessage(), e);
             responseType = ResponseType.REDIRECT;
         }
-        try {
-            switch (responseType) {
-                case FORWARD:
-                    getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
-                    break;
-                case REDIRECT:
-                    response.sendRedirect(request.getContextPath() + ERROR_PAGE);
-                    break;
-                default:
-                    response.sendRedirect(request.getContextPath() + ERROR_PAGE);
-            }
-        } catch (ServletException | IOException e) {
-            LOGGER.fatal("Fatal servlet error!");
+        switch (responseType) {
+            case FORWARD:
+                getServletContext().getRequestDispatcher(MAIN_PAGE).forward(request, response);
+                break;
+            case REDIRECT:
+                response.sendRedirect(request.getContextPath() + ERROR_PAGE);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + ERROR_PAGE);
         }
     }
 }

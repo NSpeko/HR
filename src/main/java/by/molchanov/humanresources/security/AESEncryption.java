@@ -16,7 +16,6 @@ import java.security.NoSuchAlgorithmException;
 public class AESEncryption {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final int AES_KEY_LENGTH = 16;
-//    private static final int
     private static final int FIRST_SYMBOL_POSITION = 0;
     private static final String ENCRYPTION_TYPE = "AES";
 

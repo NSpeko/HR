@@ -4,18 +4,16 @@ import by.molchanov.humanresources.exception.CustomBrokerException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 import java.util.*;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.COMMAND;
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.HASH;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.HASH;
 
 public class RequestHolder {
     private static final int PRIMARY_HASH = 0;
     private Map<String, Object> requestAttribute = new HashMap<>();
     private Map<String, Object> sessionAttribute = new HashMap<>();
     private Map<String, String[]> requestParameter = new HashMap<>();
-    private List<String> sessionAttributeForDelete = new ArrayList<>();
     private String command;
 
     public RequestHolder(HttpServletRequest request) {
@@ -45,7 +43,6 @@ public class RequestHolder {
             session.setAttribute(HASH, currentHash);
             command = request.getParameter(COMMAND);
         }
-        System.out.println(command);
         while (sessionAttributeNames.hasMoreElements()) {
             retrievedName = sessionAttributeNames.nextElement();
             retrievedObject = session.getAttribute(retrievedName);
@@ -84,8 +81,7 @@ public class RequestHolder {
 
     public void removeSessionAttribute(String ... attributeForDelete) {
         for (String attribute: attributeForDelete) {
-            sessionAttributeForDelete.add(attribute);
-            sessionAttribute.remove(attribute);
+            sessionAttribute.put(attribute, null);
         }
     }
 
@@ -98,9 +94,7 @@ public class RequestHolder {
             request.setAttribute(key, value);
         }
         HttpSession session = request.getSession();
-        for (String attributeForDelete: sessionAttributeForDelete) {
-            session.removeAttribute(attributeForDelete);
-        }
+
         for (Map.Entry<String, Object> attribute : sessionAttribute.entrySet()) {
             key = attribute.getKey();
             value = attribute.getValue();

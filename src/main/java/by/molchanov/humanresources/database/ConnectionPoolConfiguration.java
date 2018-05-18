@@ -1,4 +1,4 @@
-package by.molchanov.humanresources.resource;
+package by.molchanov.humanresources.database;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConnectionPoolConfiguration {
+class ConnectionPoolConfiguration {
+    private static final ConnectionPoolConfiguration connectionPoolConfiguration = new ConnectionPoolConfiguration();
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String DB_CONFIGURATION_FILE_NAME = "db_configuration.properties";
@@ -16,7 +17,7 @@ public class ConnectionPoolConfiguration {
     private int poolSize;
     private String url;
 
-    public ConnectionPoolConfiguration() {
+    private ConnectionPoolConfiguration() {
         Properties properties = new Properties();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(DB_CONFIGURATION_FILE_NAME)) {
             properties.load(inputStream);
@@ -29,19 +30,23 @@ public class ConnectionPoolConfiguration {
         }
     }
 
-    public String getUser() {
+    static ConnectionPoolConfiguration getInstance() {
+        return connectionPoolConfiguration;
+    }
+
+    String getUser() {
         return user;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 
-    public int getPoolSize() {
+    int getPoolSize() {
         return poolSize;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 }

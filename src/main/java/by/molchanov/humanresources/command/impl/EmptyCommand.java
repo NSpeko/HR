@@ -4,15 +4,20 @@ import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.LOCALE;
+public class EmptyCommand implements ConcreteCommand {
+    private static final EmptyCommand EMPTY_COMMAND = new EmptyCommand();
+    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
 
-public class EstablishEnglishLocaleCommandImpl implements ConcreteCommand {
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillVacancyCommandImpl.getInstance();
-    private static final String ENGLISH_LOCALE = "en_US";
+    private EmptyCommand() {
+
+    }
+
+    public static EmptyCommand getInstance() {
+        return EMPTY_COMMAND;
+    }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         FILL_VACANCY_COMMAND.execute(requestHolder);
-        requestHolder.addSessionAttribute(LOCALE, ENGLISH_LOCALE);
     }
 }

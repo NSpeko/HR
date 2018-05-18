@@ -7,13 +7,22 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.ConfirmExecutor;
 import by.molchanov.humanresources.executor.impl.ConfirmExecutorImpl;
 
-import static by.molchanov.humanresources.constant.SessionRequestAttributeNames.VACANCY_ID;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.VACANCY_ID;
 
-public class ConfirmVacancyImpl implements ConcreteCommand {
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillVacancyCommandImpl.getInstance();
+public class ConfirmRequestCommand implements ConcreteCommand {
+    private static final ConfirmRequestCommand CONFIRM_REQUEST_COMMAND = new ConfirmRequestCommand();
+    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
     private static final ConfirmExecutor CONFIRM_EXECUTOR = ConfirmExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
+
+    private ConfirmRequestCommand() {
+
+    }
+
+    public static ConfirmRequestCommand getInstance() {
+        return CONFIRM_REQUEST_COMMAND;
+    }
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {

@@ -1,6 +1,6 @@
-package by.molchanov.humanresources.constant;
+package by.molchanov.humanresources.dao;
 
-public class SQLQuery {
+public class SQLQueryVariable {
     public static final String USER_QUERY_SELECT = "SELECT u_id, u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id FROM user ";
     public static final String USER_QUERY_UPDATE = "UPDATE user SET u_email = ?, u_role = ?, u_password = ?, u_firstname = ?," +
@@ -34,6 +34,14 @@ public class SQLQuery {
     public static final String JOB_REQUEST_QUERY_SELECT = "SELECT jr_id, jr_job_vacancy_id, jr_user_id, jr_resume, jr_status FROM job_request ";
     public static final String JOB_REQUEST_QUERY_UPDATE = "UPDATE job_request SET jr_job_vacancy_id = ?, jr_user_id = ?," +
             " jr_resume = ?, jr_status = ? WHERE jr_id = ?";
+    public static final String JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT_FOR_DIRECTOR = "SELECT user.u_id, job_request.jr_id, user.u_email, job_request.jr_resume, job_vacancy.jv_name " +
+            "FROM (job_request   INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id )   " +
+            "INNER JOIN user ON job_request.jr_user_id = user.u_id " +
+            " WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ?";
+    public static final String JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT_FOR_ADMIN = "SELECT user.u_id, job_request.jr_id, user.u_email, job_request.jr_resume, job_vacancy.jv_name " +
+            "FROM (job_request   INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id )   " +
+            "INNER JOIN user ON job_request.jr_user_id = user.u_id " +
+            " WHERE job_request.jr_status = ?";
     public static final String JOB_REQUEST_QUERY_DELETE_BY_ID = "DELETE FROM job_request WHERE jr_id = ?";
     public static final String JOB_REQUEST_QUERY_CREATE = "INSERT INTO job_request (jr_job_vacancy_id, jr_user_id, jr_resume, jr_status)" +
             " VALUES (?, ?, ?, ?)";
@@ -60,5 +68,5 @@ public class SQLQuery {
     public static final String JOB_VACANCY_FIELD_REQUIREMENT = "jv_requirement";
     public static final String JOB_VACANCY_FIELD_STATUS = "jv_status";
 
-    private SQLQuery() {}
+    private SQLQueryVariable() {}
 }

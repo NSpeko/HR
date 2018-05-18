@@ -1,27 +1,18 @@
 package by.molchanov.humanresources.dto;
 
+import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.Organization;
 
 public class VacancyDataDTO {
-    private String name;
-    private String requirement;
+    private JobVacancy jobVacancy;
     private String infoMessage;
-    private Organization organization;
 
-    public String getName() {
-        return name;
+    public JobVacancy getJobVacancy() {
+        return jobVacancy;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRequirement() {
-        return requirement;
-    }
-
-    public void setRequirement(String requirement) {
-        this.requirement = requirement;
+    public void setJobVacancy(JobVacancy jobVacancy) {
+        this.jobVacancy = jobVacancy;
     }
 
     public String getInfoMessage() {
@@ -30,13 +21,5 @@ public class VacancyDataDTO {
 
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
 }

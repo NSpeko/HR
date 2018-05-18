@@ -5,33 +5,29 @@ import java.util.Comparator;
 
 public class JobVacancy implements Serializable {
     private int id;
-    private int organizationId;
+    private Organization organization;
     private String name;
     private String uploadDate;
     private String requirement;
     private JobVacancyStatusType status;
-    private String organizationName;
-    private String organizationWebsite;
 
     public JobVacancy() {
     }
 
-    public JobVacancy(int organizationId, String name, String requirement, JobVacancyStatusType status) {
-        this.organizationId = organizationId;
+    public JobVacancy(Organization organization, String name, String requirement, JobVacancyStatusType status) {
+        this.organization = organization;
         this.name = name;
         this.requirement = requirement;
         this.status = status;
     }
 
-    public JobVacancy(int id, int organizationId, String name, String uploadDate, String requirement, JobVacancyStatusType status, String organizationName, String organizationWebsite) {
+    public JobVacancy(int id, Organization organization, String name, String uploadDate, String requirement, JobVacancyStatusType status) {
         this.id = id;
-        this.organizationId = organizationId;
+        this.organization = organization;
         this.name = name;
         this.uploadDate = uploadDate;
         this.requirement = requirement;
         this.status = status;
-        this.organizationName = organizationName;
-        this.organizationWebsite = organizationWebsite;
     }
 
     public static Comparator<JobVacancy> COMPARE_BY_NAME = (o1, o2) -> {
@@ -51,9 +47,9 @@ public class JobVacancy implements Serializable {
     };
 
     public static Comparator<JobVacancy> COMPARE_BY_ORG_NAME = (o1, o2) -> {
-        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getOrganizationName(), o2.getOrganizationName());
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getOrganization().getName(), o2.getOrganization().getName());
         if (res == 0) {
-            res = o1.getOrganizationName().compareTo(o2.getOrganizationName());
+            res = o1.getOrganization().getName().compareTo(o2.getOrganization().getName());
         }
         return res;
     };
@@ -66,12 +62,12 @@ public class JobVacancy implements Serializable {
         this.id = id;
     }
 
-    public int getOrganizationId() {
-        return organizationId;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     public String getName() {
@@ -106,22 +102,6 @@ public class JobVacancy implements Serializable {
         this.status = status;
     }
 
-    public String getOrganizationName() {
-        return organizationName;
-    }
-
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
-    }
-
-    public String getOrganizationWebsite() {
-        return organizationWebsite;
-    }
-
-    public void setOrganizationWebsite(String organizationWebsite) {
-        this.organizationWebsite = organizationWebsite;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,26 +110,21 @@ public class JobVacancy implements Serializable {
         JobVacancy that = (JobVacancy) o;
 
         if (id != that.id) return false;
-        if (organizationId != that.organizationId) return false;
+        if (organization != null ? !organization.equals(that.organization) : that.organization != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (uploadDate != null ? !uploadDate.equals(that.uploadDate) : that.uploadDate != null) return false;
         if (requirement != null ? !requirement.equals(that.requirement) : that.requirement != null) return false;
-        if (status != that.status) return false;
-        if (organizationName != null ? !organizationName.equals(that.organizationName) : that.organizationName != null)
-            return false;
-        return organizationWebsite != null ? organizationWebsite.equals(that.organizationWebsite) : that.organizationWebsite == null;
+        return status == that.status;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + organizationId;
+        result = 31 * result + (organization != null ? organization.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (uploadDate != null ? uploadDate.hashCode() : 0);
         result = 31 * result + (requirement != null ? requirement.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (organizationName != null ? organizationName.hashCode() : 0);
-        result = 31 * result + (organizationWebsite != null ? organizationWebsite.hashCode() : 0);
         return result;
     }
 
@@ -157,13 +132,11 @@ public class JobVacancy implements Serializable {
     public String toString() {
         return "JobVacancy{" +
                 "id=" + id +
-                ", organizationId=" + organizationId +
+                ", organization=" + organization +
                 ", name='" + name + '\'' +
                 ", uploadDate='" + uploadDate + '\'' +
                 ", requirement='" + requirement + '\'' +
                 ", status=" + status +
-                ", organizationName='" + organizationName + '\'' +
-                ", organizationWebsite='" + organizationWebsite + '\'' +
                 '}';
     }
 }

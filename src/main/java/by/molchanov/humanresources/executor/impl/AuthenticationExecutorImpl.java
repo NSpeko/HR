@@ -14,8 +14,8 @@ import by.molchanov.humanresources.security.AESEncryption;
 
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.PropertyMessageVariablesNames.UNKNOWN_USER;
-import static by.molchanov.humanresources.constant.PropertyMessageVariablesNames.USER_AUTHENTICATION_SUCCESSFUL;
+import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.UNKNOWN_USER;
+import static by.molchanov.humanresources.executor.PropertyMessageVariablesName.USER_AUTHENTICATION_SUCCESSFUL;
 
 public class AuthenticationExecutorImpl implements AuthenticationExecutor {
     private static final AuthenticationExecutorImpl AUTHENTICATION_EXECUTOR = new AuthenticationExecutorImpl();
@@ -46,10 +46,9 @@ public class AuthenticationExecutorImpl implements AuthenticationExecutor {
             if (users.size() == PERMISSIBLE_VALUE) {
                 User user = users.get(FIRST_POSITION);
                 userDataDTO.setUserExemplar(user);
-                userDataDTO.setRole(user.getRole().getValue());
-                if (user.getOrganizationId() != EMPTY_ORG_ID) {
-                    Organization organization = ORGANIZATION_DAO.findById(user.getOrganizationId());
-                    userDataDTO.setUserOrganizationInfo(organization);
+                if (user.getOrganization().getId() != EMPTY_ORG_ID) {
+                    Organization organization = ORGANIZATION_DAO.findById(user.getOrganization().getId());
+                    userDataDTO.getUserExemplar().setOrganization(organization);
                 }
             } else {
                 infoMessage = UNKNOWN_USER;

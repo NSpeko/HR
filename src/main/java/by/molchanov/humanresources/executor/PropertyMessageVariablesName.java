@@ -1,6 +1,6 @@
-package by.molchanov.humanresources.constant;
+package by.molchanov.humanresources.executor;
 
-public class PropertyMessageVariablesNames {
+public class PropertyMessageVariablesName {
     public static final String UNKNOWN_USER = "content.information.unknown.user";
     public static final String USER_AUTHENTICATION_SUCCESSFUL = "content.information.successful.authentication";
     public static final String USER_REGISTRATION_INCORRECT_EMAIL = "content.information.user.registration.incorrect.email";
@@ -17,5 +17,5 @@ public class PropertyMessageVariablesNames {
     public static final String VACANCY_INCORRECT_NAME = "content.information.vacancy.incorrect.name";
     public static final String REQUEST_INCORRECT_RESUME = "content.information.request.incorrect.resume";
 
-    private PropertyMessageVariablesNames() {}
+    private PropertyMessageVariablesName() {}
 }

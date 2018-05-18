@@ -1,6 +1,5 @@
 package by.molchanov.humanresources.dao.impl;
 
-import by.molchanov.humanresources.dao.AbstractDAO;
 import by.molchanov.humanresources.dao.OrganizationDAO;
 import by.molchanov.humanresources.entity.Organization;
 import by.molchanov.humanresources.entity.OrganizationType;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.SQLQuery.*;
+import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
 public class OrganizationDAOImpl extends AbstractDAO<Organization> implements OrganizationDAO {
     private static final OrganizationDAOImpl ORGANIZATION_DAO = new OrganizationDAOImpl();
@@ -26,27 +25,27 @@ public class OrganizationDAOImpl extends AbstractDAO<Organization> implements Or
     }
 
     @Override
-    public String getSelectQueryBase() {
+    String getSelectQueryBase() {
         return ORGANIZATION_QUERY_SELECT;
     }
 
     @Override
-    public String getUpdateQueryBase() {
+    String getUpdateQueryBase() {
         return ORGANIZATION_QUERY_UPDATE;
     }
 
     @Override
-    public String getDeleteQueryBase() {
+    String getDeleteQueryBase() {
         return ORGANIZATION_QUERY_DELETE_BY_ID;
     }
 
     @Override
-    public String getCreateQueryBase() {
+    String getCreateQueryBase() {
         return ORGANIZATION_QUERY_CREATE;
     }
 
     @Override
-    public void preparedStatementForUpdate(PreparedStatement statement, Organization object) throws CustomDAOException {
+    void preparedStatementForUpdate(PreparedStatement statement, Organization object) throws CustomDAOException {
         try {
             statement.setString(1, object.getName());
             statement.setString(2, object.getWebsite());
@@ -59,7 +58,7 @@ public class OrganizationDAOImpl extends AbstractDAO<Organization> implements Or
     }
 
     @Override
-    public void preparedStatementForDelete(PreparedStatement statement, Organization object) throws CustomDAOException {
+    void preparedStatementForDelete(PreparedStatement statement, Organization object) throws CustomDAOException {
         try {
             statement.setInt(1, object.getId());
         } catch (SQLException e) {
@@ -68,7 +67,7 @@ public class OrganizationDAOImpl extends AbstractDAO<Organization> implements Or
     }
 
     @Override
-    public void preparedStatementForInsert(PreparedStatement statement, Organization object) throws CustomDAOException {
+    void preparedStatementForInsert(PreparedStatement statement, Organization object) throws CustomDAOException {
         try {
             statement.setString(1, object.getName());
             statement.setString(2, object.getWebsite());
@@ -80,12 +79,12 @@ public class OrganizationDAOImpl extends AbstractDAO<Organization> implements Or
     }
 
     @Override
-    public String getPKName() {
+    String getPKName() {
         return ORGANIZATION_FIELD_ID;
     }
 
     @Override
-    public List<Organization> parseResultSet(ResultSet set) throws CustomDAOException {
+    List<Organization> parseResultSet(ResultSet set) throws CustomDAOException {
         List<Organization> result = new ArrayList<>();
         Organization organization;
         try {
@@ -105,7 +104,7 @@ public class OrganizationDAOImpl extends AbstractDAO<Organization> implements Or
     }
 
     @Override
-    public boolean objectHasId(Organization object) {
+    boolean objectHasId(Organization object) {
         return object.getId() != 0;
     }
 }

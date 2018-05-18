@@ -1,5 +1,6 @@
-package by.molchanov.humanresources.dao;
+package by.molchanov.humanresources.dao.impl;
 
+import by.molchanov.humanresources.dao.OverallDAO;
 import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
@@ -11,32 +12,27 @@ import java.util.List;
 
 public abstract class AbstractDAO<T> implements OverallDAO<T> {
 
-    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    public abstract String getSelectQueryBase();
+    abstract String getSelectQueryBase();
 
-    public abstract String getUpdateQueryBase();
+    abstract String getUpdateQueryBase();
 
-    public abstract String getDeleteQueryBase();
+    abstract String getDeleteQueryBase();
 
-    public abstract String getCreateQueryBase();
+    abstract String getCreateQueryBase();
 
-    public abstract void preparedStatementForUpdate(PreparedStatement statement, T object) throws CustomDAOException;
+    abstract void preparedStatementForUpdate(PreparedStatement statement, T object) throws CustomDAOException;
 
-    public abstract void preparedStatementForDelete(PreparedStatement statement, T object) throws CustomDAOException;
+    abstract void preparedStatementForDelete(PreparedStatement statement, T object) throws CustomDAOException;
 
-    public abstract void preparedStatementForInsert(PreparedStatement statement, T object) throws CustomDAOException;
+    abstract void preparedStatementForInsert(PreparedStatement statement, T object) throws CustomDAOException;
 
-    public abstract String getPKName();
+    abstract String getPKName();
 
-    public abstract List<T> parseResultSet(ResultSet set) throws CustomDAOException;
+    abstract List<T> parseResultSet(ResultSet set) throws CustomDAOException;
 
-    public abstract boolean objectHasId(T object);
-
-    @Override
-    public T create() {
-        return null;
-    }
+    abstract boolean objectHasId(T object);
 
     @Override
     public T findById(int id) throws CustomDAOException {

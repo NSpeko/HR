@@ -1,6 +1,6 @@
-package by.molchanov.humanresources.constant;
+package by.molchanov.humanresources.command;
 
-public class SessionRequestAttributeNames {
+public class SessionRequestAttributeName {
     public static final String COMMAND = "command";
     public static final String LOCALE = "locale";
     public static final String HASH = "hash";
@@ -20,13 +20,15 @@ public class SessionRequestAttributeNames {
     public static final String SORT_COL = "sort_col";
     public static final String SORT_TYPE = "sort_type";
     public static final String SEARCH_FIELD = "search_field";
-    public static final String USER_ORG_INFO = "user_org_info";
     public static final String USER_INFO = "user_info";
     public static final String VACANCY_NAME = "vacancy_name";
     public static final String VACANCY_REQUIREMENT = "vacancy_requirement";
     public static final String REQUEST_RESUME = "resume";
     public static final String VACANCY_ID = "vacancy_id";
+    public static final String REQUEST_ID = "request_id";
+    public static final String ANSWER_MESSAGE = "answer_message";
+    public static final String ASPIRANT_EMAIL = "aspirant_EMAIL";
 
-    private SessionRequestAttributeNames() {}
+    private SessionRequestAttributeName() {}
 
 }

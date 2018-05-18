@@ -1,10 +1,10 @@
 package by.molchanov.humanresources.dao.impl;
 
-import by.molchanov.humanresources.dao.AbstractDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
 import by.molchanov.humanresources.database.ConnectionPool;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.JobVacancyStatusType;
+import by.molchanov.humanresources.entity.Organization;
 import by.molchanov.humanresources.exception.CustomDAOException;
 
 import java.sql.*;
@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static by.molchanov.humanresources.constant.SQLQuery.*;
+import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
 public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVacancyDAO {
     private static final JobVacancyDAOImpl JOB_REQUEST_DAO = new JobVacancyDAOImpl();
+
+    private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     private JobVacancyDAOImpl() {}
 
@@ -25,7 +27,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public List<JobVacancy> findOpenVacancyAndOrganizationInfo(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
+    public List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
         List<JobVacancy> result = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
@@ -39,8 +41,10 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
                         jobVacancy = new JobVacancy();
                         jobVacancy.setId(set.getInt(JOB_VACANCY_FIELD_ID));
                         jobVacancy.setName(set.getString(JOB_VACANCY_FIELD_NAME));
-                        jobVacancy.setOrganizationName(set.getString(ORGANIZATION_FIELD_NAME));
-                        jobVacancy.setOrganizationWebsite(set.getString(ORGANIZATION_FIELD_WEBSITE));
+                        Organization organization = new Organization();
+                        jobVacancy.setOrganization(organization);
+                        jobVacancy.getOrganization().setName(set.getString(ORGANIZATION_FIELD_NAME));
+                        jobVacancy.getOrganization().setWebsite(set.getString(ORGANIZATION_FIELD_WEBSITE));
                         jobVacancy.setUploadDate(set.getString(JOB_VACANCY_FIELD_UPLOAD_DATE));
                         jobVacancy.setRequirement(set.getString(JOB_VACANCY_FIELD_REQUIREMENT));
                         jobVacancy.setStatus(JobVacancyStatusType.valueOf(set.getString(JOB_VACANCY_FIELD_STATUS).toUpperCase()));
@@ -59,32 +63,33 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public String getSelectQueryBase() {
+    String getSelectQueryBase() {
         return JOB_VACANCY_QUERY_SELECT;
     }
 
     @Override
-    public String getUpdateQueryBase() {
+    String getUpdateQueryBase() {
         return JOB_VACANCY_QUERY_UPDATE;
     }
 
     @Override
-    public String getDeleteQueryBase() {
+    String getDeleteQueryBase() {
         return JOB_VACANCY_QUERY_DELETE_BY_ID;
     }
 
     @Override
-    public String getCreateQueryBase() {
+    String getCreateQueryBase() {
         return JOB_VACANCY_QUERY_CREATE;
     }
 
     @Override
-    public void preparedStatementForUpdate(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
+    void preparedStatementForUpdate(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
         try {
-            statement.setInt(1, object.getOrganizationId());
+
+            statement.setInt(1, object.getOrganization().getId());
             statement.setString(2, object.getName());
             statement.setString(4, object.getRequirement());
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            String timeStamp = new SimpleDateFormat(DATE_PATTERN).format(Calendar.getInstance().getTime());
             object.setUploadDate(timeStamp);
             statement.setString(3, timeStamp);
             statement.setString(5, object.getStatus().getValue());
@@ -95,7 +100,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public void preparedStatementForDelete(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
+    void preparedStatementForDelete(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
         try {
             statement.setInt(1, object.getId());
         } catch (SQLException e) {
@@ -104,11 +109,11 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public void preparedStatementForInsert(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
+    void preparedStatementForInsert(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
         try {
-            statement.setInt(1, object.getOrganizationId());
+            statement.setInt(1, object.getOrganization().getId());
             statement.setString(2, object.getName());
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            String timeStamp = new SimpleDateFormat(DATE_PATTERN).format(Calendar.getInstance().getTime());
             object.setUploadDate(timeStamp);
             statement.setString(3, timeStamp);
             statement.setString(4, object.getRequirement());
@@ -119,12 +124,12 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public String getPKName() {
+    String getPKName() {
         return JOB_VACANCY_FIELD_ID;
     }
 
     @Override
-    public List<JobVacancy> parseResultSet(ResultSet set) throws CustomDAOException {
+    List<JobVacancy> parseResultSet(ResultSet set) throws CustomDAOException {
         List<JobVacancy> result = new ArrayList<>();
         JobVacancy jobVacancy;
         try {
@@ -132,7 +137,9 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
                 jobVacancy = new JobVacancy();
                 jobVacancy.setId(set.getInt(JOB_VACANCY_FIELD_ID));
                 jobVacancy.setName(set.getString(JOB_VACANCY_FIELD_NAME));
-                jobVacancy.setOrganizationId(set.getInt(JOB_VACANCY_FIELD_ORGANIZATION_ID));
+                Organization organization = new Organization();
+                organization.setId(set.getInt(JOB_VACANCY_FIELD_ORGANIZATION_ID));
+                jobVacancy.setOrganization(organization);
                 jobVacancy.setUploadDate(set.getString(JOB_VACANCY_FIELD_UPLOAD_DATE));
                 jobVacancy.setRequirement(set.getString(JOB_VACANCY_FIELD_REQUIREMENT));
                 jobVacancy.setStatus(JobVacancyStatusType.valueOf(set.getString(JOB_VACANCY_FIELD_STATUS).toUpperCase()));
@@ -145,7 +152,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public boolean objectHasId(JobVacancy object) {
+    boolean objectHasId(JobVacancy object) {
         return object.getId() != 0;
     }
 }

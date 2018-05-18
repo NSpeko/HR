@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class JobRequest implements Serializable {
     private int id;
-    private int jobVacancyId;
-    private int userId;
+    private JobVacancy jobVacancy;
+    private User user;
     private String resume;
     private JobRequestStatusType status;
 
     public JobRequest() {
     }
 
-    public JobRequest(int jobVacancyId, int userId, String resume, JobRequestStatusType status) {
-        this.jobVacancyId = jobVacancyId;
-        this.userId = userId;
+    public JobRequest(JobVacancy jobVacancy, User user, String resume, JobRequestStatusType status) {
+        this.jobVacancy = jobVacancy;
+        this.user = user;
         this.resume = resume;
         this.status = status;
     }
@@ -27,20 +27,20 @@ public class JobRequest implements Serializable {
         this.id = id;
     }
 
-    public int getJobVacancyId() {
-        return jobVacancyId;
+    public JobVacancy getJobVacancy() {
+        return jobVacancy;
     }
 
-    public void setJobVacancyId(int jobVacancyId) {
-        this.jobVacancyId = jobVacancyId;
+    public void setJobVacancy(JobVacancy jobVacancy) {
+        this.jobVacancy = jobVacancy;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getResume() {
@@ -67,8 +67,8 @@ public class JobRequest implements Serializable {
         JobRequest that = (JobRequest) o;
 
         if (id != that.id) return false;
-        if (jobVacancyId != that.jobVacancyId) return false;
-        if (userId != that.userId) return false;
+        if (jobVacancy != null ? !jobVacancy.equals(that.jobVacancy) : that.jobVacancy != null) return false;
+        if (user != null ? !user.equals(that.user) : that.user != null) return false;
         if (resume != null ? !resume.equals(that.resume) : that.resume != null) return false;
         return status == that.status;
     }
@@ -76,8 +76,8 @@ public class JobRequest implements Serializable {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + jobVacancyId;
-        result = 31 * result + userId;
+        result = 31 * result + (jobVacancy != null ? jobVacancy.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (resume != null ? resume.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
@@ -87,8 +87,8 @@ public class JobRequest implements Serializable {
     public String toString() {
         return "JobRequest{" +
                 "id=" + id +
-                ", jobVacancyId=" + jobVacancyId +
-                ", userId=" + userId +
+                ", jobVacancy=" + jobVacancy +
+                ", user=" + user +
                 ", resume='" + resume + '\'' +
                 ", status=" + status +
                 '}';

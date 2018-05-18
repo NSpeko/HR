@@ -5,7 +5,6 @@ import by.molchanov.humanresources.exception.CustomDAOException;
 import java.util.List;
 
 public interface OverallDAO <T> {
-    T create();
     T findById(int id) throws CustomDAOException;
     T persist(T object) throws CustomDAOException;
     void delete(T object) throws CustomDAOException;

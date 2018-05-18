@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: hoi
-  Date: 4/25/2018
-  Time: 22:58
+  User: mtx.by
+  Date: 13.05.2018
+  Time: 15:16
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -16,27 +16,37 @@
 <head>
 </head>
 <body>
-<div class="modal fade text-dark" id="log-in-modal">
+<div class="modal fade text-dark" id="user-profile-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <fmt:message key="content.button.user.sign.up"/>
+                    <fmt:message key="content.modal.header.profile"/>
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
-            <form name="loginForm" method="POST" action="controller">
+            <form name="profileForm" method="POST" action="controller">
                 <div class="modal-body ">
-                    <input class="form-control " type="hidden" name="command" value="authentication"/>
-                    <br/><fmt:message key="content.user.email"/><br/>
-                    <input class="form-control " type="email" name="email" value="" placeholder="default@example.com"/>
-                    <br/><fmt:message key="content.user.password"/><br/>
-                    <input class="form-control " type="password" name="password" value="" placeholder="password"/>
-                    <br/>
+                    <p><fmt:message key="content.user.first.name"/> - ${sessionScope.user_info.firstName}</p>
+                    <p><fmt:message key="content.user.last.name"/> - ${sessionScope.user_info.lastName}</p>
+                    <p><fmt:message key="content.user.email"/> - ${sessionScope.user_info.email}</p>
+                    <p><fmt:message key="content.org.name"/> - ${sessionScope.user_info.organization.name}</p>
+                    <p><fmt:message key="content.org.website"/> - <a
+                            href="${sessionScope.user_info.organization.website}">Website</a>
+                    </p>
+                    <c:if test="${sessionScope.user_info.organization.id == '0'}">
+                        <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">
+                            <fmt:message key="content.button.add.organization"/>
+                        </button>
+                    </c:if>
+
+                    <div id="org-register-form" class="collapse">
+                        <div id="sign-up-org-form"><c:import url="register_org.jsp"/></div>
+                    </div>
                 </div>
 
                 <!-- Modal footer -->
@@ -47,8 +57,8 @@
                         <fmt:message key="content.button.cancel"/>
                     </button>
                 </div>
-
             </form>
+
         </div>
     </div>
 </div>

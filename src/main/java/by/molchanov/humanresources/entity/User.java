@@ -8,7 +8,7 @@ public class User implements Serializable {
     private String pass;
     private String firstName;
     private String lastName;
-    private int organizationId;
+    private Organization organization;
     private UserStatusType role;
 
     public User() {
@@ -22,12 +22,12 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public User(String email, String pass, String firstName, String lastName, int organizationId, UserStatusType role) {
+    public User(String email, String pass, String firstName, String lastName, Organization organization, UserStatusType role) {
         this.email = email;
         this.pass = pass;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.organizationId = organizationId;
+        this.organization = organization;
         this.role = role;
     }
 
@@ -71,12 +71,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public int getOrganizationId() {
-        return organizationId;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     public UserStatusType getRole() {
@@ -95,11 +95,11 @@ public class User implements Serializable {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (organizationId != user.organizationId) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (pass != null ? !pass.equals(user.pass) : user.pass != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (organization != null ? !organization.equals(user.organization) : user.organization != null) return false;
         return role == user.role;
     }
 
@@ -110,7 +110,7 @@ public class User implements Serializable {
         result = 31 * result + (pass != null ? pass.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + organizationId;
+        result = 31 * result + (organization != null ? organization.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
@@ -120,9 +120,10 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", pass='" + pass + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", organizationId=" + organizationId +
+                ", organization=" + organization +
                 ", role=" + role +
                 '}';
     }

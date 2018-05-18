@@ -1,11 +1,9 @@
 package by.molchanov.humanresources.executor.impl;
 
-import by.molchanov.humanresources.dao.JobVacancyDAO;
-import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.entity.JobVacancy;
-import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.ColumnForSortingType;
+import by.molchanov.humanresources.executor.FillContentExecutor;
 import by.molchanov.humanresources.executor.VacancyFilterExecutor;
 
 import java.util.Collections;
@@ -18,8 +16,7 @@ import static by.molchanov.humanresources.entity.JobVacancy.COMPARE_BY_ORG_NAME;
 
 public class VacancyFilterExecutorImpl implements VacancyFilterExecutor {
     private static final VacancyFilterExecutorImpl VACANCY_FILTER_EXECUTOR = new VacancyFilterExecutorImpl();
-
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
+    private static final FillContentExecutor FILL_CONTENT_EXECUTOR = FillContentExecutorImpl.getInstance();
 
     private static final String INCREASE = "increase";
     private static final String DECREASE = "decrease";
@@ -34,10 +31,10 @@ public class VacancyFilterExecutorImpl implements VacancyFilterExecutor {
     }
 
     @Override
-    public List<JobVacancy> filterVacancy(String sortColumn, String sortDirectionType, String searchField) throws CustomExecutorException {
+    public List<JobVacancy> filterVacancy(String sortColumn, String sortDirectionType, String searchField, String userRole) throws CustomExecutorException {
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobVacancy> vacancies = findVacancyRecord();
+        List<JobVacancy> vacancies = FILL_CONTENT_EXECUTOR.fillVacancy(userRole);
         if (!searchField.isEmpty()) {
             vacancies.removeIf(vacancy -> !vacancy.getName().toLowerCase().contains(searchField.toLowerCase()));
         }
@@ -79,16 +76,6 @@ public class VacancyFilterExecutorImpl implements VacancyFilterExecutor {
             default:
                 throw new CustomExecutorException("Unknown sorting column!");
         }
-    }
-
-    private List<JobVacancy> findVacancyRecord() throws CustomExecutorException {
-        List<JobVacancy> vacancies;
-        try {
-            vacancies = JOB_VACANCY_DAO.findAll();
-        } catch (CustomDAOException e) {
-            throw new CustomExecutorException(e);
-        }
-        return vacancies;
     }
 
     private void vacancySorter(Comparator<JobVacancy> comparator, List<JobVacancy> vacancies, boolean sortTypeFlag) {

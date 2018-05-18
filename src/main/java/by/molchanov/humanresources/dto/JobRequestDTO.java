@@ -1,33 +1,18 @@
 package by.molchanov.humanresources.dto;
 
+import by.molchanov.humanresources.entity.JobRequest;
+
 public class JobRequestDTO {
-    private String resume;
-    private int vacancyId;
-    private int userId;
+    private JobRequest jobRequest;
     private String infoMessage;
+    private int vacancyId;
 
-    public String getResume() {
-        return resume;
+    public JobRequest getJobRequest() {
+        return jobRequest;
     }
 
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
-
-    public int getVacancyId() {
-        return vacancyId;
-    }
-
-    public void setVacancyId(int vacancyId) {
-        this.vacancyId = vacancyId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setJobRequest(JobRequest jobRequest) {
+        this.jobRequest = jobRequest;
     }
 
     public String getInfoMessage() {
@@ -36,5 +21,13 @@ public class JobRequestDTO {
 
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
+    }
+
+    public int getVacancyId() {
+        return vacancyId;
+    }
+
+    public void setVacancyId(int vacancyId) {
+        this.vacancyId = vacancyId;
     }
 }

@@ -8,7 +8,7 @@ public enum ConcreteCommandType {
     AUTHENTICATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new AuthenticationCommandImpl();
+            return AuthenticationCommand.getInstance();
         }
 
         @Override
@@ -20,7 +20,7 @@ public enum ConcreteCommandType {
     USER_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new UserRegistrationCommandImpl();
+            return UserRegistrationCommand.getInstance();
         }
 
         @Override
@@ -32,7 +32,7 @@ public enum ConcreteCommandType {
     LOG_OUT {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new LogOutCommandImpl();
+            return LogOutCommand.getInstance();
         }
 
         @Override
@@ -44,7 +44,7 @@ public enum ConcreteCommandType {
     ORG_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new OrgRegistrationCommandImpl();
+            return OrgRegistrationCommand.getInstance();
         }
 
         @Override
@@ -56,7 +56,7 @@ public enum ConcreteCommandType {
     VACANCY_FILTER {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new VacancyFilterCommandImpl();
+            return VacancyFilterCommand.getInstance();
         }
 
         @Override
@@ -68,7 +68,7 @@ public enum ConcreteCommandType {
     VACANCY_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new VacancyRegistrationImpl();
+            return VacancyRegistrationCommand.getInstance();
         }
 
         @Override
@@ -80,7 +80,7 @@ public enum ConcreteCommandType {
     REQUEST_REGISTRATION {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new JobRequestRegistrationImpl();
+            return JobRequestRegistrationCommand.getInstance();
         }
 
         @Override
@@ -91,7 +91,7 @@ public enum ConcreteCommandType {
     CONFIRM_VACANCY {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new ConfirmVacancyImpl();
+            return ConfirmVacancyCommand.getIstance();
         }
 
         @Override
@@ -102,7 +102,7 @@ public enum ConcreteCommandType {
     DELETE_VACANCY {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return null;
+            return DeleteVacancyCommand.getInstance();
         }
 
         @Override
@@ -113,7 +113,7 @@ public enum ConcreteCommandType {
     EST_BELORUSSIAN_LOCALE {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new EstablishBelorussianLocaleCommandImpl();
+            return EstablishBelorussianLocaleCommand.getInstance();
         }
 
         @Override
@@ -124,7 +124,7 @@ public enum ConcreteCommandType {
     EST_RUSSIAN_LOCALE {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new EstablishRussianLocaleICommandImpl();
+            return EstablishRussianLocaleICommand.getInstance();
         }
 
         @Override
@@ -135,7 +135,40 @@ public enum ConcreteCommandType {
     EST_ENGLISH_LOCALE {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
-            return new EstablishEnglishLocaleCommandImpl();
+            return EstablishEnglishLocaleCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    DELETE_REQUEST {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return DeleteRequestCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    CONFIRM_REQUEST {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return ConfirmRequestCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    SEND_REQUEST_ANSWER {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return SendRequestAnswerCommand.getInstance();
         }
 
         @Override

@@ -1,7 +1,6 @@
 package by.molchanov.humanresources.database;
 
 import by.molchanov.humanresources.exception.CustomException;
-import by.molchanov.humanresources.resource.ConnectionPoolConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +18,7 @@ public class ConnectionPool {
     private BlockingQueue<Connection> connectionQueue;
     private static AtomicBoolean instanceExist = new AtomicBoolean(false);
     private static ReentrantLock lock = new ReentrantLock();
-    private static final ConnectionPoolConfiguration CONFIGURATION = new ConnectionPoolConfiguration();
+    private static final ConnectionPoolConfiguration CONFIGURATION = ConnectionPoolConfiguration.getInstance();
 
     private ConnectionPool() throws CustomException {
         connectionQueue = new ArrayBlockingQueue<>(CONFIGURATION.getPoolSize());
