@@ -18,10 +18,10 @@
 <body>
 <form name="loginForm" method="POST" action="controller">
     <input class="form-control" type="hidden" name="command" value="vacancy_registration"/>
-    <label for="org-site"><fmt:message key="content.vacancy.name"/></label>
-    <input class="form-control" id="org-site" type="text" name="vacancy_name" placeholder="Vacancy name*"/>
-    <label for="org-description"><fmt:message key="content.vacancy.requirement"/></label>
-    <textarea class="form-control" id="org-description" name="vacancy_requirement" placeholder="Requirement*" required
+    <label for="vacancy-org-site"><fmt:message key="content.vacancy.name"/></label>
+    <input class="form-control" id="vacancy-org-site" type="text" name="vacancy_name" placeholder="Vacancy name*"/>
+    <label for="vacancy-org-description"><fmt:message key="content.vacancy.requirement"/></label>
+    <textarea class="form-control" id="vacancy-org-description" name="vacancy_requirement" placeholder="Requirement*" required
               rows="4" cols="50"></textarea><br/>
     <input type="submit" class="btn btn-primary" value="submit"/>
 </form>

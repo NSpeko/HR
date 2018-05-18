@@ -20,8 +20,8 @@
     <form class="row" name="filter" method="POST" action="controller">
         <input class="form-control" type="hidden" name="command" value="vacancy_filter"/>
         <div class="col-3">
-            <label for="firstSelect"><fmt:message key="content.vacancy.sort.field"/></label>
-            <select name="sort_col" id="firstSelect" class="form-control ">
+            <label for="vacancy-firstSelect"><fmt:message key="content.vacancy.sort.field"/></label>
+            <select name="sort_col" id="vacancy-firstSelect" class="form-control ">
                 <option value="sort_by_empty_column"></option>
                 <option value="sort_by_name"><fmt:message key="content.vacancy.name"/></option>
                 <option value="sort_by_date"><fmt:message key="content.vacancy.date"/></option>
@@ -29,8 +29,8 @@
             </select>
         </div>
         <div class="col-3">
-            <label for="secondSelect"><fmt:message key="content.vacancy.sort.type"/></label>
-            <select name="sort_type" id="secondSelect" class="form-control ">
+            <label for="vacancy-secondSelect"><fmt:message key="content.vacancy.sort.type"/></label>
+            <select name="sort_type" id="vacancy-secondSelect" class="form-control ">
                 <option value="empty"></option>
                 <option value="decrease"><fmt:message key="content.vacancy.sort.decrease"/></option>
                 <option value="increase"><fmt:message key="content.vacancy.sort.increase"/></option>
@@ -38,13 +38,13 @@
         </div>
 
         <div class="col-5">
-            <label for="searchInput"><fmt:message key="content.vacancy.search"/></label>
-            <input class="form-control " id="searchInput" type="text" name="search_field"
+            <label for="vacancy-searchInput"><fmt:message key="content.vacancy.search"/></label>
+            <input class="form-control " id="vacancy-searchInput" type="text" name="search_field"
                    placeholder="<fmt:message key="content.vacancy.search"/>"/>
         </div>
         <div class="col-1">
-            <label for="searchButton">&#160;</label>
-            <input id="searchButton" class="btn btn-primary float-left" type="submit"
+            <label for="vacancy-searchButton">&#160;</label>
+            <input id="vacancy-searchButton" class="btn btn-primary float-left" type="submit"
                    value="<fmt:message key="content.vacancy.search"/>"/>
         </div>
     </form>
@@ -99,7 +99,7 @@
                                         <%--TODO: add local content--%>
                                     <h4>Requirements:</h4>
                                     <p>${vacancy.requirement}</p>
-                                    <a href="${vacancy.organization.website}">Go to their website</a>
+                                    <a href="${vacancy.organization.website}" target="_blank">Go to their website</a>
                                     <br>
                                     <input class="form-control" type="hidden" name="command"
                                            value="request_registration"/>
@@ -152,7 +152,7 @@
                                             <%--TODO: add local content--%>
                                         <h4>Requirements:</h4>
                                         <p>${vacancy.requirement}</p>
-                                        <a href="${vacancy.organization.website}">Go to their website</a>
+                                        <a href="${vacancy.organization.website}" target="_blank">Go to their website</a>
                                         <br>
                                     </div>
 
@@ -161,21 +161,21 @@
                                         <form name="confirmForm" method="POST" action="controller">
                                             <input type="hidden" name="command" value="confirm_vacancy">
                                             <input type="hidden" name="vacancy_id" value="${vacancy.id}">
-                                            <input class="btn btn-primary float-left" type="submit"
+                                            <input class="btn btn-primary" type="submit"
                                                    value="Добавить вакансию"/>
                                         </form>
 
                                         <form name="deleteForm" method="POST" action="controller">
                                             <input type="hidden" name="command" value="delete_vacancy">
                                             <input type="hidden" name="vacancy_id" value="${vacancy.id}">
-                                            <input class="btn btn-primary float-left" type="submit"
+                                            <input class="btn btn-primary" type="submit"
                                                    value="Удалить вакансию"/>
-                                        </form>
 
-                                        <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">
-                                                <%--TODO: add local content--%>Закрыть
-                                        </button>
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">
+                                                    <%--TODO: add local content--%>Закрыть
+                                            </button>
+                                        </form>
                                     </div>
 
                                 </div>

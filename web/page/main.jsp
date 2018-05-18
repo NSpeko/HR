@@ -116,7 +116,39 @@
             <h1><fmt:message key="content.main.slogan.first"/></h1>
             <p><fmt:message key="content.main.slogan.second"/></p>
         </section>
-        <c:import url="vacancy_content.jsp"/>
+        <c:choose>
+            <c:when test="${sessionScope.role == 'admin'||'director'}">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Collapsible Group Item #1
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                            <div class="card-body">
+                                <c:import url="request_content.jsp"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                Collapsible Group Item #2
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <c:import url="vacancy_content.jsp"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
+            <c:when test="${sessionScope.role != 'admin'||'director'}">
+                <c:import url="vacancy_content.jsp"/>
+            </c:when>
+        </c:choose>
         <ul class="pagination text-center">
             <li class="page-item">
                 <button class="page-link disabled" disabled><fmt:message key="content.vacancy.next.page"/></button>
