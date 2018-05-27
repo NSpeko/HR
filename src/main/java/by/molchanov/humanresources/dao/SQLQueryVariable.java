@@ -8,8 +8,6 @@ package by.molchanov.humanresources.dao;
 public class SQLQueryVariable {
     public static final String USER_QUERY_SELECT = "SELECT u_id, u_email, u_role, u_password, u_firstname," +
             " u_lastname, u_organization_id FROM user ";
-    public static final String USER_QUERY_SELECT_PART_OF_USERS = "SELECT u_id, u_email, u_role, u_firstname," +
-            " u_lastname, u_organization_id FROM user LIMIT ? , ?";
     public static final String USER_QUERY_UPDATE = "UPDATE user SET u_email = ?, u_role = ?, u_password = ?, u_firstname = ?," +
             " u_secondname = ?, u_organization_id = ? WHERE u_id = '?'";
     public static final String USER_QUERY_ROLE_ORG_ID_UPDATE = "UPDATE user SET u_role = ?, u_organization_id = ? WHERE u_id = ?";
@@ -44,7 +42,7 @@ public class SQLQueryVariable {
     public static final String JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT = "SELECT user.u_id, job_request.jr_id, user.u_email, job_request.jr_resume, job_vacancy.jv_name " +
             "FROM (job_request   INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id )   " +
             "INNER JOIN user ON job_request.jr_user_id = user.u_id " +
-            " WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ?";
+            " WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ? limit ?, ?";
     public static final String JOB_REQUEST_QUERY_DELETE_BY_ID = "DELETE FROM job_request WHERE jr_id = ?";
     public static final String JOB_REQUEST_QUERY_CREATE = "INSERT INTO job_request (jr_job_vacancy_id, jr_user_id, jr_resume, jr_status)" +
             " VALUES (?, ?, ?, ?)";
@@ -53,6 +51,10 @@ public class SQLQueryVariable {
     public static final String JOB_REQUEST_FIELD_USER_ID = "jr_user_id";
     public static final String JOB_REQUEST_FIELD_RESUME = "jr_resume";
     public static final String JOB_REQUEST_FIELD_STATUS = "jr_status";
+    public static final String JOB_REQUESTS_COUNT_SELECT = "SELECT COUNT(jr_id) FROM job_request " +
+            "INNER JOIN job_vacancy ON job_request.jr_job_vacancy_id = job_vacancy.jv_id " +
+            "WHERE job_request.jr_status = ? AND job_vacancy.jv_organization_id = ? AND job_vacancy.jv_name LIKE ?";
+    public static final String JOB_REQUESTS_COUNT = "COUNT(jr_id)";
 
 
     public static final String JOB_VACANCY_QUERY_SELECT = "SELECT jv_id, jv_organization_id, jv_name, jv_upload_date, jv_requirement, jv_status FROM job_vacancy ";

@@ -5,12 +5,14 @@ import by.molchanov.humanresources.dao.JobVacancyDAO;
 import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
 import by.molchanov.humanresources.entity.JobRequest;
+import by.molchanov.humanresources.entity.JobRequestStatusType;
 import by.molchanov.humanresources.entity.JobVacancy;
 import by.molchanov.humanresources.entity.JobVacancyStatusType;
 import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.FillContentExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.OPEN;
@@ -25,6 +27,7 @@ import static by.molchanov.humanresources.entity.JobVacancyStatusType.NEW;
 public class FillContentExecutorImpl implements FillContentExecutor {
     private static final FillContentExecutorImpl FILL_VACANCY_EXECUTOR = new FillContentExecutorImpl();
     private static final String ROLE_ADMIN = "admin";
+    private static final String ROLE_DIRECTOR = "director";
 
     private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
     private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
@@ -58,18 +61,29 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     }
 
     @Override
-    public List<JobRequest> fillRequest(String userRole, int organizationId) throws CustomExecutorException {
+    public List<JobRequest> fillRequest(String userRole, int organizationId, String searchField,
+                                        int startRequestNumber, int requestsQuantity) throws CustomExecutorException {
         List<JobRequest> requests;
-        try {
-            requests = JOB_REQUEST_DAO.findRequestByTypeRole(userRole, organizationId);
-        } catch (CustomDAOException e) {
-            throw new CustomExecutorException(e);
+        JobRequestStatusType jobRequestStatusType;
+        String emptySearchField = "";
+        if (searchField == null) {
+            searchField = emptySearchField;
+        }
+        if (ROLE_DIRECTOR.equals(userRole)) {
+            jobRequestStatusType = JobRequestStatusType.ADDED;
+            try {
+                requests = JOB_REQUEST_DAO.findRequestByTypeRole(jobRequestStatusType, organizationId, searchField, startRequestNumber, requestsQuantity);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        } else{
+            requests = new ArrayList<>();
         }
         return requests;
     }
 
     @Override
-    public int getVacanciesCount(String userRole, String searchField) throws CustomExecutorException {
+    public int findVacanciesCount(String userRole, String searchField) throws CustomExecutorException {
         int count;
         String emptySearchField = "";
         JobVacancyStatusType jobVacancyStatusType = JobVacancyStatusType.OPEN;
@@ -83,6 +97,25 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             count = JOB_VACANCY_DAO.getVacanciesCount(jobVacancyStatusType, searchField);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
+        }
+        return count;
+    }
+
+    @Override
+    public int findRequestsCount(String userRole, int orgId, String searchField) throws CustomExecutorException {
+        int count = 0;
+        String emptySearchField = "";
+        JobRequestStatusType jobRequestStatusType;
+        if (searchField == null) {
+            searchField = emptySearchField;
+        }
+        if (ROLE_DIRECTOR.equals(userRole)) {
+            jobRequestStatusType = JobRequestStatusType.ADDED;
+            try {
+                count = JOB_REQUEST_DAO.getRequestsCount(jobRequestStatusType, searchField, orgId);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
         }
         return count;
     }

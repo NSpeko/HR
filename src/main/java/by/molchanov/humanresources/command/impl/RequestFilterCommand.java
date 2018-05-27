@@ -46,7 +46,6 @@ public class RequestFilterCommand implements ConcreteCommand {
             String sortColumn = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_COL);
             String sortDirectionType = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_TYPE);
             String searchField = requestHolder.getSingleRequestParameter(FIRST_INDEX, SEARCH_FIELD);
-            String userRole = (String) requestHolder.getSessionAttribute(ROLE);
             int orgId = 0;
             User user = (User) requestHolder.getSessionAttribute(USER_INFO);
             if (user != null) {
@@ -55,7 +54,6 @@ public class RequestFilterCommand implements ConcreteCommand {
             }
             FilterDataDTO filterDataDTO = new FilterDataDTO();
             filterDataDTO.setSortColumn(sortColumn);
-            filterDataDTO.setUserRole(userRole);
             filterDataDTO.setSortDirectionType(sortDirectionType);
             filterDataDTO.setOrgId(orgId);
             filterDataDTO.setSearchField(searchField);

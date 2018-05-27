@@ -131,32 +131,48 @@
                             </div>
                         </div>
                     </div>
-                    <c:if test="${sessionScope.role == 'director'}">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                    <fmt:message key="content.request"/>
-                                </a>
-                            </div>
-                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    <c:import url="request_content.jsp"/>
+                    <c:choose>
+                        <c:when test="${sessionScope.role == 'director'}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                        <fmt:message key="content.request"/>
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="request_content.jsp"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                                    <fmt:message key="content.button.add.vacancy"/>
-                                </a>
-                            </div>
-                            <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                <div class="card-body">
-                                    <c:import url="register_vacancy.jsp"/>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                        <fmt:message key="content.button.add.vacancy"/>
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="register_vacancy.jsp"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                                        <fmt:message key="content.users"/>
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <c:import url="users_content.jsp"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </c:when>
             <c:when test="${sessionScope.role != 'admin' || sessionScope.role != 'director'}">

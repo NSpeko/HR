@@ -4,7 +4,6 @@ public class FilterDataDTO {
     String sortColumn;
     String sortDirectionType;
     String searchField;
-    String userRole;
     int orgId;
 
     public String getSortColumn() {
@@ -29,14 +28,6 @@ public class FilterDataDTO {
 
     public void setSearchField(String searchField) {
         this.searchField = searchField;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
     }
 
     public int getOrgId() {

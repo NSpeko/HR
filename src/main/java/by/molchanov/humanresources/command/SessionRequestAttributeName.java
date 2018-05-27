@@ -41,8 +41,11 @@ public class SessionRequestAttributeName {
     public static final String REQUEST_FILTER_FLAG = "request_filter_flag";
     public static final String REQUEST_FILTER_DATA = "request_filter_data";
     public static final String START_VACANCY_NUMBER = "start_vacancy_number";
+    public static final String START_REQUEST_NUMBER = "start_request_number";
     public static final String VACANCIES_QUANTITY = "vacancies_quantity";
+    public static final String REQUESTS_QUANTITY = "requests_quantity";
     public static final String VACANCIES_COUNT = "vacancies_count";
+    public static final String REQUESTS_COUNT = "requests_count";
 
     private SessionRequestAttributeName() {}
 

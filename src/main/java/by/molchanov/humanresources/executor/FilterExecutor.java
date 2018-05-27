@@ -27,5 +27,6 @@ public interface FilterExecutor {
      * @return collection of requests
      * @throws CustomExecutorException exception of service level
      */
-    List<JobRequest> filterRequest(FilterDataDTO filterDataDTO) throws CustomExecutorException;
+    List<JobRequest> filterRequest(FilterDataDTO filterDataDTO, String userRole,
+                                   int startRequestNumber, int requestsQuantity) throws CustomExecutorException;
 }

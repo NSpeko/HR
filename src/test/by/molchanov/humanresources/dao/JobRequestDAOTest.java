@@ -196,12 +196,11 @@ public class JobRequestDAOTest {
         secondJobRequest.setUser(testUser);
         secondJobRequest.setStatus(JobRequestStatusType.ADDED);
         int orgId = testOrganization.getId();
-        String userRole = "director";
         List<JobRequest> requests = new ArrayList<>();
         try {
             firstJobRequest = jobRequestDAO.persist(firstJobRequest);
             secondJobRequest = jobRequestDAO.persist(secondJobRequest);
-            requests = jobRequestDAO.findRequestByTypeRole(userRole, orgId);
+            requests = jobRequestDAO.findRequestByTypeRole(JobRequestStatusType.ADDED , orgId, "" , 0 , 10);
             jobRequestDAO.delete(firstJobRequest);
             jobRequestDAO.delete(secondJobRequest);
         } catch (CustomDAOException e) {

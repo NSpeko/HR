@@ -54,18 +54,15 @@ public class FilterExecutorImpl implements FilterExecutor {
     }
 
     @Override
-    public List<JobRequest> filterRequest(FilterDataDTO filterDataDTO) throws CustomExecutorException {
+    public List<JobRequest> filterRequest(FilterDataDTO filterDataDTO, String userRole,
+                                          int startRequestNumber, int requestsQuantity) throws CustomExecutorException {
         String sortDirectionType = filterDataDTO.getSortDirectionType();
         String sortColumn = filterDataDTO.getSortColumn();
-        String userRole = filterDataDTO.getUserRole();
         String searchField = filterDataDTO.getSearchField();
         int orgId = filterDataDTO.getOrgId();
         boolean sortDirectionTypeFlag = setSortDirectionTypeFlag(sortDirectionType);
         ColumnForSortingType sortingColumnType = ColumnForSortingType.valueOf(sortColumn.toUpperCase());
-        List<JobRequest> requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId);
-        if (!searchField.isEmpty()) {
-            requests.removeIf(vacancy -> !vacancy.getJobVacancy().getName().toLowerCase().contains(searchField.toLowerCase()));
-        }
+        List<JobRequest> requests = FILL_CONTENT_EXECUTOR.fillRequest(userRole, orgId, searchField , startRequestNumber, requestsQuantity);
         executeRequestSort(sortingColumnType, requests, sortDirectionTypeFlag);
         return requests;
     }
