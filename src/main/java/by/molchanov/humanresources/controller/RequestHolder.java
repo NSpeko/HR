@@ -37,7 +37,8 @@ public class RequestHolder {
         Integer currentHash = PRIMARY_HASH;
         Integer hash = (Integer) session.getAttribute(HASH);
         for (Map.Entry<String, String[]> pair : requestParameter.entrySet()) {
-            currentHash = Arrays.hashCode(pair.getValue());
+            currentHash += pair.getValue()[0].hashCode();
+            currentHash += pair.getKey().hashCode();
         }
         if (hash == null) {
             session.setAttribute(HASH, PRIMARY_HASH);

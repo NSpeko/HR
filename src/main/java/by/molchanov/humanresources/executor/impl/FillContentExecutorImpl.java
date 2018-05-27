@@ -38,15 +38,19 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     }
 
     @Override
-    public List<JobVacancy> fillVacancy(String userRole, int startVacancyNumber,
+    public List<JobVacancy> fillVacancy(String userRole, String searchField, int startVacancyNumber,
                                         int vacanciesQuantity) throws CustomExecutorException {
         List<JobVacancy> vacancies;
+        String emptySearchField = "";
         JobVacancyStatusType jobVacancyStatusType = OPEN;
         if (ROLE_ADMIN.equals(userRole)) {
             jobVacancyStatusType = NEW;
         }
+        if (searchField == null) {
+            searchField = emptySearchField;
+        }
         try {
-            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType, startVacancyNumber, vacanciesQuantity);
+            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType, searchField, startVacancyNumber, vacanciesQuantity);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -65,10 +69,18 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     }
 
     @Override
-    public int getVacanciesCount() throws CustomExecutorException {
-        int count = 0;
+    public int getVacanciesCount(String userRole, String searchField) throws CustomExecutorException {
+        int count;
+        String emptySearchField = "";
+        JobVacancyStatusType jobVacancyStatusType = JobVacancyStatusType.OPEN;
+        if (ROLE_ADMIN.equals(userRole)) {
+            jobVacancyStatusType = JobVacancyStatusType.NEW;
+        }
+        if (searchField == null) {
+            searchField = emptySearchField;
+        }
         try {
-            count = JOB_VACANCY_DAO.getVacanciesCount(OPEN);
+            count = JOB_VACANCY_DAO.getVacanciesCount(jobVacancyStatusType, searchField);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }

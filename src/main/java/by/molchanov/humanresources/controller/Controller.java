@@ -53,7 +53,7 @@ public class Controller extends HttpServlet {
             requestHolder.update(request);
         } catch (CustomBrokerException e) {
             LOGGER.warn(e.getMessage(), e);
-            responseType = ResponseType.REDIRECT;
+            throw new IOException(e);
         }
         switch (responseType) {
             case FORWARD:

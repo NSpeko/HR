@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.ROLE;
+
 public class CommandRoleFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,13 +25,13 @@ public class CommandRoleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("role");
-        String command = request.getParameter("command");
+        String role = (String) session.getAttribute(ROLE);
+        String command = request.getParameter(COMMAND);
         CommandAffiliation commandAffiliation = CommandAffiliation.getInstance();
         if (commandAffiliation.isCommandCorrect(role, command)) {
             filterChain.doFilter(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/WEB-INF/error_page.jsp");
+            response.sendRedirect(request.getContextPath() + "/page/error_page.jsp");
         }
     }
 }

@@ -40,10 +40,11 @@ public class FillContentCommand implements ConcreteCommand {
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
         List<JobVacancy> vacancies;
-        int vacanciesCount = 0;
         List<JobRequest> requests;
-        FilterDataDTO filterDataDTO;
+        String emptySearchField = "";
+        int vacanciesCount = 0;
         int orgId = 0;
+        FilterDataDTO filterDataDTO;
         String userRole = (String) requestHolder.getSessionAttribute(ROLE);
         User user = (User) requestHolder.getSessionAttribute(USER_INFO);
         Boolean vacFilterFlag = (Boolean) requestHolder.getSessionAttribute(VAC_FILTER_FLAG);
@@ -69,11 +70,11 @@ public class FillContentCommand implements ConcreteCommand {
         try {
             if (vacFilterFlag != null && vacFilterFlag) {
                 filterDataDTO = (FilterDataDTO) requestHolder.getSessionAttribute(VAC_FILTER_DATA);
-                vacancies = FILTER_EXECUTOR.filterVacancy(filterDataDTO, startVacancyNumber, vacanciesQuantity);
+                vacancies = FILTER_EXECUTOR.filterVacancy(filterDataDTO, userRole, startVacancyNumber, vacanciesQuantity);
+                vacanciesCount = FILL_VACANCY_EXECUTOR.getVacanciesCount(userRole, filterDataDTO.getSearchField());
             } else {
-                vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole, startVacancyNumber, vacanciesQuantity);
-                vacanciesCount = FILL_VACANCY_EXECUTOR.getVacanciesCount();
-                requestHolder.addRequestAttribute(COMMAND, "fill_vacancy");
+                vacancies = FILL_VACANCY_EXECUTOR.fillVacancy(userRole, emptySearchField, startVacancyNumber, vacanciesQuantity);
+                vacanciesCount = FILL_VACANCY_EXECUTOR.getVacanciesCount(userRole, emptySearchField);
             }
             if (reqFilterFlag != null && reqFilterFlag) {
                 filterDataDTO = (FilterDataDTO) requestHolder.getSessionAttribute(REQUEST_FILTER_DATA);

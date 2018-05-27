@@ -19,7 +19,7 @@ public interface FilterExecutor {
      * @return collection of vacancies
      * @throws CustomExecutorException exception of service level
      */
-    List<JobVacancy> filterVacancy(FilterDataDTO filterDataDTO, int startVacancyNumber,
+    List<JobVacancy> filterVacancy(FilterDataDTO filterDataDTO, String userRole, int startVacancyNumber,
                                    int vacanciesQuantity) throws CustomExecutorException;
     /**
      * Filter and searching to requests

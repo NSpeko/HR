@@ -42,12 +42,10 @@ public class VacancyFilterCommand implements ConcreteCommand {
             String sortColumn = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_COL);
             String sortDirectionType = requestHolder.getSingleRequestParameter(FIRST_INDEX, SORT_TYPE);
             String searchField = requestHolder.getSingleRequestParameter(FIRST_INDEX, SEARCH_FIELD);
-            String userRole = (String) requestHolder.getSessionAttribute(ROLE);
             FilterDataDTO filterDataDTO = new FilterDataDTO();
             filterDataDTO.setSortColumn(sortColumn);
             filterDataDTO.setSearchField(searchField);
             filterDataDTO.setSortDirectionType(sortDirectionType);
-            filterDataDTO.setUserRole(userRole);
             requestHolder.addSessionAttribute(VAC_FILTER_FLAG, true);
             requestHolder.addSessionAttribute(VAC_FILTER_DATA, filterDataDTO);
         }

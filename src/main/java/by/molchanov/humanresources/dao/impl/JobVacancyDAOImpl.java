@@ -35,7 +35,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType,
+    public List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType, String searchField,
                                                   int startVacancyNumber,
                                                   int vacanciesQuantity) throws CustomDAOException {
         List<JobVacancy> result = new ArrayList<>();
@@ -45,8 +45,9 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_VACANCY_CONTENT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
-                statement.setInt(2, startVacancyNumber);
-                statement.setInt(3, vacanciesQuantity);
+                statement.setString(2, "%" + searchField + "%");
+                statement.setInt(3, startVacancyNumber);
+                statement.setInt(4, vacanciesQuantity);
                 try (ResultSet set = statement.executeQuery()) {
                     JobVacancy jobVacancy;
                     while (set.next()) {
@@ -76,7 +77,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
+    public int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         int count = 0;
@@ -84,6 +85,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCIES_COUNT_SELECT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
+                statement.setString(2, "%" + searchField + "%");
                 try (ResultSet set = statement.executeQuery()) {
                     while (set.next()) {
                         count = set.getInt(JOB_VACANCIES_COUNT);

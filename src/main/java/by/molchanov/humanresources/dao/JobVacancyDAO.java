@@ -14,9 +14,9 @@ import java.util.List;
  * @author MolchanovVladislav
  */
 public interface JobVacancyDAO extends OverallDAO<JobVacancy> {
-    List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType,
+    List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType, String searchField,
                                            int startVacancyNumber,
                                            int vacanciesQuantity) throws CustomDAOException;
 
-    int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException;
+    int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType, String searchField) throws CustomDAOException;
 }

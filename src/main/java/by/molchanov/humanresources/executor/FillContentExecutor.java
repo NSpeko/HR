@@ -20,7 +20,7 @@ public interface FillContentExecutor {
      * @return collection of vacancies
      * @throws CustomExecutorException exception of service level
      */
-    List<JobVacancy> fillVacancy(String userRole, int startVacancyNumber,
+    List<JobVacancy> fillVacancy(String userRole, String searchField, int startVacancyNumber,
                                  int vacanciesQuantity) throws CustomExecutorException;
     /**
      * Fill page request content depending on user role in system
@@ -31,5 +31,5 @@ public interface FillContentExecutor {
      */
     List<JobRequest> fillRequest(String userRole, int organizationId) throws CustomExecutorException;
 
-    int getVacanciesCount() throws CustomExecutorException;
+    int getVacanciesCount(String userRole, String searchField) throws CustomExecutorException;
 }

@@ -11,7 +11,7 @@ public class CommandAffiliation {
 
     private CommandAffiliation() {
         String vacFilterCommand = "vacancy_filter";
-        String vacCommand = "fill_vacancy";
+        String contentCommand = "fill_content";
         String establishRussianLocaleCommand = "est_russian_locale";
         String establishBelorussianLocaleCommand = "est_belorussian_locale";
         String establishEnglishLocaleCommand = "est_english_locale";
@@ -23,12 +23,12 @@ public class CommandAffiliation {
         guestCommand.add("authentication");
         guestCommand.add("user_registration");
         guestCommand.add(vacFilterCommand);
-        guestCommand.add(vacCommand);
+        guestCommand.add(contentCommand);
         guestCommand.add(establishRussianLocaleCommand);
         guestCommand.add(establishEnglishLocaleCommand);
         guestCommand.add(establishBelorussianLocaleCommand);
         aspirantCommand.add(vacFilterCommand);
-        aspirantCommand.add(vacCommand);
+        aspirantCommand.add(contentCommand);
         aspirantCommand.add(establishEnglishLocaleCommand);
         aspirantCommand.add(establishBelorussianLocaleCommand);
         aspirantCommand.add("org_registration");
@@ -36,7 +36,7 @@ public class CommandAffiliation {
         aspirantCommand.add("request_registration");
         aspirantCommand.add(establishRussianLocaleCommand);
         directorCommand.add(vacFilterCommand);
-        directorCommand.add(vacCommand);
+        directorCommand.add(contentCommand);
         directorCommand.add(establishRussianLocaleCommand);
         directorCommand.add(establishBelorussianLocaleCommand);
         directorCommand.add(establishEnglishLocaleCommand);
@@ -47,7 +47,7 @@ public class CommandAffiliation {
         directorCommand.add("close_vacancy");
         directorCommand.add(logOutCommand);
         adminCommand.add(vacFilterCommand);
-        adminCommand.add(vacCommand);
+        adminCommand.add(contentCommand);
         adminCommand.add(establishRussianLocaleCommand);
         adminCommand.add(establishEnglishLocaleCommand);
         adminCommand.add(establishBelorussianLocaleCommand);

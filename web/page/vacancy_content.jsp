@@ -25,8 +25,7 @@
             <label for="vacancy-firstSelect"><fmt:message key="content.sort.field"/></label>
             <select name="sort_col" id="vacancy-firstSelect" class="form-control ">
                 <option value="sort_by_empty_column"></option>
-                <option value="sort_by_name"><fmt:message key="content.vacancy.name"/></option>
-                <option value="sort_by_date"><fmt:message key="content.vacancy.date"/></option>
+                <option value="sort_by_vac_name"><fmt:message key="content.vacancy.name"/></option>
                 <option value="sort_by_organization"><fmt:message key="content.org.name"/></option>
             </select>
         </div>
@@ -238,7 +237,7 @@
         <c:if test="${start != 0}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="/controller?command=${requestScope.command}&start_vacancy_number=${start - step}&vacancies_quantity=${step}">
+                        href="/controller?command=${requestScope.vacCommand}&start_vacancy_number=${start - step}&vacancies_quantity=${step}">
                     Предыдущая</a></div>
             </li>
         </c:if>
@@ -249,7 +248,7 @@
                         <fmt:parseNumber var="page" type="number" value="${(start + step) / step + i - 2}"/>
                         <li class="page-item">
                             <div class="page-link">
-                                <a href="/controller?command=${requestScope.command}&start_vacancy_number=${start + step * (i - 2)}&vacancies_quantity=${step}">
+                                <a href="/controller?command=fill_vacancy&start_vacancy_number=${start + step * (i - 2)}&vacancies_quantity=${step}">
                                         ${page}</a>
                             </div>
                         </li>
@@ -268,7 +267,7 @@
         <c:if test="${(count - start) gt step}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="/controller?command=${requestScope.command}&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
+                        href="/controller?command=fill_vacancy&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
                     Следующая</a></div>
             </li>
         </c:if>
@@ -287,7 +286,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="/controller?command=${requestScope.command}&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
+                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>
@@ -303,7 +302,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="/controller?command=${requestScope.command}&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
+                            <a href="/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>

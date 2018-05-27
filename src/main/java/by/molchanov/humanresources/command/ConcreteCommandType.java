@@ -215,7 +215,7 @@ public enum ConcreteCommandType {
             return FORWARD;
         }
     },
-    FILL_VACANCY {
+    FILL_CONTENT {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
             return FillContentCommand.getInstance();
