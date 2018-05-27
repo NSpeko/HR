@@ -56,6 +56,8 @@ public class CommandAffiliation {
         adminCommand.add("delete_vacancy");
         adminCommand.add("delete_user");
         adminCommand.add("close_old_vacancy");
+        adminCommand.add("delete_user");
+        adminCommand.add("rise_to_admin");
     }
 
     public static CommandAffiliation getInstance() {

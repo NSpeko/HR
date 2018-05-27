@@ -17,7 +17,7 @@ import java.util.List;
 public class LogOutCommand implements ConcreteCommand {
     private static final LogOutCommand LOG_OUT_COMMAND = new LogOutCommand();
     private static final LogOutExecutor LOG_OUT_EXECUTOR = LogOutExecutorImpl.getInstance();
-    private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
+    private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
 
     private LogOutCommand() {
 
@@ -32,6 +32,6 @@ public class LogOutCommand implements ConcreteCommand {
         List<String> attributeForDelete;
         attributeForDelete = LOG_OUT_EXECUTOR.logOut();
         requestHolder.removeSessionAttribute(attributeForDelete.toArray(new String[attributeForDelete.size()]));
-        FILL_VACANCY_COMMAND.execute(requestHolder);
+        FILL_CONTENT_COMMAND.execute(requestHolder);
     }
 }

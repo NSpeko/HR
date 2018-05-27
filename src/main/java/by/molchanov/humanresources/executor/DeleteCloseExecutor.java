@@ -14,7 +14,6 @@ public interface DeleteCloseExecutor {
      * @throws CustomExecutorException exception of service level
      */
     void deleteVacancy(String vacancyId) throws CustomExecutorException;
-    void deleteRequest(String requestId) throws CustomExecutorException;
     /**
      * Delete user from system
      * @param userId id of user

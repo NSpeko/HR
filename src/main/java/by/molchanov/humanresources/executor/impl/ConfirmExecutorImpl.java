@@ -12,8 +12,6 @@ import by.molchanov.humanresources.exception.CustomDAOException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.ConfirmExecutor;
 
-import java.util.List;
-
 /**
  * Class {@link ConfirmExecutorImpl} used for confirm records.
  *
@@ -23,20 +21,24 @@ import java.util.List;
 public class ConfirmExecutorImpl implements ConfirmExecutor {
     private static final ConfirmExecutorImpl CONFIRM_EXECUTOR = new ConfirmExecutorImpl();
 
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
-    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
+    private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
 
     public static ConfirmExecutorImpl getInstance() {
         return CONFIRM_EXECUTOR;
+    }
+
+    private ConfirmExecutorImpl() {
+
     }
 
     @Override
     public void confirmVacancy(String vacancyId) throws CustomExecutorException {
         int id = Integer.parseInt(vacancyId);
         try {
-            JobVacancy jobVacancy = JOB_VACANCY_DAO.findById(id);
+            JobVacancy jobVacancy = jobVacancyDAO.findById(id);
             jobVacancy.setStatus(JobVacancyStatusType.OPEN);
-            JOB_VACANCY_DAO.update(jobVacancy);
+            jobVacancyDAO.update(jobVacancy);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -46,9 +48,9 @@ public class ConfirmExecutorImpl implements ConfirmExecutor {
     public void confirmRequest(String requestId) throws CustomExecutorException {
         int id = Integer.parseInt(requestId);
         try {
-            JobRequest jobRequest = JOB_REQUEST_DAO.findById(id);
+            JobRequest jobRequest = jobRequestDAO.findById(id);
             jobRequest.setStatus(JobRequestStatusType.ADDED);
-            JOB_REQUEST_DAO.update(jobRequest);
+            jobRequestDAO.update(jobRequest);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }

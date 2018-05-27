@@ -182,6 +182,17 @@ public enum ConcreteCommandType {
             return FORWARD;
         }
     },
+    RISE_TO_ADMIN {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return null;
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return null;
+        }
+    },
     CLOSE_REQUEST {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {

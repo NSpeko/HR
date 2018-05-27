@@ -26,9 +26,9 @@ import java.util.List;
 public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
     private static final DeleteCloseExecutorImpl DELETE_EXECUTOR = new DeleteCloseExecutorImpl();
 
-    private static final JobVacancyDAO JOB_VACANCY_DAO = JobVacancyDAOImpl.getInstance();
-    private static final JobRequestDAO JOB_REQUEST_DAO = JobRequestDAOImpl.getInstance();
-    private static final UserDAO USER_DAO = UserDAOImpl.getInstance();
+    private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
+    private UserDAO userDAO = UserDAOImpl.getInstance();
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final int MAX_AVAILABLE_DURATION = 15;
@@ -45,19 +45,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
         int id = Integer.parseInt(vacancyId);
         jobVacancy.setId(id);
         try {
-            JOB_VACANCY_DAO.delete(jobVacancy);
-        } catch (CustomDAOException e) {
-            throw new CustomExecutorException(e);
-        }
-    }
-
-    @Override
-    public void deleteRequest(String requestId) throws CustomExecutorException {
-        JobRequest jobRequest = new JobRequest();
-        int id = Integer.parseInt(requestId);
-        jobRequest.setId(id);
-        try {
-            JOB_REQUEST_DAO.delete(jobRequest);
+            jobVacancyDAO.delete(jobVacancy);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -69,7 +57,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
         int id = Integer.parseInt(userId);
         user.setId(id);
         try {
-            USER_DAO.delete(user);
+            userDAO.delete(user);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -80,7 +68,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
         List<JobVacancy> vacancies;
         JobVacancy bufJobVacancy;
         try {
-            vacancies = JOB_VACANCY_DAO.findAll();
+            vacancies = jobVacancyDAO.findAll();
             SimpleDateFormat format = new SimpleDateFormat(DATE_PATTERN);
             Date currentDate = Calendar.getInstance().getTime();
             Date vacancyUploadDate;
@@ -94,7 +82,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
                 if (days > MAX_AVAILABLE_DURATION) {
                     bufJobVacancy = vacancy;
                     bufJobVacancy.setStatus(JobVacancyStatusType.CLOSE);
-                    JOB_VACANCY_DAO.update(bufJobVacancy);
+                    jobVacancyDAO.update(bufJobVacancy);
                 }
             }
         } catch (CustomDAOException e) {
@@ -109,9 +97,9 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
         JobRequest jobRequest;
         int id = Integer.parseInt(requestId);
         try {
-            jobRequest = JOB_REQUEST_DAO.findById(id);
+            jobRequest = jobRequestDAO.findById(id);
             jobRequest.setStatus(JobRequestStatusType.REJECTED);
-            JOB_REQUEST_DAO.update(jobRequest);
+            jobRequestDAO.update(jobRequest);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -122,9 +110,9 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
         JobVacancy jobVacancy;
         int id = Integer.parseInt(vacancyId);
         try {
-            jobVacancy = JOB_VACANCY_DAO.findById(id);
+            jobVacancy = jobVacancyDAO.findById(id);
             jobVacancy.setStatus(JobVacancyStatusType.CLOSE);
-            JOB_VACANCY_DAO.update(jobVacancy);
+            jobVacancyDAO.update(jobVacancy);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
