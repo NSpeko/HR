@@ -1,5 +1,11 @@
 package by.molchanov.humanresources.command;
 
+/**
+ * Class {@link SessionRequestAttributeName} contains session or request attribute names,
+ * which used for exchange between client and server parts.
+ *
+ * @author MolcanovVladislav
+ */
 public class SessionRequestAttributeName {
     public static final String COMMAND = "command";
     public static final String LOCALE = "locale";
@@ -26,8 +32,17 @@ public class SessionRequestAttributeName {
     public static final String REQUEST_RESUME = "resume";
     public static final String VACANCY_ID = "vacancy_id";
     public static final String REQUEST_ID = "request_id";
+    public static final String USER_ID = "user_id";
     public static final String ANSWER_MESSAGE = "answer_message";
-    public static final String ASPIRANT_EMAIL = "aspirant_EMAIL";
+    public static final String MESSAGE_THEME = "message_theme";
+    public static final String ASPIRANT_EMAIL = "aspirant_email";
+    public static final String VAC_FILTER_FLAG = "vac_filter_flag";
+    public static final String VAC_FILTER_DATA = "vac_filter_data";
+    public static final String REQUEST_FILTER_FLAG = "request_filter_flag";
+    public static final String REQUEST_FILTER_DATA = "request_filter_data";
+    public static final String START_VACANCY_NUMBER = "start_vacancy_number";
+    public static final String VACANCIES_QUANTITY = "vacancies_quantity";
+    public static final String VACANCIES_COUNT = "vacancies_count";
 
     private SessionRequestAttributeName() {}
 

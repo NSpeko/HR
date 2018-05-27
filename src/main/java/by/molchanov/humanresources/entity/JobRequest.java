@@ -1,7 +1,13 @@
 package by.molchanov.humanresources.entity;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
+/**
+ * Class {@link JobRequest} is used to store information about job requests.
+ *
+ * @author MolchanovVladislav
+ */
 public class JobRequest implements Serializable {
     private int id;
     private JobVacancy jobVacancy;
@@ -18,6 +24,22 @@ public class JobRequest implements Serializable {
         this.resume = resume;
         this.status = status;
     }
+
+    public static Comparator<JobRequest> COMPARE_BY_VAC_NAME = (o1, o2) -> {
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getJobVacancy().getName(), o2.getJobVacancy().getName());
+        if (res == 0) {
+            res = o1.getJobVacancy().getName().compareTo(o2.getJobVacancy().getName());
+        }
+        return res;
+    };
+
+    public static Comparator<JobRequest> COMPARE_BY_USER_NAME = (o1, o2) -> {
+        int res = String.CASE_INSENSITIVE_ORDER.compare(o1.getUser().getEmail(), o2.getUser().getEmail());
+        if (res == 0) {
+            res = o1.getUser().getEmail().compareTo(o2.getUser().getEmail());
+        }
+        return res;
+    };
 
     public int getId() {
         return id;

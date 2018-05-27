@@ -16,6 +16,12 @@ import java.util.List;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.OPEN;
 import static by.molchanov.humanresources.entity.JobVacancyStatusType.NEW;
 
+/**
+ * Class {@link FillContentExecutorImpl} used for fill page content.
+ *
+ * @author MolcanovVladislav
+ * @see FillContentExecutor
+ */
 public class FillContentExecutorImpl implements FillContentExecutor {
     private static final FillContentExecutorImpl FILL_VACANCY_EXECUTOR = new FillContentExecutorImpl();
     private static final String ROLE_ADMIN = "admin";
@@ -32,14 +38,15 @@ public class FillContentExecutorImpl implements FillContentExecutor {
     }
 
     @Override
-    public List<JobVacancy> fillVacancy(String userRole) throws CustomExecutorException {
+    public List<JobVacancy> fillVacancy(String userRole, int startVacancyNumber,
+                                        int vacanciesQuantity) throws CustomExecutorException {
         List<JobVacancy> vacancies;
         JobVacancyStatusType jobVacancyStatusType = OPEN;
         if (ROLE_ADMIN.equals(userRole)) {
             jobVacancyStatusType = NEW;
         }
         try {
-            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType);
+            vacancies = JOB_VACANCY_DAO.findVacancyInfoByType(jobVacancyStatusType, startVacancyNumber, vacanciesQuantity);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }
@@ -55,5 +62,16 @@ public class FillContentExecutorImpl implements FillContentExecutor {
             throw new CustomExecutorException(e);
         }
         return requests;
+    }
+
+    @Override
+    public int getVacanciesCount() throws CustomExecutorException {
+        int count = 0;
+        try {
+            count = JOB_VACANCY_DAO.getVacanciesCount(OPEN);
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException(e);
+        }
+        return count;
     }
 }

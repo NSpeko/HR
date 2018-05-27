@@ -4,6 +4,12 @@ import by.molchanov.humanresources.command.impl.*;
 
 import static by.molchanov.humanresources.command.ResponseType.FORWARD;
 
+/**
+ * Enum {@link ConcreteCommandType} contains all application commands.
+ * Used for getting necessary command object and representation type.
+ *
+ * @author MolcanovVladislav
+ */
 public enum ConcreteCommandType {
     AUTHENTICATION {
         @Override
@@ -57,6 +63,17 @@ public enum ConcreteCommandType {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
             return VacancyFilterCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    REQUEST_FILTER {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return RequestFilterCommand.getInstance();
         }
 
         @Override
@@ -143,32 +160,65 @@ public enum ConcreteCommandType {
             return FORWARD;
         }
     },
-    DELETE_REQUEST {
-        @Override
-        public ConcreteCommand getConcreteCommandBroker() {
-            return DeleteRequestCommand.getInstance();
-        }
-
-        @Override
-        public ResponseType getResponseType() {
-            return FORWARD;
-        }
-    },
-    CONFIRM_REQUEST {
-        @Override
-        public ConcreteCommand getConcreteCommandBroker() {
-            return ConfirmRequestCommand.getInstance();
-        }
-
-        @Override
-        public ResponseType getResponseType() {
-            return FORWARD;
-        }
-    },
     SEND_REQUEST_ANSWER {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
             return SendRequestAnswerCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    DELETE_USER {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return DeleteUserCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    CLOSE_REQUEST {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return CloseRequestCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    CLOSE_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return CloseVacancyCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    CLOSE_OLD_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return CloseOldVacancyCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    FILL_VACANCY {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return FillContentCommand.getInstance();
         }
 
         @Override

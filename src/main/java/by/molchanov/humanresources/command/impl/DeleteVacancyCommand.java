@@ -4,15 +4,21 @@ import by.molchanov.humanresources.command.ConcreteCommand;
 import by.molchanov.humanresources.controller.RequestHolder;
 import by.molchanov.humanresources.exception.CustomBrokerException;
 import by.molchanov.humanresources.exception.CustomExecutorException;
-import by.molchanov.humanresources.executor.DeleteExecutor;
-import by.molchanov.humanresources.executor.impl.DeleteExecutorImpl;
+import by.molchanov.humanresources.executor.DeleteCloseExecutor;
+import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.VACANCY_ID;
 
+/**
+ * Class {@link DeleteVacancyCommand} is used for delete unacceptable vacancy from system.
+ *
+ * @author MolcanovVladislav
+ * @see  ConcreteCommand
+ */
 public class DeleteVacancyCommand implements ConcreteCommand {
     private static final DeleteVacancyCommand DELETE_VACANCY_COMMAND = new DeleteVacancyCommand();
     private static final ConcreteCommand FILL_VACANCY_COMMAND = FillContentCommand.getInstance();
-    private static final DeleteExecutor DELETE_EXECUTOR = DeleteExecutorImpl.getInstance();
+    private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
 
     private static final int FIRST_INDEX = 0;
 

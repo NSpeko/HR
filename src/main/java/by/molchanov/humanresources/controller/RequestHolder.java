@@ -9,18 +9,22 @@ import java.util.*;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.HASH;
 
+/**
+ * Class {@link RequestHolder} - wrapper class is used for read and store data from servlet request.
+ *
+ * @author MolcanovVladislav
+ */
 public class RequestHolder {
     private static final int PRIMARY_HASH = 0;
+    private static final String EMPTY_STRING = "";
     private Map<String, Object> requestAttribute = new HashMap<>();
     private Map<String, Object> sessionAttribute = new HashMap<>();
     private Map<String, String[]> requestParameter = new HashMap<>();
-    private String command;
 
     public RequestHolder(HttpServletRequest request) {
-        command = "";
         Object retrievedObject;
         String retrievedName;
-        requestParameter = request.getParameterMap();
+        requestParameter = new HashMap<>(request.getParameterMap());
         HttpSession session = request.getSession();
         Enumeration<String> sessionAttributeNames = session.getAttributeNames();
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
@@ -32,8 +36,7 @@ public class RequestHolder {
 
         Integer currentHash = PRIMARY_HASH;
         Integer hash = (Integer) session.getAttribute(HASH);
-        for (Map.Entry<String, String[]> pair: requestParameter.entrySet())
-        {
+        for (Map.Entry<String, String[]> pair : requestParameter.entrySet()) {
             currentHash = Arrays.hashCode(pair.getValue());
         }
         if (hash == null) {
@@ -41,17 +44,14 @@ public class RequestHolder {
         } else if (!currentHash.equals(hash)) {
             session.removeAttribute(HASH);
             session.setAttribute(HASH, currentHash);
-            command = request.getParameter(COMMAND);
+        } else {
+            requestParameter.remove(COMMAND);
         }
         while (sessionAttributeNames.hasMoreElements()) {
             retrievedName = sessionAttributeNames.nextElement();
             retrievedObject = session.getAttribute(retrievedName);
             sessionAttribute.put(retrievedName, retrievedObject);
         }
-    }
-
-    public String getCommand() {
-        return command;
     }
 
     public void addRequestAttribute(String key, Object value) {
@@ -72,15 +72,18 @@ public class RequestHolder {
     }
 
     public String getSingleRequestParameter(int position, String key) {
-        return requestParameter.get(key)[position];
+        if (requestParameter.isEmpty()) {
+            return EMPTY_STRING;
+        }
+        return requestParameter.containsKey(key) ? requestParameter.get(key)[position] : EMPTY_STRING;
     }
 
     public String[] getRequestParameter(String key) {
         return requestParameter.get(key);
     }
 
-    public void removeSessionAttribute(String ... attributeForDelete) {
-        for (String attribute: attributeForDelete) {
+    public void removeSessionAttribute(String... attributeForDelete) {
+        for (String attribute : attributeForDelete) {
             sessionAttribute.put(attribute, null);
         }
     }
@@ -99,7 +102,7 @@ public class RequestHolder {
             key = attribute.getKey();
             value = attribute.getValue();
 //            if (value instanceof Serializable) {
-                session.setAttribute(key, value);
+            session.setAttribute(key, value);
 //            } else {
 //                throw new CustomBrokerException("Try to add non-serializable object to session!");
 //            }

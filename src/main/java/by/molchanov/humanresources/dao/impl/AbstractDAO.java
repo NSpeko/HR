@@ -10,6 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Abstract class {@link AbstractDAO} is used for work with database.
+ * Contains realization of common methods for dao classes and specified abstract methods for dao.
+ *
+ * @author MolchanovVladislav
+ * @see OverallDAO
+ */
 public abstract class AbstractDAO<T> implements OverallDAO<T> {
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -117,7 +124,7 @@ public abstract class AbstractDAO<T> implements OverallDAO<T> {
                     throw new CustomDAOException("More than one element was deleted:" + numberOfUpdatedElements);
                 }
             } catch (SQLException e) {
-                throw new CustomDAOException(e);
+                throw new CustomDAOException("SQL eeror!", e);
             }
         } finally {
             if (connection != null) {

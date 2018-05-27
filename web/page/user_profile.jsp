@@ -34,15 +34,20 @@
                     <p><fmt:message key="content.user.first.name"/> - ${sessionScope.user_info.firstName}</p>
                     <p><fmt:message key="content.user.last.name"/> - ${sessionScope.user_info.lastName}</p>
                     <p><fmt:message key="content.user.email"/> - ${sessionScope.user_info.email}</p>
-                    <p><fmt:message key="content.org.name"/> - ${sessionScope.user_info.organization.name}</p>
-                    <p><fmt:message key="content.org.website"/> - <a
-                            href="${sessionScope.user_info.organization.website}">Website</a>
-                    </p>
-                    <c:if test="${sessionScope.user_info.organization.id == '0'}">
-                        <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">
-                            <fmt:message key="content.button.add.organization"/>
-                        </button>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${sessionScope.role == 'admin'}">
+
+                        </c:when>
+                        <c:when test="${sessionScope.user_info.organization.id == '0'}">
+                            <button class="btn btn-primary " data-toggle="collapse" data-target="#org-register-form">
+                                <fmt:message key="content.button.add.organization"/>
+                            </button>
+                        </c:when>
+                        <c:when test="${sessionScope.user_info.organization.id != '0'}">
+                            <p><fmt:message key="content.org.name"/> - ${sessionScope.user_info.organization.name}</p>
+                            <a href="${sessionScope.user_info.organization.website}"><fmt:message key="content.org.website"/></a>
+                        </c:when>
+                    </c:choose>
 
                     <div id="org-register-form" class="collapse">
                         <div id="sign-up-org-form"><c:import url="register_org.jsp"/></div>

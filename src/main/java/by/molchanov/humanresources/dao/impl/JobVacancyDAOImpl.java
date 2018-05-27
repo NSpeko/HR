@@ -15,6 +15,14 @@ import java.util.List;
 
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
+/**
+ * Class {@link JobVacancyDAOImpl} used for work with database table 'job_vacancy'.
+ * Contains specified method for work with table 'job_vacancy'.
+ *
+ * @author MolchanovVladislav
+ * @see JobVacancyDAO
+ * @see AbstractDAO
+ */
 public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVacancyDAO {
     private static final JobVacancyDAOImpl JOB_REQUEST_DAO = new JobVacancyDAOImpl();
 
@@ -27,7 +35,9 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     }
 
     @Override
-    public List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
+    public List<JobVacancy> findVacancyInfoByType(JobVacancyStatusType jobVacancyStatusType,
+                                                  int startVacancyNumber,
+                                                  int vacanciesQuantity) throws CustomDAOException {
         List<JobVacancy> result = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
@@ -35,6 +45,8 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCY_QUERY_SELECT_VACANCY_CONTENT)) {
                 statement.setString(1, jobVacancyStatusType.getValue());
+                statement.setInt(2, startVacancyNumber);
+                statement.setInt(3, vacanciesQuantity);
                 try (ResultSet set = statement.executeQuery()) {
                     JobVacancy jobVacancy;
                     while (set.next()) {
@@ -42,6 +54,7 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
                         jobVacancy.setId(set.getInt(JOB_VACANCY_FIELD_ID));
                         jobVacancy.setName(set.getString(JOB_VACANCY_FIELD_NAME));
                         Organization organization = new Organization();
+                        organization.setId(set.getInt(ORGANIZATION_FIELD_ID));
                         jobVacancy.setOrganization(organization);
                         jobVacancy.getOrganization().setName(set.getString(ORGANIZATION_FIELD_NAME));
                         jobVacancy.getOrganization().setWebsite(set.getString(ORGANIZATION_FIELD_WEBSITE));
@@ -60,6 +73,31 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
             }
         }
         return result;
+    }
+
+    @Override
+    public int getVacanciesCount(JobVacancyStatusType jobVacancyStatusType) throws CustomDAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        int count = 0;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(JOB_VACANCIES_COUNT_SELECT)) {
+                statement.setString(1, jobVacancyStatusType.getValue());
+                try (ResultSet set = statement.executeQuery()) {
+                    while (set.next()) {
+                        count = set.getInt(JOB_VACANCIES_COUNT);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException("SQL execute error!", e);
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return count;
     }
 
     @Override
@@ -85,13 +123,10 @@ public class JobVacancyDAOImpl extends AbstractDAO<JobVacancy> implements JobVac
     @Override
     void preparedStatementForUpdate(PreparedStatement statement, JobVacancy object) throws CustomDAOException {
         try {
-
             statement.setInt(1, object.getOrganization().getId());
             statement.setString(2, object.getName());
             statement.setString(4, object.getRequirement());
-            String timeStamp = new SimpleDateFormat(DATE_PATTERN).format(Calendar.getInstance().getTime());
-            object.setUploadDate(timeStamp);
-            statement.setString(3, timeStamp);
+            statement.setString(3, object.getUploadDate());
             statement.setString(5, object.getStatus().getValue());
             statement.setInt(6, object.getId());
         } catch (SQLException e) {

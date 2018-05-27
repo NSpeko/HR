@@ -15,12 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.molchanov.humanresources.command.SessionRequestAttributeName.COMMAND;
+
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String MAIN_PAGE = AddressPageConfiguration.getInstance().getMainPageAddress();
     private static final String ERROR_PAGE = AddressPageConfiguration.getInstance().getErrorPageAddress();
+
+    private static final int FIRST_INDEX = 0;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -40,7 +44,8 @@ public class Controller extends HttpServlet {
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         OperationFactory operationFactory = OperationFactory.getInstance();
         RequestHolder requestHolder = new RequestHolder(request);
-        String requestCommand = requestHolder.getCommand();
+        String requestCommand = requestHolder.getSingleRequestParameter(FIRST_INDEX, COMMAND);
+        System.out.println(requestCommand);
         ConcreteCommand command = operationFactory.getConcreteCommand(requestCommand);
         ResponseType responseType = operationFactory.getResponseType(requestCommand);
         try {

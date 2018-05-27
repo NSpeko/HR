@@ -16,6 +16,14 @@ import java.util.List;
 
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 
+/**
+ * Class {@link UserDAOImpl} used for work with database table 'user'.
+ * Contains specified method for work with table 'user'.
+ *
+ * @author MolchanovVladislav
+ * @see UserDAO
+ * @see AbstractDAO
+ */
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
     private static final UserDAOImpl USER_DAO = new UserDAOImpl();
 
@@ -76,6 +84,34 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<User> findPartOfUsers(int firstLimit, int secondLimit) throws CustomDAOException {
+        List<User> selection;
+        String sqlScript = "??";
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = null;
+        try {
+            connection = connectionPool.takeConnection();
+            try (PreparedStatement statement = connection.prepareStatement(sqlScript)) {
+                statement.setInt(1, firstLimit);
+                statement.setInt(2, secondLimit);
+                try (ResultSet set = statement.executeQuery()) {
+                    selection = parseResultSet(set);
+                }
+            } catch (SQLException e) {
+                throw new CustomDAOException(e);
+            }
+            if (selection == null) {
+                throw new CustomDAOException("Selection error while getting part of users records!");
+            }
+        } finally {
+            if (connection != null) {
+                connectionPool.returnConnection(connection);
+            }
+        }
+        return selection;
     }
 
     @Override

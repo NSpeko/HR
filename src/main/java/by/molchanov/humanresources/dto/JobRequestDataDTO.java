@@ -2,7 +2,12 @@ package by.molchanov.humanresources.dto;
 
 import by.molchanov.humanresources.entity.JobRequest;
 
-public class JobRequestDTO {
+/**
+ * Class {@link JobRequestDataDTO} is used for transfer data about job request between command and service level.
+ *
+ * @author MolcanovVladislav
+ */
+public class JobRequestDataDTO {
     private JobRequest jobRequest;
     private String infoMessage;
     private int vacancyId;

@@ -17,10 +17,17 @@ import java.util.List;
 import static by.molchanov.humanresources.dao.SQLQueryVariable.*;
 import static by.molchanov.humanresources.entity.JobRequestStatusType.*;
 
+/**
+ * Class {@link JobRequestDAOImpl} used for work with database table 'job_request'.
+ * Contains specified method for work with table 'job_request'.
+ *
+ * @author MolchanovVladislav
+ * @see JobRequestDAO
+ * @see AbstractDAO
+ */
 public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobRequestDAO {
     private static final JobRequestDAOImpl JOB_REQUEST_DAO = new JobRequestDAOImpl();
 
-    private static final String ADMIN = "admin";
     private static final String DIRECTOR = "director";
 
     private JobRequestDAOImpl() {
@@ -37,22 +44,16 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         String sqlScript;
-        if (ADMIN.equals(userRole)) {
-            sqlScript = JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT_FOR_ADMIN;
-        } else if (DIRECTOR.equals(userRole)) {
-            sqlScript = JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT_FOR_DIRECTOR;
+        if (DIRECTOR.equals(userRole)) {
+            sqlScript = JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT;
         } else {
             return result;
         }
         try {
             connection = connectionPool.takeConnection();
             try (PreparedStatement statement = connection.prepareStatement(sqlScript)) {
-                if (ADMIN.equals(userRole)) {
-                    statement.setString(1, NEW.getValue());
-                } else {
-                    statement.setString(1, ADDED.getValue());
-                    statement.setInt(2, orgId);
-                }
+                statement.setString(1, ADDED.getValue());
+                statement.setInt(2, orgId);
                 try (ResultSet set = statement.executeQuery()) {
                     while (set.next()) {
                         JobRequest jobRequest = new JobRequest();
