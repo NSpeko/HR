@@ -182,17 +182,6 @@ public enum ConcreteCommandType {
             return FORWARD;
         }
     },
-    RISE_TO_ADMIN {
-        @Override
-        public ConcreteCommand getConcreteCommandBroker() {
-            return null;
-        }
-
-        @Override
-        public ResponseType getResponseType() {
-            return null;
-        }
-    },
     CLOSE_REQUEST {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
@@ -230,6 +219,17 @@ public enum ConcreteCommandType {
         @Override
         public ConcreteCommand getConcreteCommandBroker() {
             return FillContentCommand.getInstance();
+        }
+
+        @Override
+        public ResponseType getResponseType() {
+            return FORWARD;
+        }
+    },
+    RISE_TO_ADMIN {
+        @Override
+        public ConcreteCommand getConcreteCommandBroker() {
+            return RiseToAdminCommand.getInstance();
         }
 
         @Override

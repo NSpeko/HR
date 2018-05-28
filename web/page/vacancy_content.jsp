@@ -237,7 +237,7 @@
         <c:if test="${start != 0}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="${pageContext.request.contextPath}/controller?command=${requestScope.vacCommand}&start_vacancy_number=${start - step}&vacancies_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start - step}&vacancies_quantity=${step}">
                     Предыдущая</a></div>
             </li>
         </c:if>
@@ -248,7 +248,7 @@
                         <fmt:parseNumber var="page" type="number" value="${(start + step) / step + i - 2}"/>
                         <li class="page-item">
                             <div class="page-link">
-                                <a href="${pageContext.request.contextPath}/controller?command=fill_vacancy&start_vacancy_number=${start + step * (i - 2)}&vacancies_quantity=${step}">
+                                <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start + step * (i - 2)}&vacancies_quantity=${step}">
                                         ${page}</a>
                             </div>
                         </li>
@@ -267,7 +267,7 @@
         <c:if test="${(count - start) gt step}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="${pageContext.request.contextPath}/controller?command=fill_vacancy&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
                     Следующая</a></div>
             </li>
         </c:if>
@@ -286,7 +286,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="${pageContext.request.contextPath}/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>
@@ -302,7 +302,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="${pageContext.request.contextPath}/controller?command=fill_vacancy&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>

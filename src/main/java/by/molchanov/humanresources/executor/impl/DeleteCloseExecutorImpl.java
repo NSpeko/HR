@@ -52,14 +52,17 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
     }
 
     @Override
-    public void deleteUser(String userId) throws CustomExecutorException {
+    public void deleteUser(List<String> usersId) throws CustomExecutorException {
         User user = new User();
-        int id = Integer.parseInt(userId);
-        user.setId(id);
-        try {
-            userDAO.delete(user);
-        } catch (CustomDAOException e) {
-            throw new CustomExecutorException(e);
+        int id;
+        for (String userId: usersId) {
+            id = Integer.parseInt(userId);
+            user.setId(id);
+            try {
+                userDAO.delete(user);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
         }
     }
 

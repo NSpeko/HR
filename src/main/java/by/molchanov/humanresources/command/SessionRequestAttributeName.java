@@ -19,6 +19,7 @@ public class SessionRequestAttributeName {
     public static final String ROLE = "role";
     public static final String VACANCY_LIST = "vacancy_list";
     public static final String REQUEST_LIST = "request_list";
+    public static final String USER_LIST = "user_list";
     public static final String ORG_NAME = "org_name";
     public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
@@ -42,10 +43,13 @@ public class SessionRequestAttributeName {
     public static final String REQUEST_FILTER_DATA = "request_filter_data";
     public static final String START_VACANCY_NUMBER = "start_vacancy_number";
     public static final String START_REQUEST_NUMBER = "start_request_number";
+    public static final String START_USER_NUMBER = "start_user_number";
     public static final String VACANCIES_QUANTITY = "vacancies_quantity";
     public static final String REQUESTS_QUANTITY = "requests_quantity";
+    public static final String USERS_QUANTITY = "users_quantity";
     public static final String VACANCIES_COUNT = "vacancies_count";
     public static final String REQUESTS_COUNT = "requests_count";
+    public static final String USERS_COUNT = "users_count";
 
     private SessionRequestAttributeName() {}
 

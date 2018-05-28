@@ -167,7 +167,7 @@
                                 </div>
                                 <div id="collapseFour" class="collapse" data-parent="#accordion">
                                     <div class="card-body">
-                                        <c:import url="users_content.jsp"/>
+                                        <c:import url="user_content.jsp"/>
                                     </div>
                                 </div>
                             </div>

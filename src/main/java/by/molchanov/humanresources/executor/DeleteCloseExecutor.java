@@ -2,6 +2,8 @@ package by.molchanov.humanresources.executor;
 
 import by.molchanov.humanresources.exception.CustomExecutorException;
 
+import java.util.List;
+
 /**
  * Interface {@link DeleteCloseExecutor} is used for close or delete records in system.
  *
@@ -16,10 +18,10 @@ public interface DeleteCloseExecutor {
     void deleteVacancy(String vacancyId) throws CustomExecutorException;
     /**
      * Delete user from system
-     * @param userId id of user
+     * @param usersId id of user
      * @throws CustomExecutorException exception of service level
      */
-    void deleteUser(String userId) throws CustomExecutorException;
+    void deleteUser(List<String> usersId) throws CustomExecutorException;
     /**
      * Change status of old vacancies(more than 15 days) to 'close'
      * @throws CustomExecutorException exception of service level

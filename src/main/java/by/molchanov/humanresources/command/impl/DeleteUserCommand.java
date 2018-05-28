@@ -7,6 +7,10 @@ import by.molchanov.humanresources.exception.CustomExecutorException;
 import by.molchanov.humanresources.executor.DeleteCloseExecutor;
 import by.molchanov.humanresources.executor.impl.DeleteCloseExecutorImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static by.molchanov.humanresources.command.SessionRequestAttributeName.USER_ID;
 
 /**
@@ -20,8 +24,6 @@ public class DeleteUserCommand implements ConcreteCommand {
     private static final ConcreteCommand FILL_CONTENT_COMMAND = FillContentCommand.getInstance();
     private static final DeleteCloseExecutor DELETE_EXECUTOR = DeleteCloseExecutorImpl.getInstance();
 
-    private static final int FIRST_INDEX = 0;
-
     private DeleteUserCommand() {
 
     }
@@ -32,12 +34,14 @@ public class DeleteUserCommand implements ConcreteCommand {
 
     @Override
     public void execute(RequestHolder requestHolder) throws CustomBrokerException {
-        String requestId = requestHolder.getSingleRequestParameter(FIRST_INDEX, USER_ID);
-        try {
-            DELETE_EXECUTOR.deleteUser(requestId);
-            FILL_CONTENT_COMMAND.execute(requestHolder);
-        } catch (CustomExecutorException e) {
-            throw new CustomBrokerException(e);
+        List<String> usersId = new ArrayList<>(Arrays.asList(requestHolder.getRequestParameter(USER_ID)));
+        if (!usersId.isEmpty()) {
+            try {
+                DELETE_EXECUTOR.deleteUser(usersId);
+            } catch (CustomExecutorException e) {
+                throw new CustomBrokerException(e);
+            }
         }
+        FILL_CONTENT_COMMAND.execute(requestHolder);
     }
 }

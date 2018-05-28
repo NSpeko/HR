@@ -26,6 +26,8 @@ import static by.molchanov.humanresources.entity.JobRequestStatusType.*;
 public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobRequestDAO {
     private static final JobRequestDAOImpl JOB_REQUEST_DAO = new JobRequestDAOImpl();
 
+    private static final String PERCENT_SIGN = "%";
+
     private JobRequestDAOImpl() {
 
     }
@@ -46,7 +48,7 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
             try (PreparedStatement statement = connection.prepareStatement(JOB_REQUEST_QUERY_SELECT_REQUEST_CONTENT)) {
                 statement.setString(1, jobRequestStatusType.getValue());
                 statement.setInt(2, orgId);
-                statement.setString(3, "%" + searchField + "%");
+                statement.setString(3, PERCENT_SIGN + searchField + PERCENT_SIGN);
                 statement.setInt(4, startRequestNumber);
                 statement.setInt(5, requestsQuantity);
                 try (ResultSet set = statement.executeQuery()) {
@@ -76,7 +78,7 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
     }
 
     @Override
-    public int getRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException {
+    public int findRequestsCount(JobRequestStatusType jobRequestStatusType, String searchField, int orgId) throws CustomDAOException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = null;
         int count = 0;
@@ -85,7 +87,7 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
             try (PreparedStatement statement = connection.prepareStatement(JOB_REQUESTS_COUNT_SELECT)) {
                 statement.setString(1, jobRequestStatusType.getValue());
                 statement.setInt(2, orgId);
-                statement.setString(3, "%" + searchField + "%");
+                statement.setString(3, PERCENT_SIGN + searchField + PERCENT_SIGN);
                 try (ResultSet set = statement.executeQuery()) {
                     while (set.next()) {
                         count = set.getInt(JOB_REQUESTS_COUNT);

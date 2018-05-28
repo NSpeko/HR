@@ -60,6 +60,7 @@ public class FillContentCommand implements ConcreteCommand {
                 break;
             case ROLE_ADMIN:
                 jobVacancyContent(requestHolder);
+                userContent(requestHolder);
                 break;
             default:
                 jobVacancyContent(requestHolder);
@@ -145,5 +146,34 @@ public class FillContentCommand implements ConcreteCommand {
         requestHolder.addRequestAttribute(START_VACANCY_NUMBER, startVacancyNumber);
         requestHolder.addRequestAttribute(VACANCIES_QUANTITY, vacanciesQuantity);
         requestHolder.addRequestAttribute(VACANCIES_COUNT, vacanciesCount);
+    }
+
+    private void userContent(RequestHolder requestHolder) throws CustomBrokerException {
+        List<User> users;
+        String emptySearchField = "";
+        int usersCount;
+        int startUserNumber;
+        int usersQuantity;
+        String userRole = (String) requestHolder.getSessionAttribute(ROLE);
+        try {
+            startUserNumber = Integer.parseInt(requestHolder.getSingleRequestParameter(FIRST_INDEX, START_USER_NUMBER));
+        } catch (NumberFormatException | NullPointerException e) {
+            startUserNumber = 0;
+        }
+        try {
+            usersQuantity = Integer.parseInt(requestHolder.getSingleRequestParameter(FIRST_INDEX, USERS_QUANTITY));
+        } catch (NumberFormatException | NullPointerException e) {
+            usersQuantity = 10;
+        }
+        try {
+                users = FILL_CONTENT_EXECUTOR.fillUser(userRole, startUserNumber, usersQuantity);
+                usersCount = FILL_CONTENT_EXECUTOR.findVacanciesCount(userRole, emptySearchField);
+        } catch (CustomExecutorException e) {
+            throw new CustomBrokerException(e);
+        }
+        requestHolder.addRequestAttribute(USER_LIST, users);
+        requestHolder.addRequestAttribute(START_USER_NUMBER, startUserNumber);
+        requestHolder.addRequestAttribute(USERS_QUANTITY, usersQuantity);
+        requestHolder.addRequestAttribute(USERS_COUNT, usersCount);
     }
 }

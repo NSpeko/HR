@@ -16,5 +16,6 @@ public interface ConfirmExecutor {
      * @throws CustomExecutorException exception of service level
      */
     void confirmVacancy(String vacancyId) throws CustomExecutorException;
-    void confirmRequest(String requestId) throws CustomExecutorException;
+
+    void riseToAdmin(List<String> usersId) throws CustomExecutorException;
 }
