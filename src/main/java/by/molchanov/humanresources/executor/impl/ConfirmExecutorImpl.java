@@ -23,6 +23,7 @@ public class ConfirmExecutorImpl implements ConfirmExecutor {
     private static final ConfirmExecutorImpl CONFIRM_EXECUTOR = new ConfirmExecutorImpl();
 
     private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
+    private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
     private UserDAO userDAO = UserDAOImpl.getInstance();
 
     public static ConfirmExecutorImpl getInstance() {
@@ -40,6 +41,19 @@ public class ConfirmExecutorImpl implements ConfirmExecutor {
             JobVacancy jobVacancy = jobVacancyDAO.findById(id);
             jobVacancy.setStatus(JobVacancyStatusType.OPEN);
             jobVacancyDAO.update(jobVacancy);
+        } catch (CustomDAOException e) {
+            throw new CustomExecutorException(e);
+        }
+    }
+
+    @Override
+    public void approveRequest(String requestId) throws CustomExecutorException {
+        JobRequest jobRequest;
+        int id = Integer.parseInt(requestId);
+        try {
+            jobRequest = jobRequestDAO.findById(id);
+            jobRequest.setStatus(JobRequestStatusType.APPROVED);
+            jobRequestDAO.update(jobRequest);
         } catch (CustomDAOException e) {
             throw new CustomExecutorException(e);
         }

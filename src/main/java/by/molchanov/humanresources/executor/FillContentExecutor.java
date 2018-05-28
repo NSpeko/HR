@@ -32,9 +32,13 @@ public interface FillContentExecutor {
 
     List<User> fillUser(String userRole, int startUserNumber, int usersQuantity) throws CustomExecutorException;
 
+    List<Organization> fillOrganization(int startOrganizationNumber, int organizationsQuantity) throws CustomExecutorException;
+
     int findVacanciesCount(String userRole, String searchField) throws CustomExecutorException;
 
     int findRequestsCount(String userRole, int orgId, String searchField) throws CustomExecutorException;
 
     int findUsersCount(String userRole) throws CustomExecutorException;
+
+    int findOrganizationsCount() throws CustomExecutorException;
 }

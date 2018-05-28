@@ -17,5 +17,7 @@ public interface ConfirmExecutor {
      */
     void confirmVacancy(String vacancyId) throws CustomExecutorException;
 
+    void approveRequest(String requestId) throws CustomExecutorException;
+
     void riseToAdmin(List<String> usersId) throws CustomExecutorException;
 }

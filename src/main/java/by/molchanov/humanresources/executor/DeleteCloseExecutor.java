@@ -22,6 +22,8 @@ public interface DeleteCloseExecutor {
      * @throws CustomExecutorException exception of service level
      */
     void deleteUser(List<String> usersId) throws CustomExecutorException;
+
+    void deleteOrganization(List<String> organizationsId) throws CustomExecutorException;
     /**
      * Change status of old vacancies(more than 15 days) to 'close'
      * @throws CustomExecutorException exception of service level

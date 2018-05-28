@@ -20,7 +20,7 @@
 <form name="user_control" method="POST" action="controller">
     <div class="container-fluid form-group">
         <input type="hidden" name="command" value="delete_user">
-        <a class="user_control_button">
+        <a class="control_button">
             <input class="btn btn-primary " type="submit" value="<fmt:message key="content.button.delete"/>"/>
         </a>
         <input type="submit" class="btn btn-primary " value="<fmt:message key="content.button.rise.admin"/>"
@@ -84,7 +84,7 @@
         <c:if test="${start != 0}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start - step}&vacancies_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_user_number=${start - step}&users_quantity=${step}">
                     Предыдущая</a></div>
             </li>
         </c:if>
@@ -95,7 +95,7 @@
                         <fmt:parseNumber var="page" type="number" value="${(start + step) / step + i - 2}"/>
                         <li class="page-item">
                             <div class="page-link">
-                                <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start + step * (i - 2)}&vacancies_quantity=${step}">
+                                <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_user_number=${start + step * (i - 2)}&users_quantity=${step}">
                                         ${page}</a>
                             </div>
                         </li>
@@ -114,7 +114,7 @@
         <c:if test="${(count - start) gt step}">
             <li class="page-item">
                 <div class="page-link"><a
-                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=${start + step}&vacancies_quantity=${step}">
+                        href="${pageContext.request.contextPath}/controller?command=fill_content&start_user_number=${start + step}&users_quantity=${step}">
                     Следующая</a></div>
             </li>
         </c:if>
@@ -133,7 +133,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=0&vacancies_quantity=10">10</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_user_number=0&users_quantity=10">10</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>
@@ -149,7 +149,7 @@
                 <c:otherwise>
                     <li class="page-item">
                         <div class="page-link">
-                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_vacancy_number=0&vacancies_quantity=20">20</a>${" "}
+                            <a href="${pageContext.request.contextPath}/controller?command=fill_content&start_user_number=0&users_quantity=20">20</a>${" "}
                         </div>
                     </li>
                 </c:otherwise>

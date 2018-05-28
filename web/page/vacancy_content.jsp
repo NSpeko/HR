@@ -67,8 +67,12 @@
         <th><fmt:message key="content.vacancy.date"/></th>
         <th><fmt:message key="content.org.name"/></th>
         <c:choose>
-            <c:when test="${sessionScope.role == 'aspirant' || sessionScope.role == 'admin' || sessionScope.role == 'director'}">
+            <c:when test="${sessionScope.role == 'aspirant' || sessionScope.role == 'admin'}">
                 <th><fmt:message key="content.more"/></th>
+            </c:when>
+            <c:when test="${sessionScope.role == 'director'}">
+                <th><fmt:message key="content.delete.column"/></th>
+                <th><fmt:message key="content.edit.column"/></th>
             </c:when>
             <c:otherwise>
 
@@ -197,6 +201,50 @@
                             <input class="btn btn-primary" type="submit"
                                    value=<fmt:message key="content.button.close.vacancy"/>/>
                         </form>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#dir_vacancy-${vacancy.id}-modal">
+                            <fmt:message key="content.view.vacancy"/>
+                        </button>
+                        <!-- The Modal -->
+                        <div class="modal fade" id="dir_vacancy-${vacancy.id}-modal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">
+                                            <fmt:message key="content.edit.column"/></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                        </button>
+                                    </div>
+                                    <form name="loginForm" method="POST" action="controller">
+                                        <input type="hidden" name="command" value="edit_vacancy"/>
+                                        <input type="hidden" name="vacancy_id" value="${vacancy.id}"/>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <label for="vacancy-org-site"><fmt:message key="content.vacancy.name"/></label>
+                                            <input class="form-control" value="${vacancy.name}" id="vacancy-org-site" type="text" name="vacancy_name" title="<fmt:message key="content.input.title.extended.name"/>"
+                                                   placeholder="Vacancy name*" pattern="[-,.?!'()\wА-Яа-я\s]{1,45}"/>
+                                            <label for="vacancy-org-description"><fmt:message key="content.vacancy.requirement"/></label>
+                                            <textarea class="form-control" id="vacancy-org-description" name="vacancy_requirement" placeholder="Requirement*" required
+                                                      title="<fmt:message key="content.input.title.text"/>" rows="4" cols="50">${vacancy.requirement}</textarea><br/>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <input class="btn btn-primary" type="submit"
+                                                   value="<fmt:message key="content.button.submit"/>"/>
+
+                                            <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">
+                                                <fmt:message key="content.button.cancel"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </c:when>
             </c:choose>

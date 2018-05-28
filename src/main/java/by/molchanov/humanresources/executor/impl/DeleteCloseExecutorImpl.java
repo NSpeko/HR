@@ -2,9 +2,11 @@ package by.molchanov.humanresources.executor.impl;
 
 import by.molchanov.humanresources.dao.JobRequestDAO;
 import by.molchanov.humanresources.dao.JobVacancyDAO;
+import by.molchanov.humanresources.dao.OrganizationDAO;
 import by.molchanov.humanresources.dao.UserDAO;
 import by.molchanov.humanresources.dao.impl.JobRequestDAOImpl;
 import by.molchanov.humanresources.dao.impl.JobVacancyDAOImpl;
+import by.molchanov.humanresources.dao.impl.OrganizationDAOImpl;
 import by.molchanov.humanresources.dao.impl.UserDAOImpl;
 import by.molchanov.humanresources.entity.*;
 import by.molchanov.humanresources.exception.CustomDAOException;
@@ -29,6 +31,7 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
     private JobVacancyDAO jobVacancyDAO = JobVacancyDAOImpl.getInstance();
     private JobRequestDAO jobRequestDAO = JobRequestDAOImpl.getInstance();
     private UserDAO userDAO = UserDAOImpl.getInstance();
+    private OrganizationDAO organizationDAO = OrganizationDAOImpl.getInstance();
 
     private static final String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final int MAX_AVAILABLE_DURATION = 15;
@@ -37,6 +40,19 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
 
     public static DeleteCloseExecutorImpl getInstance() {
         return DELETE_EXECUTOR;
+    }
+
+    @Override
+    public void deleteOrganization(List<String> organizationsId) throws CustomExecutorException {
+        Organization organization = new Organization();
+        for (String organizationId: organizationsId) {
+            organization.setId(Integer.parseInt(organizationId));
+            try {
+                organizationDAO.delete(organization);
+            } catch (CustomDAOException e) {
+                throw new CustomExecutorException(e);
+            }
+        }
     }
 
     @Override
@@ -120,4 +136,5 @@ public class DeleteCloseExecutorImpl implements DeleteCloseExecutor {
             throw new CustomExecutorException(e);
         }
     }
+
 }

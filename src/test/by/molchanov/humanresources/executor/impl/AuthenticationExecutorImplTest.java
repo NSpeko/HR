@@ -24,9 +24,6 @@ import org.testng.annotations.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by Yauhen Malchanau on 27.05.2018.
- */
 public class AuthenticationExecutorImplTest {
 
     @InjectMocks

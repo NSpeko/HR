@@ -56,6 +56,7 @@ public class JobRequestDAOImpl extends AbstractDAO<JobRequest> implements JobReq
                         JobRequest jobRequest = new JobRequest();
                         jobRequest.setResume(set.getString(JOB_REQUEST_FIELD_RESUME));
                         jobRequest.setId(set.getInt(JOB_REQUEST_FIELD_ID));
+                        jobRequest.setStatus(JobRequestStatusType.valueOf(set.getString(JOB_REQUEST_FIELD_STATUS).toUpperCase()));
                         JobVacancy jobVacancy = new JobVacancy();
                         jobVacancy.setName(set.getString(JOB_VACANCY_FIELD_NAME));
                         User user = new User();
