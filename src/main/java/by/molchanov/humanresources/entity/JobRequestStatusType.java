@@ -10,8 +10,8 @@ public enum JobRequestStatusType {
 
     private String value;
 
-    JobRequestStatusType(String description) {
-        this.value = description;
+    JobRequestStatusType(String value) {
+        this.value = value;
     }
 
     public String getValue() {
