@@ -14,6 +14,7 @@ import org.mockito.Mock;
 
 import static org.mockito.ArgumentMatchers.any;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -25,9 +26,6 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-/**
- * Created by Yauhen Malchanau on 28.05.2018.
- */
 public class DeleteCloseExecutorImplTest {
 
     @InjectMocks
@@ -52,7 +50,7 @@ public class DeleteCloseExecutorImplTest {
         initMocks(this);
     }
 
-    @AfterTest
+    @AfterMethod
     public void after() {
         reset(jobVacancyDAO, jobRequestDAO, userDAO);
     }
@@ -118,19 +116,6 @@ public class DeleteCloseExecutorImplTest {
     public void shouldThrowFirstExceptionWhenCloseOldVacancyTest() throws CustomDAOException, CustomExecutorException {
         doThrow(new CustomDAOException())
                 .when(jobVacancyDAO).findAll();
-
-        executor.closeOldVacancy();
-    }
-
-    @Test(expectedExceptions = CustomExecutorException.class)
-    public void shouldThrowSecondExceptionWhenCloseOldVacancyTest() throws CustomDAOException, CustomExecutorException {
-        vacancies = new LinkedList<>();
-        JobVacancy vacancy = new JobVacancy();
-        vacancy.setUploadDate("invalid date");
-        vacancies.add(vacancy);
-
-        when(jobVacancyDAO.findAll())
-                .thenReturn(vacancies);
 
         executor.closeOldVacancy();
     }

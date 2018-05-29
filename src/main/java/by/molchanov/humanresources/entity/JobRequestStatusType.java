@@ -3,7 +3,7 @@ package by.molchanov.humanresources.entity;
 /**
  * Enum {@link JobRequestStatusType} contains types of job requests .
  *
- * @author MolcanovVladislav
+ * @author Molchanov Vladislav
  */
 public enum JobRequestStatusType {
     REJECTED("rejected"), APPROVED("approved") , ADDED("added");

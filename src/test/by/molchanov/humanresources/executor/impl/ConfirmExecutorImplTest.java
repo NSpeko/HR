@@ -23,9 +23,6 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-/**
- *
- */
 public class ConfirmExecutorImplTest {
 
     @InjectMocks
