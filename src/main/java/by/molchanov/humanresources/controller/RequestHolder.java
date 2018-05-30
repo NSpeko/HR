@@ -21,6 +21,7 @@ public class RequestHolder {
     private Map<String, Object> requestAttribute = new HashMap<>();
     private Map<String, Object> sessionAttribute = new HashMap<>();
     private Map<String, String[]> requestParameter = new HashMap<>();
+    private List<String> sessionAttributeForDelete = new ArrayList<>();
 
     public RequestHolder(HttpServletRequest request) {
         Object retrievedObject;
@@ -82,7 +83,8 @@ public class RequestHolder {
 
     public void removeSessionAttribute(String... attributeForDelete) {
         for (String attribute : attributeForDelete) {
-            sessionAttribute.put(attribute, null);
+            sessionAttribute.remove(attribute);
+            sessionAttributeForDelete.add(attribute);
         }
     }
 
@@ -95,6 +97,9 @@ public class RequestHolder {
             request.setAttribute(key, value);
         }
         HttpSession session = request.getSession();
+        for (String attribute: sessionAttributeForDelete) {
+            session.removeAttribute(attribute);
+        }
 
         for (Map.Entry<String, Object> attribute : sessionAttribute.entrySet()) {
             key = attribute.getKey();
